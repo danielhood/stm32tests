@@ -1,0 +1,1 @@
+Get-CimInstance -Class Win32_SerialPort | Select-Object Name, Description, DeviceID

@@ -2,27 +2,45 @@
  * Program.cpp
  *
  *  Created on: Mar 13, 2024
- *      Author: conflictedoperator
+ *      Author: Daniel Hood
  */
 
 #include "Program.h"
 #include "Tests.h"
-Program::Program() {
-	// TODO Auto-generated constructor stub
 
+Program::Program(UART_HandleTypeDef* hUart)
+	: _log(hUart) {
+	_shouldEnd = false;
 }
 
 Program::~Program() {
-	// TODO Auto-generated destructor stub
 }
 
-void Program::Run(UART_HandleTypeDef* huart2) {
-		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
+void Program::Run(UART_HandleTypeDef* hUart) {
+	Program program(hUart);
 
-		HAL_UART_Transmit(huart2, (uint8_t *)"x", 1, 0xFFFF);
-		HAL_UART_Transmit(huart2, (uint8_t *)"\r", 1, 0xFFFF);
-		HAL_UART_Transmit(huart2, (uint8_t *)"\n", 1, 0xFFFF);
-		Tests* tests = new Tests(1);
-		HAL_Delay(tests->ExecuteTests());
-		//HAL_Delay(100);
+	program.Run();
+}
+
+void Program::Run() {
+	_log.Debug("Program -- Start\r\n");
+
+	int iteration = 0;
+
+	while (!_shouldEnd){
+		Loop(iteration++);
+	}
+
+	_log.Debug("Program -- End\r\n");
+}
+
+void Program::Loop(int iteration) {
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
+
+	_log.Debug("Loop#%i\r\n", iteration);
+
+	Tests tests(1);
+	HAL_Delay(tests.ExecuteTests());
+
+	_shouldEnd = iteration > 50;
 }

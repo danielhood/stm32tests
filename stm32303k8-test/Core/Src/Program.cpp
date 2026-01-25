@@ -39,8 +39,18 @@ void Program::Loop(int iteration) {
 
 	_log.Debug("Loop#%i\r\n", iteration);
 
+	// Read PA12 (D2)
+	GPIO_PinState pinState = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_12);
+
 	Tests tests(1);
-	HAL_Delay(tests.ExecuteTests());
+	int testResult = tests.ExecuteTests();
+
+	if (pinState == GPIO_PIN_SET) {
+		HAL_Delay(testResult);
+	}
+	else {
+		HAL_Delay(testResult * 4);
+	}
 
 	_shouldEnd = iteration > 50;
 }

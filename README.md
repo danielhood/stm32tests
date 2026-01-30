@@ -1,20 +1,55 @@
 # stm32tests
 
+STM32F303K8 test and example projects for PWM control and embedded debugging.
+
+## Projects
+
+### stm32303k8-pwm
+PWM fade control example using STM32F303K8 Timer 1. Demonstrates smooth LED fading using PWM duty cycle modulation.
+
+**Features:**
+- Timer 1 PWM on PA8 (CH1) with an LED
+- C++ `PWMFader` class for encapsulated fade control
+- 4 PWM channels configured:
+  - Channels 1-2: 2 second fade cycle
+  - Channels 3-4: 200ms fade cycle
+- PB3 GPIO toggle for debug LED
+
+**Key Files:**
+- `Core/Src/PWMFader.cpp` - PWM fading implementation
+- `Core/Inc/PWMFader.h` - PWM fader class definition
+- `Core/Src/main.c` - Main application
+
+### stm32303k8-test
+Embedded test and debug program with UART serial logging capabilities.
+
+**Features:**
+- Serial debug logging via UART2 (38400 baud)
+- `Log.cpp` class for formatted string output
+- Program loop with configurable iterations
+- GPIO input reading for test control
+- `Tests` class for executing test code
+
 ## Building
 Build using STM32CubeIDE
 
 ## UART Serial Debug Logging
-In the stm23tests, created a Log.cpp class that sends formatted string data to the UART2 port through `HAL_UART_Transmit()`
+In the stm32303k8-test project, a `Log.cpp` class sends formatted string data to the UART2 port through `HAL_UART_Transmit()`.
 
-UART2 needs to be enabled through the .ioc file, in async mode. This will generate pin configuration and init code in main.c which needs to be manually mapped over to the main.cpp file (unsure how to have it generate directly to the cpp file).
+UART2 must be enabled through the .ioc file in async mode. This generates pin configuration in main.c which should be manually mapped to main.cpp (the IDE generates to main.c by default).
 
-To view the serial data, in the IDE, you need to open a Command Shell Console from the main Console tool window, create a mapping for the current com port (e.g. COM3) and set the com parameters the same as what is configured in the code (BaudRate = 38400, Stop bits = 1, parity = none).
+**To view serial data:**
+1. Open Command Shell Console from the Console tool window
+2. Create a mapping for the COM port (e.g. COM3)
+3. Set parameters: BaudRate = 38400, Stop bits = 1, Parity = none
 
-The serial will stream in both debug and run modes.
+Serial output streams in both debug and run modes.
 
 ## IOC Pin Code Generation
-Every time the .ioc file is updated with pin config changes, the IDE only generates the code config to main.c. Since this is a cpp project, the entire main.c file should be copied into main.cpp.
+When the .ioc file is updated with pin configuration changes, STM32CubeIDE only generates code to main.c. For C++ projects:
 
-The user code will be preserved, and this will still compile as a cpp project.
+1. Copy entire main.c to main.cpp
+2. User code sections are preserved
+3. Project compiles as C++
 
-The program logic is separated and called through Program:Run().
+Program logic is separated and called through `Program::Run()`.

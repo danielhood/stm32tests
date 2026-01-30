@@ -40,13 +40,20 @@ void PWMFader::setPeriod(uint32_t periodMs)
 
 void PWMFader::update(void)
 {
+  // kept for compatibility: call tick(1)
+  tick(1);
+}
+
+void PWMFader::tick(uint32_t ms)
+{
   if (!isRunning)
     return;
-  
+
   uint32_t halfPeriod = cyclePeriod / 2;
-  
-  fadeTimer++;
-  
+
+  /* advance timer by ms milliseconds */
+  fadeTimer += ms;
+
   if (fadeTimer < halfPeriod)
   {
     /* Fade in: increase pulse from 0 to maxPulse over halfPeriod ms */
@@ -63,7 +70,7 @@ void PWMFader::update(void)
     fadeTimer = 0;
     fadePulse = 0;
   }
-  
+
   /* Update PWM pulse width */
   __HAL_TIM_SET_COMPARE(htim, channel, fadePulse);
 }

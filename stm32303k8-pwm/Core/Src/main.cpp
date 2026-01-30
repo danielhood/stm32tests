@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "PWMFader.h"
+#include "Program.h"
 
 /* USER CODE END Includes */
 
@@ -42,12 +42,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-PWMFader *fader1 = nullptr;
-PWMFader *fader2 = nullptr;
-PWMFader *fader3 = nullptr;
-PWMFader *fader4 = nullptr;
 
 /* USER CODE END PV */
 
@@ -55,6 +52,7 @@ PWMFader *fader4 = nullptr;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM1_Init(void);
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -93,19 +91,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   
-  /* Create and start PWM faders for each channel */
-  fader1 = new PWMFader(&htim1, TIM_CHANNEL_1, 1900);  // 2 second cycle
-  fader2 = new PWMFader(&htim1, TIM_CHANNEL_2, 1100);  // 2 second cycle
-  fader3 = new PWMFader(&htim1, TIM_CHANNEL_3, 500);   // 200ms cycle
-  fader4 = new PWMFader(&htim1, TIM_CHANNEL_4, 100);   // 200ms cycle
-  
-  fader1->start();
-  fader2->start();
-  fader3->start();
-  fader4->start();
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,18 +103,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    
-    /* Update all PWM faders */
-    if (fader1) fader1->update();
-    if (fader2) fader2->update();
-    if (fader3) fader3->update();
-    if (fader4) fader4->update();
-    
-    /* Toggle LED on PB3 */
-    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
-    
-    /* Small delay to control fade rate */
-    HAL_Delay(1);
+
+  /* Move runtime logic into Program::Run() to minimize main.cpp user code */
+  {
+    Program program(&htim1, &htim2);
+    program.Run();
+  }
   }
   /* USER CODE END 3 */
 }
@@ -253,6 +235,52 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
+
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  /* Configure TIM2 to generate 1ms tick: APB1 timer clock assumed 8MHz */
+  htim2.Init.Prescaler = 7999; /* 8MHz / (7999+1) = 1000 Hz */
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 1; /* overflow each tick -> 1ms */
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
 
 }
 

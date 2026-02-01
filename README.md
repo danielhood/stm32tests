@@ -4,7 +4,7 @@ STM32F303K8 test and example projects for PWM control and embedded debugging.
 
 ## Projects
 
-### stm32303k8-pwm
+### stm32f303k8-pwm
 PWM fade control example using STM32F303K8 Timer 1. Demonstrates smooth LED fading using PWM duty cycle modulation.
 
 **Features:**
@@ -20,7 +20,7 @@ PWM fade control example using STM32F303K8 Timer 1. Demonstrates smooth LED fadi
 - `Core/Inc/PWMFader.h` - PWM fader class definition
 - `Core/Src/main.c` - Main application
 
-### stm32303k8-test
+### stm32f303k8-test
 Embedded test and debug program with UART serial logging capabilities.
 
 **Features:**
@@ -34,7 +34,7 @@ Embedded test and debug program with UART serial logging capabilities.
 Build using STM32CubeIDE
 
 ## UART Serial Debug Logging
-In the stm32303k8-test project, a `Log.cpp` class sends formatted string data to the UART2 port through `HAL_UART_Transmit()`.
+In the stm32f303k8-test project, a `Log.cpp` class sends formatted string data to the UART2 port through `HAL_UART_Transmit()`.
 
 UART2 must be enabled through the .ioc file in async mode. This generates pin configuration in main.c which should be manually mapped to main.cpp (the IDE generates to main.c by default).
 

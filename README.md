@@ -4,6 +4,16 @@ STM32F303K8 test and example projects for PWM control and embedded debugging.
 
 ## Projects
 
+### stm32f303k8-i2c
+I2C connectivity example using STM32F303K8 I2C 1. Demonstrates two-way communication on the I2C bus with an external module.
+
+**Configuration**
+- I2C1 configured on:
+  - PB7 (SDA)
+  - PB6 (SCL)
+- Status LED:
+  - PB3 (GPIO OUT)
+
 ### stm32f303k8-pwm
 PWM fade control example using STM32F303K8 Timer 1. Demonstrates smooth LED fading using PWM duty cycle modulation.
 

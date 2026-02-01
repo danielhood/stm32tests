@@ -1,6 +1,8 @@
 #include "Program.h"
 #include <cstring>
 
+// Source callback ref: https://github.com/STMicroelectronics/stm32f1xx-hal-driver/blob/master/Src/stm32f1xx_hal_i2c.c
+
 Program::Program(UART_HandleTypeDef* hUart, I2C_HandleTypeDef* hI2c) 
   : _log(hUart), _i2c(hI2c) {
   
@@ -14,9 +16,9 @@ void Program::Run() {
   _log.Debug("Launched as I2C slave 0x60!\r\n");
   
   while (1) {
-    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
+    //HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
     
-    HAL_Delay(500);
+    //HAL_Delay(500);
   }
 }
 

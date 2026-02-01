@@ -47,7 +47,16 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 /* Global Program instance for I2C callbacks */
-Program* g_program = NULL;
+//Program* g_program = NULL;
+
+// Buffers and pointers
+uint8_t i2c_rxData[10];
+uint8_t i2c_txData[10] = {'X', 'Y'};
+uint8_t i2c_txEndData[10] = {'Z','Z'};
+uint8_t rxcount = 0;
+uint8_t txcount = 0;
+#define I2C_RX_SIZE 10
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -67,18 +76,23 @@ static void MX_USART2_UART_Init(void);
  */
 void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCode)
 {
-  if (TransferDirection == I2C_DIRECTION_RECEIVE) {
-    /* Master is sending data to us; enable reception with persistent buffer */
-    HAL_StatusTypeDef rx_status = HAL_I2C_Slave_Receive_IT(hi2c, g_program->GetI2CRxBuffer(), Program::I2C_RX_BUF_SIZE);
+    if (TransferDirection == I2C_DIRECTION_TRANSMIT) {
+        // Master wants to write to us
+        // Reset counters and prepare to receive
+        HAL_I2C_Slave_Sequential_Receive_IT(hi2c, i2c_rxData, I2C_RX_SIZE, I2C_FIRST_FRAME);
 
-    char msg[] = "Receiving Enabled\r\n";
-    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+        char msg[] = "Receiving Enabled\r\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+    } else if (TransferDirection == I2C_DIRECTION_RECEIVE) {
+        // Master wants to read from us
+        // Prepare data to send
+    	txcount = 0;
+        HAL_I2C_Slave_Sequential_Transmit_IT(hi2c, i2c_txData, 2, I2C_FIRST_FRAME);
 
-  } 
-  else if (TransferDirection == I2C_DIRECTION_TRANSMIT) {
-    char msg[] = "Master requesting data (not implemented)\r\n";
-    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-  }
+        char msg[] = "Master requesting data.\r\n";
+		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+    }
+
 }
 
 /**
@@ -86,10 +100,31 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
  */
 void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-  if (g_program != NULL) {
-    /* Call Program's handler with received data */
-    g_program->OnI2CReceived(hi2c->pBuffPtr, hi2c->XferSize);
-  }
+	char msg[] = "SlaveRxCpltCallback.\r\n";
+	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
+
+void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *hi2c)
+{
+	txcount++;
+	if (txcount >= 15) // The PiZero (or us?) seems to always want 32 bytes before a stop
+	{
+		HAL_I2C_Slave_Sequential_Transmit_IT(hi2c, i2c_txEndData, 2, I2C_LAST_FRAME);
+	} else {
+		HAL_I2C_Slave_Sequential_Transmit_IT(hi2c, i2c_txData, 2, I2C_NEXT_FRAME);
+	}
+
+
+	char msg[] = "SlaveTxCpltCallback.\r\n";
+	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
+
+void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c) {
+    // Restart listening after a session ends
+    HAL_I2C_EnableListen_IT(hi2c);
+
+    char msg[] = "ListenCpltCallback.\r\n";
+	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 }
 
 /* USER CODE END 0 */
@@ -126,9 +161,16 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   /* Create Program instance and store in global for I2C callbacks */
-  Program program(&huart2, &hi2c1);
-  g_program = &program;
+  //Program program(&huart2, &hi2c1);
+  //g_program = &program;
+
+  HAL_I2C_EnableListen_IT(&hi2c1);
+
+	char msg[] = "Running program\r\n";
+	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
   /* USER CODE END 2 */
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -137,10 +179,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	char msg[] = "Running program\r\n";
-	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
-	program.Run();
+
+	//program.Run();
   }
   /* USER CODE END 3 */
 }
@@ -211,7 +252,7 @@ static void MX_I2C1_Init(void)
   hi2c1.Init.OwnAddress2 = 0;
   hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
   hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_ENABLED;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
   if (HAL_I2C_Init(&hi2c1) != HAL_OK)
   {
     Error_Handler();

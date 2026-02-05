@@ -57,6 +57,27 @@ static void MX_SPI1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+uint8_t rxData[8];
+uint8_t txData[] = "response";
+
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+    if (hspi->Instance == SPI1)
+    {
+        // Transfer complete, handle the data received and send a response
+        HAL_SPI_Receive_IT(hspi, rxData, sizeof(rxData));
+    }
+}
+
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+    if (hspi->Instance == SPI1)
+    {
+        // Data received, handle it and send a response
+        HAL_SPI_Transmit_IT(hspi, txData, sizeof(txData));
+    }
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -89,6 +110,10 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+
+    // Enable SPI interrupt-driven slave mode
+    HAL_SPI_Receive_IT(&hspi1, rxData, sizeof(rxData));
+
 
   /* USER CODE END 2 */
 

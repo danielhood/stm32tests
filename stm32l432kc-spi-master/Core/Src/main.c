@@ -47,8 +47,8 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
-uint8_t dataToSend[] = {0x55, 0xAA};
-uint8_t dataToReceive[2];
+uint8_t dataToSend[] = "request!";
+uint8_t dataToReceive[] = "\0\0\0\0\0\0\0\0\0";
 int msgCount = 0;
 
 /* USER CODE END PV */
@@ -99,6 +99,9 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  // Initialize slave as disabled
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   // Deselect Slave
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,13 +116,18 @@ int main(void)
 		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 	}
 
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET); // Select Slave
-	HAL_SPI_TransmitReceive(&hspi1, dataToSend, dataToReceive, 2, 100);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);   // Deselect Slave
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET); // Select Slave
+
+	//HAL_SPI_TransmitReceive(&hspi1, dataToSend, dataToReceive, 8, 100);
+	HAL_SPI_Transmit(&hspi1, (uint8_t *)dataToSend, 8, 100);
+	memset(dataToReceive, 0, 8);
+	HAL_SPI_Receive(&hspi1, (uint8_t *)dataToReceive, 8, 100);
+
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   // Deselect Slave
 
 	{
 		char msg[128];
-		snprintf(msg, sizeof(msg), "Transmit complete. Message count: %d\r\n", ++msgCount);
+		snprintf(msg, sizeof(msg), "Transmit complete. Message count: %d. RX Message: %s\r\n", ++msgCount, dataToReceive);
 		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 	}
 
@@ -206,13 +214,13 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -274,7 +282,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PA4 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PB3 */
   GPIO_InitStruct.Pin = GPIO_PIN_3;

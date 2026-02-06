@@ -136,7 +136,7 @@ int main(void)
 	HAL_Delay(1000);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
 
-	for (int i = 0; i<10; i++)
+	for (int i = 0; i<5; i++)
 	{
 		HAL_Delay(900);
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);

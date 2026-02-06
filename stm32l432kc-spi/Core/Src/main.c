@@ -48,8 +48,9 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 
 // Global flags
-volatile uint8_t spi_xmit_flag = 0;
-volatile uint8_t spi_recv_flag = 0;
+volatile uint8_t spi_tx_flag = 0;
+volatile uint8_t spi_rx_flag = 0;
+char msg[128];
 
 /* USER CODE END PV */
 
@@ -73,7 +74,7 @@ uint8_t txData[] = "response";
 //{
 //    if (hspi->Instance == SPI1)
 //    {
-//    	char msg[] = "HAL_SPI_TxCpltCallback: Transfer complete, re-enabling receive.\r\n";
+//		snprintf(msg, sizeof(msg), "HAL_SPI_TxCpltCallback: Transfer complete, re-enabling receive.\r\n");
 //    	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 //
 //        // Transfer complete, handle the data received and send a response
@@ -81,20 +82,26 @@ uint8_t txData[] = "response";
 //    }
 //}
 
-void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
-{
-	if (hspi->Instance == SPI1) {
-		spi_recv_flag = 0;
-	}
-
-//    if (hspi->Instance == SPI1)
-//    {
-//    	char msg[] = "HAL_SPI_RxCpltCallback: Data received, transmitting response.\r\n";
-//    	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+//void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+//{
+//	if (hspi->Instance == SPI1) {
+//		spi_rx_flag = 0;
+//	}
 //
-//        // Data received, handle it and send a response
-//        HAL_SPI_Transmit_IT(hspi, txData, sizeof(txData));
-//    }
+////    if (hspi->Instance == SPI1)
+////    {
+////		snprintf(msg, sizeof(msg), "HAL_SPI_RxCpltCallback: Data received, transmitting response.\r\n");
+////    	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+////
+////        // Data received, handle it and send a response
+////        HAL_SPI_Transmit_IT(hspi, txData, sizeof(txData));
+////    }
+//}
+
+void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
+	if (hspi->Instance == SPI1) {
+		spi_tx_flag = 0;
+	}
 }
 
 /* USER CODE END 0 */
@@ -131,13 +138,13 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  char msg[] = "Starting initial SPI Receive.\r\n";
+  snprintf(msg, sizeof(msg), "Starting initial SPI Receive.\r\n");
   HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
   // Enable SPI interrupt-driven slave mode
   memset(rxData, 0, sizeof(rxData));
-  spi_recv_flag = 1;
-  HAL_SPI_Receive_IT(&hspi1, rxData, 8);
+  //spi_rx_flag = 1;
+  //HAL_SPI_Receive_IT(&hspi1, rxData, 8);
 
   /* USER CODE END 2 */
 
@@ -149,33 +156,44 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	if (!spi_recv_flag) {
-		char msg[128];
-		snprintf(msg, sizeof(msg), "RX Message: %s\r\n", rxData);
+	if (!spi_tx_flag) {
+		snprintf(msg, sizeof(msg), "Last received message: %s\r\n", rxData);
 		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
-		// Send back received confirmation
-//		HAL_SPI_Transmit(&hspi1, (uint8_t *)txData, 8, 100);
-//
-//		snprintf(msg, sizeof(msg), "TX Complete.\r\n");
-//		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+		snprintf(msg, sizeof(msg), "Activating TX Buffer.\r\n");
+		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
-		// Restart RX
-		memset(rxData, 0, 8);
-		spi_recv_flag = 1;
-		HAL_StatusTypeDef status = HAL_SPI_Receive_IT(&hspi1, rxData, 8);
-		if (HAL_OK != status){
-			snprintf(msg, sizeof(msg), "Error re-enabling RX: %d\r\n", status);
-			HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-		} else {
-			snprintf(msg, sizeof(msg), "Re-enabled RX\r\n");
-			HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-		}
+		spi_tx_flag = 1;
+		HAL_SPI_TransmitReceive_IT(&hspi1, (uint8_t *)txData, (uint8_t *)rxData, 8);
 	}
 
-//	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
+//	if (!spi_rx_flag) {
 //
-//	HAL_Delay(50);
+//		snprintf(msg, sizeof(msg), "RX Message: %s\r\n", rxData);
+//		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+//
+//		// Send back received confirmation
+////		HAL_SPI_Transmit(&hspi1, (uint8_t *)txData, 8, 100);
+//
+////		snprintf(msg, sizeof(msg), "TX Complete.\r\n");
+////		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+//
+//		// Restart RX
+//		memset(rxData, 0, 8);
+//		spi_rx_flag = 1;
+//		HAL_StatusTypeDef status = HAL_SPI_Receive_IT(&hspi1, rxData, 8);
+//		if (HAL_OK != status){
+//			snprintf(msg, sizeof(msg), "Error re-enabling RX: %d\r\n", status);
+//			HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+//		} else {
+//			snprintf(msg, sizeof(msg), "Re-enabled RX\r\n");
+//			HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+//		}
+//	}
+
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
+
+	HAL_Delay(50);
   }
   /* USER CODE END 3 */
 }

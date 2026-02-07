@@ -190,10 +190,10 @@ int main(void)
   HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
   spi_rx_complete = 0;
-//  HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
+  HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
 
-  // Restart RX, which will trigger TX in RX complete handler
-  HAL_SPI_Receive_DMA(&hspi1, rxData, BUFFER_SIZE);
+  // Restart RX-TX cycle, which will trigger TX in RX complete handler
+//  HAL_SPI_Receive_DMA(&hspi1, rxData, BUFFER_SIZE);
 
   /* USER CODE END 2 */
 
@@ -212,9 +212,10 @@ int main(void)
       HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
       memset(rxData, 0, sizeof(rxData));
-      //HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
-      // Restart RX, which will trigger TX in RX complete handler
-      HAL_SPI_Receive_DMA(&hspi1, rxData, BUFFER_SIZE);
+      HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
+
+      // Restart RX-TX cycle, which will trigger TX in RX complete handler
+//      HAL_SPI_Receive_DMA(&hspi1, rxData, BUFFER_SIZE);
 
       snprintf(msg, sizeof(msg), "Re-enabled TX-RX.\r\n");
       HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);

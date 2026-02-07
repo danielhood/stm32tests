@@ -156,15 +156,15 @@ int main(void)
     // TransmitReceive will leverage full duplex mode and read from the salve at the same time as writing
     // This does require the TX and RX buffers are the same size
     // This expects the  slave is also using TransmitReceive call to execute simultaneous exchange of data
-//    HAL_SPI_TransmitReceive(&hspi1, txData, rxData, BUFFER_SIZE, 100);
+    HAL_SPI_TransmitReceive(&hspi1, txData, rxData, BUFFER_SIZE, 100);
 
     // Separate TX and RX calls will execute separate TX and RX events.
     // This requires the slave to separate the TX and RX events.
     // If the slave is using TransmitReceive, the slave will receive errors (likely overrun: HAL_SPI_ERROR_OVR )
     // The master will get garbage data on RX as the slave already transmitted the buffered data.
-    HAL_SPI_Transmit(&hspi1, (uint8_t *)txData, BUFFER_SIZE, 100);
-    memset(rxData, 0, sizeof(rxData));
-    HAL_SPI_Receive(&hspi1, (uint8_t *)rxData, BUFFER_SIZE, 100);
+//    HAL_SPI_Transmit(&hspi1, (uint8_t *)txData, BUFFER_SIZE, 100);
+//    memset(rxData, 0, sizeof(rxData));
+//    HAL_SPI_Receive(&hspi1, (uint8_t *)rxData, BUFFER_SIZE, 100);
 
 //    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);   // Deselect Slave
 

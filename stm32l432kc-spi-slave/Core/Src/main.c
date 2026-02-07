@@ -82,6 +82,25 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi) {
     }
 }
 
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
+  if (hspi->Instance == SPI1) {
+    // Trigger TX start
+    HAL_SPI_Transmit_DMA(hspi, txData, BUFFER_SIZE);
+
+    snprintf(msg, sizeof(msg), "HAL_SPI_RxCpltCallback: Triggering TX\r\n");
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+  }
+}
+
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
+  if (hspi->Instance == SPI1) {
+    spi_rx_complete = 1; // Signal completion of RX-TX cycle
+
+    snprintf(msg, sizeof(msg), "HAL_SPI_TxCpltCallback: Signaled end of RX-TX cycle\r\n");
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+  }
+}
+
 // Called if an error occurs during transfer
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi) {
     if (hspi->Instance == SPI1) {
@@ -171,7 +190,10 @@ int main(void)
   HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
   spi_rx_complete = 0;
-  HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
+//  HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
+
+  // Restart RX, which will trigger TX in RX complete handler
+  HAL_SPI_Receive_DMA(&hspi1, rxData, BUFFER_SIZE);
 
   /* USER CODE END 2 */
 
@@ -190,7 +212,9 @@ int main(void)
       HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
       memset(rxData, 0, sizeof(rxData));
-      HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
+      //HAL_SPI_TransmitReceive_DMA(&hspi1, txData, rxData, BUFFER_SIZE);
+      // Restart RX, which will trigger TX in RX complete handler
+      HAL_SPI_Receive_DMA(&hspi1, rxData, BUFFER_SIZE);
 
       snprintf(msg, sizeof(msg), "Re-enabled TX-RX.\r\n");
       HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);

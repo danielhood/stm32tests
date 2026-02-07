@@ -89,8 +89,20 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi) {
 
       uint32_t err = HAL_SPI_GetError(hspi);
 
-      snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: %lu\r\n", err);
-      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      if (err == HAL_SPI_ERROR_NONE) {
+        snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: HAL_SPI_ERROR_NONE\r\n");
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+        // Note that even with HAL_SPI_ERROR_NONE, we should still reset SPI
+
+      } else if (err & HAL_SPI_ERROR_OVR) {
+        snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: HAL_SPI_ERROR_OVR\r\n");
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      } else {
+        // Some other error
+        snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: %lu\r\n", err);
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      }
 
       // 1. Stop current DMA transfer
       HAL_SPI_DMAStop(hspi);

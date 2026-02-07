@@ -72,8 +72,20 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi) {
     if (hspi->Instance == SPI1) {
       uint32_t err = HAL_SPI_GetError(hspi);
 
-      snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: %lu\r\n", err);
-      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      if (err == HAL_SPI_ERROR_NONE) {
+        snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: HAL_SPI_ERROR_NONE\r\n");
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+        // Note that even with HAL_SPI_ERROR_NONE, we should still reset SPI
+
+      } else if (err & HAL_SPI_ERROR_OVR) {
+        snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: HAL_SPI_ERROR_OVR\r\n");
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      } else {
+        // Some other error
+        snprintf(msg, sizeof(msg), "HAL_SPI_ErrorCallback: %lu\r\n", err);
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+      }
 
       // Perform a "Hard Reset" of the SPI peripheral to clear internal FIFOs
       // This is often more reliable than just calling Init again
@@ -148,8 +160,8 @@ int main(void)
 
     // Separate TX and RX calls will execute separate TX and RX events.
     // This requires the slave to separate the TX and RX events.
-    // If the slave is using TransmitReceive, the slave will receive errors, and the master will
-    // get garbage data on RX as the slave already transmitted the buffered data.
+    // If the slave is using TransmitReceive, the slave will receive errors (likely overrun: HAL_SPI_ERROR_OVR )
+    // The master will get garbage data on RX as the slave already transmitted the buffered data.
 //    HAL_SPI_Transmit(&hspi1, (uint8_t *)txData, BUFFER_SIZE, 100);
 //    memset(rxData, 0, sizeof(rxData));
 //    HAL_SPI_Receive(&hspi1, (uint8_t *)rxData, BUFFER_SIZE, 100);

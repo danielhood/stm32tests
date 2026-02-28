@@ -18,10 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
+#include "driver_mfrc522_basic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,7 +31,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define MSG_MAX 256
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -44,6 +44,8 @@ SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart2;
 
+mfrc522_info_t info;
+char msg[MSG_MAX];
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -59,6 +61,22 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void getInfo()
+{
+
+  /* print mfrc522 info */
+  mfrc522_info(&info);
+  mfrc522_interface_debug_print("mfrc522: chip is %s.\n", info.chip_name);
+  mfrc522_interface_debug_print("mfrc522: manufacturer is %s.\n", info.manufacturer_name);
+  mfrc522_interface_debug_print("mfrc522: interface is %s.\n", info.interface);
+  mfrc522_interface_debug_print("mfrc522: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
+  mfrc522_interface_debug_print("mfrc522: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
+  mfrc522_interface_debug_print("mfrc522: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
+  mfrc522_interface_debug_print("mfrc522: max current is %0.2fmA.\n", info.max_current_ma);
+  mfrc522_interface_debug_print("mfrc522: max temperature is %0.1fC.\n", info.temperature_max);
+  mfrc522_interface_debug_print("mfrc522: min temperature is %0.1fC.\n", info.temperature_min);
+}
 
 /* USER CODE END 0 */
 
@@ -95,10 +113,16 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  snprintf(msg, MSG_MAX, "Startup\r\n");
+  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+  getInfo();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int i = 0;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -108,6 +132,10 @@ int main(void)
     HAL_Delay(100);
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
     HAL_Delay(1000);
+
+    snprintf(msg, MSG_MAX, "Loop:%d\r\n", ++i);
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
   }
   /* USER CODE END 3 */
 }

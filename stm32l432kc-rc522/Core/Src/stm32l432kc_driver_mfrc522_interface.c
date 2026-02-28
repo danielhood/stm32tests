@@ -35,6 +35,10 @@
  */
 
 #include "driver_mfrc522_interface.h"
+#include "stm32l4xx_hal.h"
+#include <stdarg.h>
+
+extern UART_HandleTypeDef huart2;
 
 /**
  * @brief  interface reset gpio init
@@ -264,7 +268,21 @@ void mfrc522_interface_delay_ms(uint32_t ms)
  */
 void mfrc522_interface_debug_print(const char *const fmt, ...)
 {
-    
+#ifndef NO_DEBUG
+    char str[256];
+    uint16_t len;
+    va_list args;
+
+    memset((char *)str, 0, sizeof(char) * 256);
+    va_start(args, fmt);
+    vsnprintf((char *)str, 255, (char const *)fmt, args);
+    va_end(args);
+
+    len = strlen((char *)str);
+
+    HAL_UART_Transmit(&huart2, (uint8_t*)str, len, HAL_MAX_DELAY);
+#endif
+
 }
 
 /**
@@ -279,61 +297,61 @@ void mfrc522_interface_receive_callback(uint16_t type)
         case MFRC522_INTERRUPT_MFIN_ACT :
         {
             mfrc522_interface_debug_print("mfrc522: irq mfin act.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_CRC :
         {
             mfrc522_interface_debug_print("mfrc522: irq crc.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_TX :
         {
             mfrc522_interface_debug_print("mfrc522: irq tx.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_RX :
         {
             mfrc522_interface_debug_print("mfrc522: irq rx.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_IDLE :
         {
             mfrc522_interface_debug_print("mfrc522: irq idle.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_HI_ALERT :
         {
             mfrc522_interface_debug_print("mfrc522: irq hi alert.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_LO_ALERT :
         {
             mfrc522_interface_debug_print("mfrc522: irq lo alert.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_ERR :
         {
             mfrc522_interface_debug_print("mfrc522: irq err.\n");
-            
+
             break;
         }
         case MFRC522_INTERRUPT_TIMER :
         {
             mfrc522_interface_debug_print("mfrc522: irq timer.\n");
-            
+
             break;
         }
         default :
         {
             mfrc522_interface_debug_print("mfrc522: irq unknown code.\n");
-            
+
             break;
         }
     }

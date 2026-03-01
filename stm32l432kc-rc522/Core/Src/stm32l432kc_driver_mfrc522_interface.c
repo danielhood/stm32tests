@@ -39,6 +39,7 @@
 #include <stdarg.h>
 
 extern UART_HandleTypeDef huart2;
+extern SPI_HandleTypeDef hspi1;
 
 /**
  * @brief  interface reset gpio init
@@ -49,6 +50,7 @@ extern UART_HandleTypeDef huart2;
  */
 uint8_t mfrc522_interface_reset_gpio_init(void)
 {
+  mfrc522_interface_debug_print("mfrc522_interface_reset_gpio_init\r\n");
     return 0;
 }
 
@@ -61,6 +63,7 @@ uint8_t mfrc522_interface_reset_gpio_init(void)
  */
 uint8_t mfrc522_interface_reset_gpio_deinit(void)
 {
+  mfrc522_interface_debug_print("mfrc522_interface_reset_gpio_deinit\r\n");
     return 0;
 }
 
@@ -74,6 +77,18 @@ uint8_t mfrc522_interface_reset_gpio_deinit(void)
  */
 uint8_t mfrc522_interface_reset_gpio_write(uint8_t value)
 {
+  mfrc522_interface_debug_print("mfrc522_interface_reset_gpio_write: %d\r\n", value);
+  if (value != 0)
+  {
+      /* set high */
+      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+  }
+  else
+  {
+      /* set low */
+      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+  }
+
     return 0;
 }
 
@@ -142,6 +157,7 @@ uint8_t mfrc522_interface_iic_write(uint8_t addr, uint8_t reg, uint8_t *buf, uin
  */
 uint8_t mfrc522_interface_spi_init(void)
 {
+  mfrc522_interface_debug_print("mfrc522_interface_spi_init\r\n");
     return 0;
 }
 
@@ -154,6 +170,7 @@ uint8_t mfrc522_interface_spi_init(void)
  */
 uint8_t mfrc522_interface_spi_deinit(void)
 {
+  mfrc522_interface_debug_print("mfrc522_interface_spi_deinit\r\n");
     return 0;
 }
 
@@ -169,6 +186,45 @@ uint8_t mfrc522_interface_spi_deinit(void)
  */
 uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
 {
+  mfrc522_interface_debug_print("mfrc522_interface_spi_read: reg=%d len=%d\r\n", reg, len);
+
+  uint8_t buffer;
+  uint8_t res;
+
+  /* set cs low */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+
+  /* transmit the addr */
+  buffer = reg;
+  res = HAL_SPI_Transmit(&hspi1, (uint8_t *)&buffer, 1, 1000);
+  if (res != HAL_OK)
+  {
+      /* set cs high */
+      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+      return 1;
+  }
+
+  /* if len > 0 */
+  if (len > 0)
+  {
+      /* receive to the buffer */
+      res = HAL_SPI_Receive(&hspi1, buf, len, 1000);
+      if (res != HAL_OK)
+      {
+          /* set cs high */
+          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+          return 1;
+      }
+  }
+
+  /* set cs high */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+  mfrc522_interface_debug_print("read buffer: ");
+  mfrc522_interface_debug_print_hex(buf, len);
+
     return 0;
 }
 
@@ -184,6 +240,43 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
  */
 uint8_t mfrc522_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len)
 {
+  mfrc522_interface_debug_print("mfrc522_interface_spi_write: reg=%d buf=", reg);
+  mfrc522_interface_debug_print_hex(buf, len);
+
+  uint8_t buffer;
+  uint8_t res;
+
+  /* set cs low */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+
+  /* transmit the addr */
+  buffer = reg;
+  res = HAL_SPI_Transmit(&hspi1, (uint8_t *)&buffer, 1, 1000);
+  if (res != HAL_OK)
+  {
+      /* set cs high */
+      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+      return 1;
+  }
+
+  /* if len > 0 */
+  if (len > 0)
+  {
+      /* transmit the buffer */
+      res = HAL_SPI_Transmit(&hspi1, buf, len, 1000);
+      if (res != HAL_OK)
+      {
+          /* set cs high */
+          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+          return 1;
+      }
+  }
+
+  /* set cs high */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
     return 0;
 }
 
@@ -258,7 +351,23 @@ uint8_t mfrc522_interface_uart_flush(void)
  */
 void mfrc522_interface_delay_ms(uint32_t ms)
 {
+  HAL_Delay(ms);
+}
 
+/**
+ * @brief     print buffer bytes in hex via debug print
+ * @param[in] buf buffer to print
+ * @param[in] len number of bytes
+ * @note      none
+ */
+void mfrc522_interface_debug_print_hex(const uint8_t *buf, uint16_t len)
+{
+    uint16_t i;
+    for (i = 0; i < len; i++)
+    {
+        mfrc522_interface_debug_print("0x%02X ", buf[i]);
+    }
+    mfrc522_interface_debug_print("\r\n");
 }
 
 /**

@@ -228,6 +228,14 @@ void mfrc522_interface_delay_ms(uint32_t ms);
 void mfrc522_interface_debug_print(const char *const fmt, ...);
 
 /**
+ * @brief     print buffer bytes in hex via debug print
+ * @param[in] buf buffer to print
+ * @param[in] len number of bytes
+ * @note      none
+ */
+void mfrc522_interface_debug_print_hex(const uint8_t *buf, uint16_t len);
+
+/**
  * @brief     interface receive callback
  * @param[in] type irq type
  * @note      none

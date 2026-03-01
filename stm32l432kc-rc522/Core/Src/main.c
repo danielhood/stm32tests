@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
@@ -44,9 +45,9 @@ SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart2;
 
-mfrc522_info_t info;
-char msg[MSG_MAX];
 /* USER CODE BEGIN PV */
+
+char msg[MSG_MAX];
 
 /* USER CODE END PV */
 
@@ -62,8 +63,64 @@ static void MX_USART2_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void getInfo()
+static void a_callback(uint16_t type)
 {
+    switch (type)
+    {
+        case MFRC522_INTERRUPT_MFIN_ACT :
+        {
+            mfrc522_interface_debug_print("mfrc522: irq mfin act.\n");
+
+            break;
+        }
+        case MFRC522_INTERRUPT_CRC :
+        {
+            break;
+        }
+        case MFRC522_INTERRUPT_TX :
+        {
+            break;
+        }
+        case MFRC522_INTERRUPT_RX :
+        {
+            break;
+        }
+        case MFRC522_INTERRUPT_IDLE :
+        {
+            break;
+        }
+        case MFRC522_INTERRUPT_HI_ALERT :
+        {
+            break;
+        }
+        case MFRC522_INTERRUPT_LO_ALERT :
+        {
+            break;
+        }
+        case MFRC522_INTERRUPT_ERR :
+        {
+            mfrc522_interface_debug_print("mfrc522: irq err.\n");
+
+            break;
+        }
+        case MFRC522_INTERRUPT_TIMER :
+        {
+            mfrc522_interface_debug_print("mfrc522: irq timer.\n");
+
+            break;
+        }
+        default :
+        {
+            mfrc522_interface_debug_print("mfrc522: irq unknown code.\n");
+
+            break;
+        }
+    }
+}
+
+void getInfo(void)
+{
+  mfrc522_info_t info;
 
   /* print mfrc522 info */
   mfrc522_info(&info);
@@ -76,6 +133,43 @@ void getInfo()
   mfrc522_interface_debug_print("mfrc522: max current is %0.2fmA.\n", info.max_current_ma);
   mfrc522_interface_debug_print("mfrc522: max temperature is %0.1fC.\n", info.temperature_max);
   mfrc522_interface_debug_print("mfrc522: min temperature is %0.1fC.\n", info.temperature_min);
+}
+
+uint8_t getRandom(void)
+{
+  mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
+  uint8_t addr = 0x00;
+
+  uint8_t res;
+  uint8_t buf[25];
+
+  mfrc522_interface_debug_print("Initializing mfrc522...\r\n");
+
+  /* basic int */
+  res = mfrc522_basic_init(interface, addr, a_callback);
+  if (res != 0)
+  {
+      mfrc522_interface_debug_print("mfrc522_basic_init failed.\r\n");
+      return 1;
+  }
+
+  mfrc522_interface_debug_print("Getting random generated id...\r\n");
+
+  /* get the random */
+  res = mfrc522_basic_generate_random(buf);
+  if (res != 0)
+  {
+      mfrc522_interface_debug_print("mfrc522_basic_generate_random failed.\r\n");
+      return 1;
+  }
+
+  /* output */
+  mfrc522_interface_debug_print_hex(buf, 25);
+
+  /* basic deinit */
+  (void)mfrc522_basic_deinit();
+
+  return 0;
 }
 
 /* USER CODE END 0 */
@@ -133,8 +227,13 @@ int main(void)
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
     HAL_Delay(1000);
 
-    snprintf(msg, MSG_MAX, "Loop:%d\r\n", ++i);
+    snprintf(msg, MSG_MAX, "Loop: %d\r\n", ++i);
     HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+    if (getRandom() != 0) {
+      snprintf(msg, MSG_MAX, "Error: getRandom()\r\n");
+      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+    }
 
   }
   /* USER CODE END 3 */
@@ -222,8 +321,8 @@ static void MX_SPI1_Init(void)
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -293,7 +392,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_8, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : PA4 PA8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LD3_Pin */
   GPIO_InitStruct.Pin = LD3_Pin;

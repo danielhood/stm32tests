@@ -63,3 +63,4 @@ When the .ioc file is updated with pin configuration changes, STM32CubeIDE only 
 3. Project compiles as C++
 
 Program logic is separated and called through `Program::Run()`.
+

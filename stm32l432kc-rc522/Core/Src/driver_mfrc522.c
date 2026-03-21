@@ -528,6 +528,10 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
         goto exit_code;                                                      /* goto the exit code */
     }
 
+    // Delay 50ms after reset for rs522 to stabilize
+    handle->debug_print("mfrc522: 50ms delay after reset.\n");
+    handle->delay_ms(50);
+
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);             /* read config */
     if (res != 0)                                                            /* check the result */
     {

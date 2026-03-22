@@ -95,7 +95,7 @@ void main_debug_print_hex(const uint8_t *buf, uint16_t len)
 }
 
 
-uint16_t calcCRC(const uint8_t* buf, uint16_t len)
+uint16_t calcCRC(uint8_t* buf, uint16_t len)
 {
   // Calc CRC bytes (note this can be done on the rc522)
   uint16_t crc = 0x6363; // Preset value for ISO 14443-3
@@ -104,6 +104,9 @@ uint16_t calcCRC(const uint8_t* buf, uint16_t len)
       ch = ch ^ (ch << 4);
       crc = (crc >> 8) ^ ((uint16_t)ch << 8) ^ ((uint16_t)ch << 3) ^ (ch >> 4);
   }
+
+  buf[len] = (uint8_t)(crc & 0xFF);        // CRC Low byte
+  buf[len+1] = (uint8_t)((crc >> 8) & 0xFF); // CRC High byte
 
   return crc;
 }
@@ -180,29 +183,33 @@ void getInfo(void)
   main_debug_print("mfrc522: min temperature is %0.1fC.\n", info.temperature_min);
 }
 
-uint8_t getRandom(void)
+
+uint8_t initMfrc522()
 {
-  mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
   uint8_t addr = 0x00;
 
-  uint8_t res;
-  uint8_t buf[25];
-
-  memset(buf, 0, sizeof(buf));
-
-  main_debug_print("main: Initializing mfrc522...\r\n");
+  main_debug_print("main: Initializing mfrc522 as SPI...\r\n");
 
   /* basic int */
-  res = mfrc522_basic_init(interface, addr, a_callback);
+  uint8_t res = mfrc522_basic_init(MFRC522_INTERFACE_SPI, addr, a_callback);
   if (res != 0)
   {
       main_debug_print("main: mfrc522_basic_init failed.\r\n");
       return 1;
   }
 
+  return 0;
+}
+
+uint8_t getRandom(void)
+{
+  uint8_t res;
+  uint8_t buf[25];
+
   main_debug_print("main: Getting random generated id...\r\n");
 
   /* get the random */
+  memset(buf, 0, sizeof(buf));
   res = mfrc522_basic_generate_random(buf);
   if (res != 0)
   {
@@ -213,33 +220,16 @@ uint8_t getRandom(void)
   /* output */
   main_debug_print("main: Received random ID:\r\n\t");
   main_debug_print_hex(buf, 25);
-  main_debug_print("\r\n\r\n\r\n");
-
-
-  /* basic deinit */
-  (void)mfrc522_basic_deinit();
+  main_debug_print("\r\n");
 
   return 0;
 }
 
 void getVersion(void)
 {
-	mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
-	uint8_t addr = 0x00;
-
 	uint8_t res;
 	uint8_t id = 0;
 	uint8_t version = 0;
-
-	main_debug_print("main: Initializing mfrc522...\r\n");
-
-  /* basic int */
-  res = mfrc522_basic_init(interface, addr, a_callback);
-  if (res != 0)
-  {
-      main_debug_print("main: mfrc522_basic_init failed.\r\n");
-      return;
-  }
 
   main_debug_print("main: Getting version..\r\n");
 
@@ -250,58 +240,40 @@ void getVersion(void)
       return;
   }
 
-  main_debug_print("id: %d  version: %d", id, version);
+  main_debug_print("id: %d  version: %d\r\n", id, version);
 
 }
 
-void readATQA(void)
+uint8_t readATQA()
 {
-  mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
-  uint8_t addr = 0x00;
-
   uint8_t res;
   uint8_t command = 0x26; // receive
   uint8_t buf[64];
   uint8_t out_len;
 
-  memset(buf, 0, sizeof(buf));
-
-  main_debug_print("main: Initializing mfrc522...\r\n");
-
-  /* basic int */
-  res = mfrc522_basic_init(interface, addr, a_callback);
-  if (res != 0)
-  {
-      main_debug_print("main: mfrc522_basic_init failed.\r\n");
-      return;
-  }
-
   main_debug_print("main: Reading ATQA...\r\n");
 
+  memset(buf, 0, sizeof(buf));
   out_len = sizeof(buf);
   res = mfrc522_basic_transceiver(&command, 1, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0)
+  if (res != 0 || out_len == 0)
   {
       main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return;
+      return 1;
   }
 
   main_debug_print("main: Received %d bytes of ATQA data: ", out_len);
   main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n\r\n\r\n");
+  main_debug_print("\r\n");
 
-  return;
+  return 0;
 
 }
 
 
-void readID(void)
+uint8_t readID(void)
 {
-    mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
-  uint8_t addr = 0x00;
-
   uint8_t res;
-  uint8_t commandATQA = 0x26; // receive
   uint8_t commandCL1[] = { 0x93, 0x20 };  // mifare anti-coll
   uint8_t commandCL1ACK[] = { 0x93, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00 };  // mifare anti-coll
   uint8_t commandCL2[] = { 0x95, 0x20 };  // mifare anti-col2
@@ -311,42 +283,19 @@ void readID(void)
 
   uint8_t fullId[7];
 
-  main_debug_print("main: Initializing mfrc522...\r\n");
-
-  /* basic int */
-  res = mfrc522_basic_init(interface, addr, a_callback);
-  if (res != 0)
-  {
-      main_debug_print("main: mfrc522_basic_init failed.\r\n");
-      return;
+  if (0 != readATQA()) {
+    return 1;
   }
-
-
-  main_debug_print("main: Reading ATQA...\r\n");
-
-  memset(buf, 0, sizeof(buf));
-  out_len = sizeof(buf);
-  res = mfrc522_basic_transceiver(&commandATQA, 1, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0)
-  {
-      main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return;
-  }
-
-  main_debug_print("main: Received %d bytes of ATQA data: ", out_len);
-  main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n");
-
 
   main_debug_print("main: Reading ID (CL1)...\r\n");
 
   memset(buf, 0, sizeof(buf));
   out_len = sizeof(buf);
   res = mfrc522_basic_transceiver(commandCL1, 2, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0)
+  if (res != 0 || out_len == 0)
   {
       main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return;
+      return 1;
   }
 
   main_debug_print("main: Received %d bytes of ID (CL1) data: ", out_len);
@@ -366,18 +315,16 @@ void readID(void)
   commandCL1ACK[5] = buf[3];
   commandCL1ACK[6] = buf[4];
 
-  uint16_t crc = calcCRC(commandCL1ACK, 7);
-  commandCL1ACK[7] = (uint8_t)(crc & 0xFF);        // CRC Low byte
-  commandCL1ACK[8] = (uint8_t)((crc >> 8) & 0xFF); // CRC High byte
+  calcCRC(commandCL1ACK, 7);
 
   memset(buf, 0, sizeof(buf));
   out_len = sizeof(buf);
 
   res = mfrc522_basic_transceiver(commandCL1ACK, 9, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0)
+  if (res != 0 || out_len == 0)
   {
       main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return;
+      return 1;
   }
 
   main_debug_print("main: Received %d bytes of ACK ID (CL1) data: ", out_len);
@@ -389,10 +336,10 @@ void readID(void)
   memset(buf, 0, sizeof(buf));
   out_len = sizeof(buf);
   res = mfrc522_basic_transceiver(commandCL2, 2, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0)
+  if (res != 0 || out_len == 0)
   {
       main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return;
+      return 1;
   }
 
   main_debug_print("main: Received %d bytes of ID (CL2) data: ", out_len);
@@ -414,71 +361,62 @@ void readID(void)
   commandCL2ACK[5] = buf[3];
   commandCL2ACK[6] = buf[4];
 
-  crc = calcCRC(commandCL2ACK, 7);
-  commandCL2ACK[7] = (uint8_t)(crc & 0xFF);        // CRC Low byte
-  commandCL2ACK[8] = (uint8_t)((crc >> 8) & 0xFF); // CRC High byte
+  calcCRC(commandCL2ACK, 7);
 
   memset(buf, 0, sizeof(buf));
   out_len = sizeof(buf);
 
   res = mfrc522_basic_transceiver(commandCL2ACK, 9, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0)
+  if (res != 0 || out_len == 0)
   {
       main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return;
+      return 1;
   }
 
   main_debug_print("main: Received %d bytes of ACK ID (CL1) data: ", out_len);
   main_debug_print_hex(buf, out_len);
   main_debug_print("\r\n");
 
-
   main_debug_print("main: Full ID: ");
   main_debug_print_hex(fullId, sizeof(fullId));
   main_debug_print("\r\n\r\n\r\n");
 
-  return;
-
+  return 0;
 }
 
-void readNTAG(void)
+uint8_t readNTAG(void)
 {
-  // Needs work!!
-  mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
-  uint8_t addr = 0x00;
-
   uint8_t res;
-  uint8_t commandBuffer[] = { 0x30, 0x04 };  // PICC_CMD_MF_READ, page 4
+  uint8_t commandNTAG[] = { 0x30, 0x04, 0x00, 0x00 };  // PICC_CMD_MF_READ, page 4, plus crc
   uint8_t buf[64];
   uint8_t out_len;
 
-  memset(buf, 0, sizeof(buf));
-
-  main_debug_print("main: Initializing mfrc522...\r\n");
-
-  /* basic int */
-  res = mfrc522_basic_init(interface, addr, a_callback);
-  if (res != 0)
+  // In order to read NTAG, the chip must query ATQA followed by full id
+  if (0 != readID())
   {
-      main_debug_print("main: mfrc522_basic_init failed.\r\n");
-      return;
+    return 1;
   }
 
   main_debug_print("main: Reading NTAG...\r\n");
 
+  calcCRC(commandNTAG, 2);
+
+  memset(buf, 0, sizeof(buf));
   out_len = sizeof(buf);
-  res = mfrc522_basic_transceiver(commandBuffer, 2, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0)
+  res = mfrc522_basic_transceiver(commandNTAG, 4, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
+  if (res != 0 || out_len == 0)
   {
       main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return;
+      return 1;
   }
 
   main_debug_print("main: Received %d bytes of NTAG data: ", out_len);
   main_debug_print_hex(buf, out_len);
   main_debug_print("\r\n\r\n\r\n");
 
-  return;
+  // Note: custom text tag starts at byte 10 of page 4
+
+  return 0;
 
 }
 
@@ -526,6 +464,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  while (0 != initMfrc522()) {
+    // Retry init every 5 seconds
+    HAL_Delay(5000);
+  }
+
   int i = 0;
   while (1)
   {
@@ -537,19 +480,18 @@ int main(void)
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
     HAL_Delay(1000);
 
-    snprintf(msg, MSG_MAX, "Loop: %d\r\n", ++i);
+    snprintf(msg, MSG_MAX, "\r\nLoop: %d\r\n", ++i);
     HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-
-//    if (getRandom() != 0) {
-//      snprintf(msg, MSG_MAX, "Error: getRandom()\r\n");
-//      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-//    }
 
 //    getVersion();
 
+//    getRandom();
+
 //    readATQA();
 
-    readID();
+//    readID();
+
+    readNTAG();
 
   }
   /* USER CODE END 3 */
@@ -745,6 +687,10 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
+
+  /* basic deinit */
+  mfrc522_basic_deinit();
+
   while (1)
   {
   }

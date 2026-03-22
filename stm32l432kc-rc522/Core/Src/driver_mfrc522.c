@@ -904,12 +904,13 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     uint16_t wait_for;
     uint32_t timeout;
     
-    handle->debug_print("mfrc522: mfrc522_transceiver - START.\r\n");
-
     if (handle == NULL)                                                             /* check handle */
     {
         return 2;                                                                   /* return error */
     }
+
+    handle->debug_print("mfrc522: mfrc522_transceiver - START.\r\n");
+
     if (handle->inited != 1)                                                        /* check handle initialization */
     {
         return 3;                                                                   /* return error */

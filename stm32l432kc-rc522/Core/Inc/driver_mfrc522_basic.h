@@ -174,6 +174,8 @@ uint8_t mfrc522_basic_calculate_crc(uint8_t *buf, uint8_t len, uint16_t *crc);
  */
 uint8_t mfrc522_basic_generate_random(uint8_t buf[25]);
 
+uint8_t mfrc522_get_vesion(uint8_t *id, uint8_t *version);
+
 /**
  * @}
  */

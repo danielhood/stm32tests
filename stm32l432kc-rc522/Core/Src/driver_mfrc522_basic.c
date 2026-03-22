@@ -1022,6 +1022,21 @@ uint8_t mfrc522_basic_generate_random(uint8_t buf[25])
     return 0;
 }
 
+uint8_t mfrc522_get_vesion(uint8_t *id, uint8_t *version)
+{
+	uint8_t res;
+
+	mfrc522_interface_debug_print("driver_mfrc522: getting version.\r\n");
+
+	res = mfrc522_get_version(&gs_handle, id, version);
+    if (res != 0)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 /**
  * @brief      basic example calculate the crc
  * @param[in]  *buf pointer to a buffer

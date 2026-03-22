@@ -177,6 +177,39 @@ uint8_t getRandom(void)
   return 0;
 }
 
+uint8_t getVersion(void)
+{
+	mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
+	uint8_t addr = 0x00;
+
+	uint8_t res;
+	uint8_t id = 0;
+	uint8_t version = 0;
+
+	mfrc522_interface_debug_print("main: Initializing mfrc522...\r\n");
+
+	  /* basic int */
+	  res = mfrc522_basic_init(interface, addr, a_callback);
+	  if (res != 0)
+	  {
+	      mfrc522_interface_debug_print("main: mfrc522_basic_init failed.\r\n");
+	      return 1;
+	  }
+
+	  mfrc522_interface_debug_print("main: Getting version..\r\n");
+
+	  res = mfrc522_get_vesion(&id, &version);
+	  if (res != 0)
+	  {
+	      mfrc522_interface_debug_print("main: mfrc522_get_vesion failed.\r\n");
+	      return 1;
+	  }
+
+	  mfrc522_interface_debug_print("id: %d  version: %d", id, version);
+
+	  return 0;
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -235,10 +268,12 @@ int main(void)
     snprintf(msg, MSG_MAX, "Loop: %d\r\n", ++i);
     HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 
-    if (getRandom() != 0) {
-      snprintf(msg, MSG_MAX, "Error: getRandom()\r\n");
-      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-    }
+//    if (getRandom() != 0) {
+//      snprintf(msg, MSG_MAX, "Error: getRandom()\r\n");
+//      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+//    }
+
+    getVersion();
 
   }
   /* USER CODE END 3 */

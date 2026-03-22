@@ -819,6 +819,8 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
     /* anti collision cl1 */
     else if ((in_len == 2) && (in_buf[0] == 0x93) && (in_buf[1] == 0x20))
     {
+        mfrc522_interface_debug_print("driver_mfrc522: anti collision cl1.\r\n");
+
         /* disable cypto1 on */
         res = mfrc522_set_mifare_crypto1_on(&gs_handle, MFRC522_BOOL_FALSE);
         if (res != 0)

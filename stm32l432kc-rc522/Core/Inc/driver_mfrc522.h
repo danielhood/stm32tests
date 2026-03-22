@@ -45,6 +45,9 @@
 extern "C"{
 #endif
 
+#define NO_DEBUG
+
+
 /**
  * @defgroup mfrc522_driver mfrc522 driver function
  * @brief    mfrc522 driver modules

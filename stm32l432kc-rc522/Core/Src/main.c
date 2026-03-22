@@ -143,28 +143,33 @@ uint8_t getRandom(void)
   uint8_t res;
   uint8_t buf[25];
 
-  mfrc522_interface_debug_print("Initializing mfrc522...\r\n");
+  memset(buf, 0, sizeof(buf));
+
+  mfrc522_interface_debug_print("main: Initializing mfrc522...\r\n");
 
   /* basic int */
   res = mfrc522_basic_init(interface, addr, a_callback);
   if (res != 0)
   {
-      mfrc522_interface_debug_print("mfrc522_basic_init failed.\r\n");
+      mfrc522_interface_debug_print("main: mfrc522_basic_init failed.\r\n");
       return 1;
   }
 
-  mfrc522_interface_debug_print("Getting random generated id...\r\n");
+  mfrc522_interface_debug_print("main: Getting random generated id...\r\n");
 
   /* get the random */
   res = mfrc522_basic_generate_random(buf);
   if (res != 0)
   {
-      mfrc522_interface_debug_print("mfrc522_basic_generate_random failed.\r\n");
+      mfrc522_interface_debug_print("main: mfrc522_basic_generate_random failed.\r\n");
       return 1;
   }
 
   /* output */
+  mfrc522_interface_debug_print("main: Received random ID:\r\n\t");
   mfrc522_interface_debug_print_hex(buf, 25);
+  mfrc522_interface_debug_print("\r\n\r\n\r\n");
+
 
   /* basic deinit */
   (void)mfrc522_basic_deinit();

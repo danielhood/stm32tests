@@ -186,7 +186,11 @@ uint8_t mfrc522_interface_spi_deinit(void)
  */
 uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
 {
-  mfrc522_interface_debug_print("mfrc522_interface_spi_read: reg=%d len=%d\r\n", reg, len);
+  //mfrc522_interface_debug_print("mfrc522_interface_spi_read: reg=%d len=%d\r\n", reg, len);
+  mfrc522_interface_debug_print("\tmfrc522_interface_spi_read: reg=");
+  uint8_t real_reg = (reg >> 1) & (0xFF >> 2); // clear out read/write bit, and shift register value back
+  mfrc522_interface_debug_print_hex(&real_reg, 1);
+  mfrc522_interface_debug_print("len=%d\r\n", len);
 
   uint8_t buffer;
   uint8_t res;
@@ -222,8 +226,9 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
   /* set cs high */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
-  mfrc522_interface_debug_print("read buffer: ");
+  mfrc522_interface_debug_print("\t\tread buffer: ");
   mfrc522_interface_debug_print_hex(buf, len);
+  mfrc522_interface_debug_print("\r\n");
 
     return 0;
 }
@@ -240,8 +245,12 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
  */
 uint8_t mfrc522_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len)
 {
-  mfrc522_interface_debug_print("mfrc522_interface_spi_write: reg=%d buf=", reg);
+  mfrc522_interface_debug_print("\tmfrc522_interface_spi_write: reg=");
+  uint8_t real_reg = (reg >> 1) & (0xFF >> 2); // clear out read/write bit, and shift register value back
+  mfrc522_interface_debug_print_hex(&real_reg, 1);
+  mfrc522_interface_debug_print("len=%d ", len);
   mfrc522_interface_debug_print_hex(buf, len);
+  mfrc522_interface_debug_print("\r\n");
 
   uint8_t buffer;
   uint8_t res;
@@ -367,7 +376,6 @@ void mfrc522_interface_debug_print_hex(const uint8_t *buf, uint16_t len)
     {
         mfrc522_interface_debug_print("0x%02X ", buf[i]);
     }
-    mfrc522_interface_debug_print("\r\n");
 }
 
 /**
@@ -405,61 +413,61 @@ void mfrc522_interface_receive_callback(uint16_t type)
     {
         case MFRC522_INTERRUPT_MFIN_ACT :
         {
-            mfrc522_interface_debug_print("mfrc522: irq mfin act.\n");
+            mfrc522_interface_debug_print("mfrc522: irq mfin act.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_CRC :
         {
-            mfrc522_interface_debug_print("mfrc522: irq crc.\n");
+            mfrc522_interface_debug_print("mfrc522: irq crc.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_TX :
         {
-            mfrc522_interface_debug_print("mfrc522: irq tx.\n");
+            mfrc522_interface_debug_print("mfrc522: irq tx.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_RX :
         {
-            mfrc522_interface_debug_print("mfrc522: irq rx.\n");
+            mfrc522_interface_debug_print("mfrc522: irq rx.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_IDLE :
         {
-            mfrc522_interface_debug_print("mfrc522: irq idle.\n");
+            mfrc522_interface_debug_print("mfrc522: irq idle.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_HI_ALERT :
         {
-            mfrc522_interface_debug_print("mfrc522: irq hi alert.\n");
+            mfrc522_interface_debug_print("mfrc522: irq hi alert.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_LO_ALERT :
         {
-            mfrc522_interface_debug_print("mfrc522: irq lo alert.\n");
+            mfrc522_interface_debug_print("mfrc522: irq lo alert.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_ERR :
         {
-            mfrc522_interface_debug_print("mfrc522: irq err.\n");
+            mfrc522_interface_debug_print("mfrc522: irq err.\r\n");
 
             break;
         }
         case MFRC522_INTERRUPT_TIMER :
         {
-            mfrc522_interface_debug_print("mfrc522: irq timer.\n");
+            mfrc522_interface_debug_print("mfrc522: irq timer.\r\n");
 
             break;
         }
         default :
         {
-            mfrc522_interface_debug_print("mfrc522: irq unknown code.\n");
+            mfrc522_interface_debug_print("mfrc522: irq unknown code.\r\n");
 
             break;
         }

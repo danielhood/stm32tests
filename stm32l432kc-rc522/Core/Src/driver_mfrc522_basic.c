@@ -97,7 +97,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interface(&gs_handle, interface);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interface failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interface failed.\r\n");
         
         return 1;
     }
@@ -106,7 +106,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_addr_pin(&gs_handle, addr);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set addr pin failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set addr pin failed.\r\n");
         
         return 1;
     }
@@ -115,7 +115,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_init(&gs_handle);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: init failed.\n");
+        mfrc522_interface_debug_print("mfrc522: init failed.\r\n");
         
         return 1;
     }
@@ -124,7 +124,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_receiver_analog(&gs_handle, MFRC522_BOOL_TRUE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set receiver analog failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set receiver analog failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -134,7 +134,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1_pin_invert(&gs_handle, MFRC522_BASIC_DEFAULT_INTERRUPT1_PIN_INVERT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -144,7 +144,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt_pin_type(&gs_handle, MFRC522_BASIC_DEFAULT_INTERRUPT_PIN_TYPE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -154,7 +154,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_force_iic_high_speed(&gs_handle, MFRC522_BASIC_DEFAULT_FORCE_IIC_HIGH_SPEED);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -164,7 +164,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_clear_temperature_error(&gs_handle, MFRC522_BASIC_DEFAULT_CLEAR_TEMPERATURE_ERROR);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set clear temperature error failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set clear temperature error failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -174,7 +174,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_water_level(&gs_handle, MFRC522_BASIC_DEFAULT_WATER_LEVEL);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set water level failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set water level failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -184,7 +184,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_stop_timer(&gs_handle);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: stop timer failed.\n");
+        mfrc522_interface_debug_print("mfrc522: stop timer failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -194,7 +194,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_rx_align(&gs_handle, MFRC522_BASIC_DEFAULT_RX_ALIGN);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set rx align failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set rx align failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -204,7 +204,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_value_clear_after_coll(&gs_handle, MFRC522_BOOL_FALSE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set value clear after coll failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set value clear after coll failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -214,7 +214,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_tx_crc_generation(&gs_handle, MFRC522_BASIC_DEFAULT_TX_CRC_GENERATION);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set tx crc generation failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set tx crc generation failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -224,7 +224,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_tx_speed(&gs_handle, MFRC522_BASIC_DEFAULT_TX_SPEED);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set tx speed failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set tx speed failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -234,7 +234,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_modulation_invert(&gs_handle, MFRC522_BASIC_DEFAULT_MODULATION_INVERT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set modulation invert failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set modulation invert failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -244,7 +244,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_rx_crc_generation(&gs_handle, MFRC522_BASIC_DEFAULT_RX_CRC_GENERATION);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set rx crc generation failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set rx crc generation failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -254,7 +254,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_rx_speed(&gs_handle, MFRC522_BASIC_DEFAULT_RX_SPEED);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set rx speed failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set rx speed failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -264,7 +264,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_rx_no_error(&gs_handle, MFRC522_BASIC_DEFAULT_RX_NO_ERROR);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set rx no error failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set rx no error failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -274,7 +274,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_stop_send(&gs_handle);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: stop send failed.\n");
+        mfrc522_interface_debug_print("mfrc522: stop send failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -284,7 +284,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_rx_multiple(&gs_handle, MFRC522_BASIC_DEFAULT_RX_MULTIPLE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set rx multiple failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set rx multiple failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -294,7 +294,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_tx_input(&gs_handle, MFRC522_BASIC_DEFAULT_TX_INPUT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set tx input failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set tx input failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -304,7 +304,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_mfout_input(&gs_handle, MFRC522_BASIC_DEFAULT_MFOUT_INPUT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set mfout input failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set mfout input failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -314,7 +314,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_min_level(&gs_handle, MFRC522_BASIC_DEFAULT_MINI_LEVEL);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set min level failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set min level failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -324,7 +324,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_collision_level(&gs_handle, MFRC522_BASIC_DEFAULT_COLLISION_LEVEL);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set collision level failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set collision level failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -334,7 +334,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_channel_reception(&gs_handle, MFRC522_BASIC_DEFAULT_CHANNEL_RECEPTION);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set channel reception failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set channel reception failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -344,7 +344,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_fix_iq(&gs_handle, MFRC522_BASIC_DEFAULT_FIX_IQ);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set fix iq failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set fix iq failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -354,7 +354,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_prescal_even(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_PRESCAL_EVEN);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set timer prescal even failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set timer prescal even failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -364,7 +364,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_constant_reception(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_CONSTANT_RECEPTION);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set timer constant reception failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set timer constant reception failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -374,7 +374,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_constant_sync(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_CONSTANT_SYNC);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set timer constant sync failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set timer constant sync failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -384,7 +384,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_tx_wait(&gs_handle, MFRC522_BASIC_DEFAULT_TX_WAIT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set tx wait failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set tx wait failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -394,7 +394,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_parity_disable(&gs_handle, MFRC522_BASIC_DEFAULT_PARITY_DISABLE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set parity disable failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set parity disable failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -404,7 +404,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_serial_speed(&gs_handle, MFRC522_BASIC_DEFAULT_SERIAL_SPEED_T0, MFRC522_BASIC_DEFAULT_SERIAL_SPEED_T1);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set serial speed failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set serial speed failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -414,7 +414,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_modulation_width(&gs_handle, MFRC522_BASIC_DEFAULT_MODULATION_WIDTH);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set modulation width failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set modulation width failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -424,7 +424,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_cwgsn(&gs_handle, MFRC522_BASIC_DEFAULT_CWGSN);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set cwgsn failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set cwgsn failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -434,7 +434,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_modgsn(&gs_handle, MFRC522_BASIC_DEFAULT_MODGSN);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set modgsn failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set modgsn failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -444,7 +444,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_cwgsp(&gs_handle, MFRC522_BASIC_DEFAULT_CWGSP);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set cwgsp failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set cwgsp failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -454,7 +454,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_modgsp(&gs_handle, MFRC522_BASIC_DEFAULT_MODGSP);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set modgsp failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set modgsp failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -464,7 +464,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1(&gs_handle, MFRC522_INTERRUPT1_TX, MFRC522_BASIC_DEFAULT_INTERRUPT1_TX);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -474,7 +474,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1(&gs_handle, MFRC522_INTERRUPT1_RX, MFRC522_BASIC_DEFAULT_INTERRUPT1_RX);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -484,7 +484,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1(&gs_handle, MFRC522_INTERRUPT1_IDLE, MFRC522_BASIC_DEFAULT_INTERRUPT1_IDLE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -494,7 +494,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1(&gs_handle, MFRC522_INTERRUPT1_HI_ALERT, MFRC522_BASIC_DEFAULT_INTERRUPT1_HI_ALERT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -504,7 +504,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1(&gs_handle, MFRC522_INTERRUPT1_LO_ALERT, MFRC522_BASIC_DEFAULT_INTERRUPT1_LO_ALERT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -514,7 +514,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1(&gs_handle, MFRC522_INTERRUPT1_ERR, MFRC522_BASIC_DEFAULT_INTERRUPT1_ERR);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -524,7 +524,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt1(&gs_handle, MFRC522_INTERRUPT1_TIMER, MFRC522_BASIC_DEFAULT_INTERRUPT1_TIMER);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -534,7 +534,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt2(&gs_handle, MFRC522_INTERRUPT2_MFIN_ACT, MFRC522_BASIC_DEFAULT_INTERRUPT2_MFIN_ACT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -544,7 +544,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_interrupt2(&gs_handle, MFRC522_INTERRUPT2_CRC, MFRC522_BASIC_DEFAULT_INTERRUPT2_CRC);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set interrupt1 failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -554,7 +554,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_crc_msb_first(&gs_handle, MFRC522_BASIC_DEFAULT_CRC_MSB_FIRST);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set crc msb first failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set crc msb first failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -564,7 +564,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_tx_wait_rf(&gs_handle, MFRC522_BASIC_DEFAULT_TX_WAIT_RF);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set tx wait rf failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set tx wait rf failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -574,7 +574,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_mfin_polarity(&gs_handle, MFRC522_BASIC_DEFAULT_MFIN_POLARITY);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set tx wait rf failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set tx wait rf failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -584,7 +584,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_crc_preset(&gs_handle, MFRC522_BASIC_DEFAULT_CRC_PRESET);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set crc preset failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set crc preset failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -594,7 +594,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_force_100_ask(&gs_handle, MFRC522_BASIC_DEFAULT_FORCE_100_ASK);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set force 100 ask failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set force 100 ask failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -604,7 +604,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_contactless_uart_input(&gs_handle, MFRC522_BASIC_DEFAULT_CONTACTLESS_UART_INPUT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set contactless uart input failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set contactless uart input failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -614,7 +614,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_rx_wait(&gs_handle, MFRC522_BASIC_DEFAULT_RX_WAIT);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set rx wait failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set rx wait failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -624,7 +624,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_rx_gain(&gs_handle, MFRC522_BASIC_DEFAULT_RX_GAIN);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set rx gain failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set rx gain failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -634,7 +634,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_auto(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_AUTO);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set auto failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set auto failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -644,7 +644,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_gated_mode(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_GATED_MODE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set timer gated mode failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set timer gated mode failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -654,7 +654,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_auto_restart(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_AUTO_RESTART);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set timer auto restart failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set timer auto restart failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -664,7 +664,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_prescaler(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_PRESCALER);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set timer prescaler failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set timer prescaler failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -674,7 +674,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_timer_reload(&gs_handle, MFRC522_BASIC_DEFAULT_TIMER_RELOAD);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set timer reload failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set timer reload failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -684,7 +684,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_antenna_driver(&gs_handle, MFRC522_ANTENNA_DRIVER_TX1_RF, MFRC522_BOOL_TRUE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set antenna driver failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set antenna driver failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -694,7 +694,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_antenna_driver(&gs_handle, MFRC522_ANTENNA_DRIVER_TX2_RF, MFRC522_BOOL_TRUE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set antenna driver failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set antenna driver failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -704,7 +704,7 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
     res = mfrc522_set_mifare_crypto1_on(&gs_handle, MFRC522_BOOL_FALSE);
     if (res != 0)
     {
-        mfrc522_interface_debug_print("mfrc522: set mifare crypto1 on failed.\n");
+        mfrc522_interface_debug_print("mfrc522: set mifare crypto1 on failed.\r\n");
         (void)mfrc522_deinit(&gs_handle);
         
         return 1;
@@ -981,7 +981,15 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
  * @return     status code
  *             - 0 success
  *             - 1 generate random failed
- * @note       none
+ * @note
+ *   Examples observed (full 25 byte fifo):
+ *     0x0C 0x20 0xF3 0x74 0xA1 0x41 0xAE 0x00 0x74 0x64 0xD4 0x9C 0xC0 0x3A 0x10 0x90 0x88 0x8C 0x54 0x05 0x00 0x30 0x08 0x00 0x7E
+ *     0x0C 0x20 0xAF 0x01 0x91 0x41 0xAE 0x00 0xB9 0x81 0xC4 0x0F 0x4E 0x9A 0x10 0x90 0x88 0x8C 0x54 0x05 0x00 0x30 0x08 0x00 0x8A
+ *     0x0C 0x20 0xB8 0x01 0x1B 0x41 0xAE 0x00 0xBB 0xB9 0x20 0x5D 0xBA 0xD2 0x10 0x90 0x88 0x8C 0x54 0x05 0x00 0x30 0x08 0x00 0x59
+ *     0x0C 0x20 0xA3 0xCA 0x23 0x41 0xAE 0x00 0x27 0x26 0x0D 0xF9 0xDA 0x84 0x10 0x90 0x88 0x8C 0x54 0x05 0x00 0x30 0x08 0x00 0x9D
+ *     0x0C 0x20 0x48 0x3B 0x0B 0x41 0xAE 0x00 0xC0 0x95 0x85 0xB9 0xC1 0x8C 0x10 0x90 0x88 0x8C 0x54 0x05 0x00 0x30 0x08 0x00 0x07
+ *
+ *   Others have observed the same odd placement of the random bytes: https://forum.arduino.cc/t/rc522-random-generator/512381
  */
 uint8_t mfrc522_basic_generate_random(uint8_t buf[25])
 {
@@ -992,6 +1000,8 @@ uint8_t mfrc522_basic_generate_random(uint8_t buf[25])
     uint8_t err;
     
     /* generate the random */
+    mfrc522_interface_debug_print("driver_mfrc522: generating random id.\r\n");
+
     out_len = 0;
     res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_RANDOM_ID, &in_buf, 0, &out_buf, &out_len, &err, 1000);
     if (res != 0)
@@ -1000,6 +1010,8 @@ uint8_t mfrc522_basic_generate_random(uint8_t buf[25])
     }
     
     /* copy from mem to fifo buffer */
+    mfrc522_interface_debug_print("driver_mfrc522: copying random id to fifo buffer.\r\n");
+
     out_len = 25;
     res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_MEM, &in_buf, 0, buf, &out_len, &err, 1000);
     if (res != 0)

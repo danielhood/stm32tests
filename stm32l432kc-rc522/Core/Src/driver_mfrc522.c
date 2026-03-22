@@ -362,116 +362,116 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
     }
     if (handle->reset_gpio_init == NULL)                                     /* check reset_gpio_init */
     {
-        handle->debug_print("mfrc522: reset_gpio_init is null.\n");          /* reset_gpio_init is null */
+        handle->debug_print("mfrc522: reset_gpio_init is null.\r\n");          /* reset_gpio_init is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->reset_gpio_deinit == NULL)                                   /* check reset_gpio_deinit */
     {
-        handle->debug_print("mfrc522: reset_gpio_deinit is null.\n");        /* reset_gpio_deinit is null */
+        handle->debug_print("mfrc522: reset_gpio_deinit is null.\r\n");        /* reset_gpio_deinit is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->reset_gpio_write == NULL)                                    /* check reset_gpio_write */
     {
-        handle->debug_print("mfrc522: reset_gpio_write is null.\n");         /* reset_gpio_write is null */
+        handle->debug_print("mfrc522: reset_gpio_write is null.\r\n");         /* reset_gpio_write is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->iic_init == NULL)                                            /* check iic_init */
     {
-        handle->debug_print("mfrc522: iic_init is null.\n");                 /* iic_init is null */
+        handle->debug_print("mfrc522: iic_init is null.\r\n");                 /* iic_init is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->iic_deinit == NULL)                                          /* check iic_deinit */
     {
-        handle->debug_print("mfrc522: iic_deinit is null.\n");               /* iic_deinit is null */
+        handle->debug_print("mfrc522: iic_deinit is null.\r\n");               /* iic_deinit is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->iic_read == NULL)                                            /* check iic_read */
     {
-        handle->debug_print("mfrc522: iic_read is null.\n");                 /* iic_read is null */
+        handle->debug_print("mfrc522: iic_read is null.\r\n");                 /* iic_read is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->iic_write == NULL)                                           /* check iic_write */
     {
-        handle->debug_print("mfrc522: iic_write is null.\n");                /* iic_write is null */
+        handle->debug_print("mfrc522: iic_write is null.\r\n");                /* iic_write is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->uart_init == NULL)                                           /* check uart_init */
     {
-        handle->debug_print("mfrc522: uart_init is null.\n");                /* uart_init is null */
+        handle->debug_print("mfrc522: uart_init is null.\r\n");                /* uart_init is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->uart_deinit == NULL)                                         /* check uart_deinit */
     {
-        handle->debug_print("mfrc522: uart_deinit is null.\n");              /* uart_deinit is null */
+        handle->debug_print("mfrc522: uart_deinit is null.\r\n");              /* uart_deinit is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->uart_read == NULL)                                           /* check uart_read */
     {
-        handle->debug_print("mfrc522: uart_read is null.\n");                /* uart_read is null */
+        handle->debug_print("mfrc522: uart_read is null.\r\n");                /* uart_read is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->uart_write == NULL)                                          /* check uart_write */
     {
-        handle->debug_print("mfrc522: uart_write is null.\n");               /* uart_write is null */
+        handle->debug_print("mfrc522: uart_write is null.\r\n");               /* uart_write is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->uart_flush == NULL)                                          /* check uart_flush */
     {
-        handle->debug_print("mfrc522: uart_flush is null.\n");               /* uart_flush is null */
+        handle->debug_print("mfrc522: uart_flush is null.\r\n");               /* uart_flush is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->spi_init == NULL)                                            /* check spi_init */
     {
-        handle->debug_print("mfrc522: spi_init is null.\n");                 /* spi_init is null */
+        handle->debug_print("mfrc522: spi_init is null.\r\n");                 /* spi_init is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->spi_deinit == NULL)                                          /* check spi_deinit */
     {
-        handle->debug_print("mfrc522: spi_deinit is null.\n");               /* spi_deinit is null */
+        handle->debug_print("mfrc522: spi_deinit is null.\r\n");               /* spi_deinit is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->spi_read == NULL)                                            /* check spi_read */
     {
-        handle->debug_print("mfrc522: spi_read is null.\n");                 /* spi_read is null */
+        handle->debug_print("mfrc522: spi_read is null.\r\n");                 /* spi_read is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->spi_write == NULL)                                           /* check spi_write */
     {
-        handle->debug_print("mfrc522: spi_write is null.\n");                /* spi_read_spi_write is null */
+        handle->debug_print("mfrc522: spi_write is null.\r\n");                /* spi_read_spi_write is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->delay_ms == NULL)                                            /* check delay_ms */
     {
-        handle->debug_print("mfrc522: delay_ms is null.\n");                 /* delay_ms is null */
+        handle->debug_print("mfrc522: delay_ms is null.\r\n");                 /* delay_ms is null */
         
         return 3;                                                            /* return error */
     }
     if (handle->receive_callback == NULL)                                    /* check receive_callback */
     {
-        handle->debug_print("mfrc522: receive_callback is null.\n");         /* receive_callback is null */
+        handle->debug_print("mfrc522: receive_callback is null.\r\n");         /* receive_callback is null */
         
         return 3;                                                            /* return error */
     }
     
     if (handle->reset_gpio_init() != 0)                                      /* reset gpio init */
     {
-        handle->debug_print("mfrc522: reset gpio init failed.\n");           /* reset gpio init failed */
+        handle->debug_print("mfrc522: reset gpio init failed.\r\n");           /* reset gpio init failed */
         
         return 1;                                                            /* return error */
     }
@@ -479,7 +479,7 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
     {
         if (handle->iic_init() != 0)                                         /* iic init */
         {
-            handle->debug_print("mfrc522: iic init failed.\n");              /* iic init failed */
+            handle->debug_print("mfrc522: iic init failed.\r\n");              /* iic init failed */
             (void)handle->reset_gpio_deinit();                               /* reset gpio deinit */
             
             return 1;                                                        /* return error */
@@ -489,7 +489,7 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
     {
         if (handle->spi_init() != 0)                                         /* spi init */
         {
-            handle->debug_print("mfrc522: spi init failed.\n");              /* spi init failed */
+            handle->debug_print("mfrc522: spi init failed.\r\n");              /* spi init failed */
             (void)handle->reset_gpio_deinit();                               /* reset gpio deinit */
             
             return 1;                                                        /* return error */
@@ -499,7 +499,7 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
     {
         if (handle->uart_init() != 0)                                        /* uart init */
         {
-            handle->debug_print("mfrc522: uart init failed.\n");             /* uart init failed */
+            handle->debug_print("mfrc522: uart init failed.\r\n");             /* uart init failed */
             (void)handle->reset_gpio_deinit();                               /* reset gpio deinit */
             
             return 1;                                                        /* return error */
@@ -507,14 +507,14 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
     }
     else
     {
-        handle->debug_print("mfrc522: interface is invalid.\n");             /* interface is invalid */
+        handle->debug_print("mfrc522: interface is invalid.\r\n");             /* interface is invalid */
         
         return 4;                                                            /* return error */
     }
 
     if (handle->reset_gpio_write(0) != 0)                                    /* set 0 */
     {
-        handle->debug_print("mfrc522: reset gpio write failed.\n");          /* reset gpio write failed */
+        handle->debug_print("mfrc522: reset gpio write failed.\r\n");          /* reset gpio write failed */
         res = 1;                                                             /* set the exit code */
         
         goto exit_code;                                                      /* goto the exit code */
@@ -522,20 +522,20 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
     handle->delay_ms(10);                                                    /* delay 10 ms */
     if (handle->reset_gpio_write(1) != 0)                                    /* set 1 */
     {
-        handle->debug_print("mfrc522: reset gpio write failed.\n");          /* reset gpio write failed */
+        handle->debug_print("mfrc522: reset gpio write failed.\r\n");          /* reset gpio write failed */
         res = 1;                                                             /* set the exit code */
         
         goto exit_code;                                                      /* goto the exit code */
     }
 
     // Delay 50ms after reset for rs522 to stabilize
-    handle->debug_print("mfrc522: 50ms delay after reset.\n");
+    handle->debug_print("mfrc522: 50ms delay after reset.\r\n");
     handle->delay_ms(50);
 
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);             /* read config */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");              /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");              /* read command failed */
         res = 1;                                                             /* set the exit code */
         
         goto exit_code;                                                      /* goto the exit code */
@@ -545,7 +545,7 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);            /* write config */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");             /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");             /* write command failed */
         res = 1;                                                             /* set the exit code */
         
         goto exit_code;                                                      /* goto the exit code */
@@ -557,7 +557,7 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
         res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
         if (res != 0)                                                        /* check the result */
         {
-            handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+            handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
             res = 1;                                                         /* set the exit code */
             
             goto exit_code;                                                  /* goto the exit code */
@@ -570,7 +570,7 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
         }
         if (timeout == 0)                                                    /* check the timeout */
         {
-            handle->debug_print("mfrc522: read timeout.\n");                 /* read timeout */
+            handle->debug_print("mfrc522: read timeout.\r\n");                 /* read timeout */
             res = 1;                                                         /* set the exit code */
             
             goto exit_code;                                                  /* goto the exit code */
@@ -579,14 +579,14 @@ uint8_t mfrc522_init(mfrc522_handle_t *handle)
 
     if (a_mfrc522_read(handle, MFRC522_REG_VERSION, &id, 1) != 0)            /* get the id */
     {
-        handle->debug_print("mfrc522: get id failed.\n");                    /* get id failed */
+        handle->debug_print("mfrc522: get id failed.\r\n");                    /* get id failed */
         res = 5;                                                             /* set the exit code */
         
         goto exit_code;                                                      /* goto the exit code */
     }
     if (((id >> 4) & 0xF) != 9)                                              /* check the id */
     {
-        handle->debug_print("mfrc522: check id failed.\n");                  /* check id failed */
+        handle->debug_print("mfrc522: check id failed.\r\n");                  /* check id failed */
         res = 6;                                                             /* set the exit code */
         
         goto exit_code;                                                      /* goto the exit code */
@@ -645,7 +645,7 @@ uint8_t mfrc522_deinit(mfrc522_handle_t *handle)
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
         
         return 1;                                                        /* return error */
     }
@@ -654,14 +654,14 @@ uint8_t mfrc522_deinit(mfrc522_handle_t *handle)
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);        /* write config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");         /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");         /* write command failed */
         
         return 1;                                                        /* return error */
     }
     handle->delay_ms(10);                                                /* delay 10 ms */
     if (handle->reset_gpio_write(0) != 0)                                /* power down */
     {
-        handle->debug_print("mfrc522: reset gpio write failed.\n");      /* reset gpio write failed */
+        handle->debug_print("mfrc522: reset gpio write failed.\r\n");      /* reset gpio write failed */
         
         return 5;                                                        /* return error */
     }
@@ -669,7 +669,7 @@ uint8_t mfrc522_deinit(mfrc522_handle_t *handle)
     {
         if (handle->iic_deinit() != 0)                                   /* iic deinit */
         {
-            handle->debug_print("mfrc522: iic deinit failed.\n");        /* iic deinit failed */
+            handle->debug_print("mfrc522: iic deinit failed.\r\n");        /* iic deinit failed */
             
             return 1;                                                    /* return error */
         }
@@ -678,7 +678,7 @@ uint8_t mfrc522_deinit(mfrc522_handle_t *handle)
     {
         if (handle->spi_deinit() != 0)                                   /* spi deinit */
         {
-            handle->debug_print("mfrc522: spi deinit failed.\n");        /* spi deinit failed */
+            handle->debug_print("mfrc522: spi deinit failed.\r\n");        /* spi deinit failed */
             
             return 1;                                                    /* return error */
         }
@@ -687,20 +687,20 @@ uint8_t mfrc522_deinit(mfrc522_handle_t *handle)
     {
         if (handle->uart_deinit() != 0)                                  /* uart deinit */
         {
-            handle->debug_print("mfrc522: uart deinit failed.\n");       /* uart deinit failed */
+            handle->debug_print("mfrc522: uart deinit failed.\r\n");       /* uart deinit failed */
             
             return 1;                                                    /* return error */
         }
     }
     else
     {
-        handle->debug_print("mfrc522: interface is invalid.\n");         /* interface is invalid */
+        handle->debug_print("mfrc522: interface is invalid.\r\n");         /* interface is invalid */
         
         return 4;                                                        /* return error */
     }
     if (handle->reset_gpio_deinit() != 0)                                /* reset gpio deinit */
     {
-        handle->debug_print("mfrc522: reset gpio deinit failed.\n");     /* reset gpio deinit failed */
+        handle->debug_print("mfrc522: reset gpio deinit failed.\r\n");     /* reset gpio deinit failed */
         
         return 1;                                                        /* return error */
     }
@@ -748,14 +748,14 @@ uint8_t mfrc522_irq_handler(mfrc522_handle_t *handle)
     res = a_mfrc522_read(handle, MFRC522_REG_COMIRQ, &prev1, 1);             /* read comirq */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read comirq failed.\n");               /* read comirq failed */
+        handle->debug_print("mfrc522: read comirq failed.\r\n");               /* read comirq failed */
         
         return 1;                                                            /* return error */
     }
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIRQ, &prev2, 1);             /* read divirq */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read divirq failed.\n");               /* read divirq failed */
+        handle->debug_print("mfrc522: read divirq failed.\r\n");               /* read divirq failed */
         
         return 1;                                                            /* return error */
     }
@@ -765,7 +765,7 @@ uint8_t mfrc522_irq_handler(mfrc522_handle_t *handle)
         res = a_mfrc522_read(handle, MFRC522_REG_COMIRQ, &prev, 1);          /* read config */
         if (res != 0)                                                        /* check the result */
         {
-            handle->debug_print("mfrc522: read comirq failed.\n");           /* read comirq failed */
+            handle->debug_print("mfrc522: read comirq failed.\r\n");           /* read comirq failed */
             
             return 1;                                                        /* return error */
         }
@@ -773,14 +773,14 @@ uint8_t mfrc522_irq_handler(mfrc522_handle_t *handle)
         res = a_mfrc522_write(handle, MFRC522_REG_COMIRQ, &prev, 1);         /* write config */
         if (res != 0)                                                        /* check the result */
         {
-            handle->debug_print("mfrc522: write comirq failed.\n");          /* write comirq failed */
+            handle->debug_print("mfrc522: write comirq failed.\r\n");          /* write comirq failed */
             
             return 1;                                                        /* return error */
         }
         res = a_mfrc522_read(handle, MFRC522_REG_DIVIRQ, &prev, 1);          /* read config */
         if (res != 0)                                                        /* check the result */
         {
-            handle->debug_print("mfrc522: read divirq failed.\n");           /* read divirq failed */
+            handle->debug_print("mfrc522: read divirq failed.\r\n");           /* read divirq failed */
             
             return 1;                                                        /* return error */
         }
@@ -788,7 +788,7 @@ uint8_t mfrc522_irq_handler(mfrc522_handle_t *handle)
         res = a_mfrc522_write(handle, MFRC522_REG_DIVIRQ, &prev, 1);         /* write config */
         if (res != 0)                                                        /* check the result */
         {
-            handle->debug_print("mfrc522: write divirq failed.\n");          /* write divirq failed */
+            handle->debug_print("mfrc522: write divirq failed.\r\n");          /* write divirq failed */
             
             return 1;                                                        /* return error */
         }
@@ -904,6 +904,8 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     uint16_t wait_for;
     uint32_t timeout;
     
+    handle->debug_print("mfrc522: mfrc522_transceiver - START.\r\n");
+
     if (handle == NULL)                                                             /* check handle */
     {
         return 2;                                                                   /* return error */
@@ -914,22 +916,23 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     }
     if ((in_buf == NULL) || (out_buf == NULL))                                      /* check the buffer */
     {
-        handle->debug_print("mfrc522: buffer is NULL.\n");                          /* buffer is NULL */
+        handle->debug_print("mfrc522: buffer is NULL.\r\n");                          /* buffer is NULL */
         
         return 4;                                                                   /* return error */
     }
     if (in_len > 64)                                                                /* check the length */
     {
-        handle->debug_print("mfrc522: in_len is over 64.\n");                       /* in_len is over 64 */
+        handle->debug_print("mfrc522: in_len is over 64.\r\n");                       /* in_len is over 64 */
         
         return 5;                                                                   /* return error */
     }
     
     /* set idle */
+    handle->debug_print("mfrc522: set idle.\r\n");
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);                    /* read config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");                     /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");                     /* read command failed */
         
         return 1;                                                                   /* return error */
     }
@@ -938,16 +941,17 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);                   /* write config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");                    /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");                    /* write command failed */
         
         return 1;                                                                   /* return error */
     }
     
     /* flush the fifo */
+    handle->debug_print("mfrc522: flush fifo.\r\n");
     res = a_mfrc522_read(handle, MFRC522_REG_FIFO_LEVEL, &prev, 1);                 /* read level */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read fifo level failed.\n");                  /* read fifo level failed */
+        handle->debug_print("mfrc522: read fifo level failed.\r\n");                  /* read fifo level failed */
         
         return 1;                                                                   /* return error */
     }
@@ -955,29 +959,31 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     res = a_mfrc522_write(handle, MFRC522_REG_FIFO_LEVEL, &prev, 1);                /* write level */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write fifo level failed.\n");                 /* write fifo level failed */
+        handle->debug_print("mfrc522: write fifo level failed.\r\n");                 /* write fifo level failed */
         
         return 1;                                                                   /* return error */
     }
     
     /* write fifo */
+    handle->debug_print("mfrc522: write fifo (loop).\r\n");
     for (i = 0; i < in_len; i++)                                                    /* loop */
     {
         res = a_mfrc522_write(handle, MFRC522_REG_FIFO_DATA, in_buf + i, 1);        /* write data */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: write fifo data failed.\n");              /* write fifo data failed */
+            handle->debug_print("mfrc522: write fifo data failed.\r\n");              /* write fifo data failed */
             
             return 1;                                                               /* return error */
         }
     }
     
     /* clear the flag */
+    handle->debug_print("mfrc522: clear IRQ flag.\r\n");
     handle->irq_flag = 0;                                                           /* clear the irq flag */
     res = a_mfrc522_read(handle, MFRC522_REG_COMIRQ, &prev, 1);                     /* read config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read comirq failed.\n");                      /* read comirq failed */
+        handle->debug_print("mfrc522: read comirq failed.\r\n");                      /* read comirq failed */
         
         return 1;                                                                   /* return error */
     }
@@ -985,14 +991,14 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     res = a_mfrc522_write(handle, MFRC522_REG_COMIRQ, &prev, 1);                    /* write config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write comirq failed.\n");                     /* write comirq failed */
+        handle->debug_print("mfrc522: write comirq failed.\r\n");                     /* write comirq failed */
         
         return 1;                                                                   /* return error */
     }
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIRQ, &prev, 1);                     /* read config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read divirq failed.\n");                      /* read divirq failed */
+        handle->debug_print("mfrc522: read divirq failed.\r\n");                      /* read divirq failed */
         
         return 1;                                                                   /* return error */
     }
@@ -1000,16 +1006,17 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     res = a_mfrc522_write(handle, MFRC522_REG_DIVIRQ, &prev, 1);                    /* write config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write divirq failed.\n");                     /* write divirq failed */
+        handle->debug_print("mfrc522: write divirq failed.\r\n");                     /* write divirq failed */
         
         return 1;                                                                   /* return error */
     }
     
     /* set the command */
+    handle->debug_print("mfrc522: set command.\r\n");
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);                    /* read config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");                     /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");                     /* read command failed */
         
         return 1;                                                                   /* return error */
     }
@@ -1018,7 +1025,7 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);                   /* write config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");                    /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");                    /* write command failed */
         
         return 1;                                                                   /* return error */
     }
@@ -1026,10 +1033,11 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     /* set the bit framing */
     if (command == MFRC522_COMMAND_TRANSCEIVE)                                      /* if transceiver */
     {
+    	handle->debug_print("mfrc522: set bit framing for TRANSCEIVE.\r\n");
         res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);            /* read the bit framing */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: read bit framing failed.\n");             /* read the bit framing failed */
+            handle->debug_print("mfrc522: read bit framing failed.\r\n");             /* read the bit framing failed */
             
             return 1;                                                               /* return error */
         }
@@ -1037,7 +1045,7 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
         res = a_mfrc522_write(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);           /* write the bit framing */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: write bit framing failed.\n");            /* write the bit framing failed */
+            handle->debug_print("mfrc522: write bit framing failed.\r\n");            /* write the bit framing failed */
             
             return 1;                                                               /* return error */
         }
@@ -1046,24 +1054,30 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     /* set the wait bit */
     if (command == MFRC522_COMMAND_MF_AUTHENT)                                      /* if authentic */
     {
+    	handle->debug_print("mfrc522: set wait bit for MF_AUTHENT (wait idle).\r\n");
         wait_for = (1 << MFRC522_INTERRUPT_IDLE) | 
                    (1 << MFRC522_INTERRUPT_TIMER);                                  /* if idle && timer */
     }
     else if (command == MFRC522_COMMAND_TRANSCEIVE)                                 /* if transceiver */
     {
+    	handle->debug_print("mfrc522: set wait bit for TRANSCEIVE (wait rx).\r\n");
         wait_for = (1 << MFRC522_INTERRUPT_RX) | 
                    (1 << MFRC522_INTERRUPT_TIMER);                                  /* if rx && timer */
     }
     else if (command == MFRC522_COMMAND_CALC_CRC)                                   /* if crc */
     {
+    	handle->debug_print("mfrc522: set wait bit for CALC_CRC (wait crc).\r\n");
         wait_for = (1 << MFRC522_INTERRUPT_CRC) | 
                    (1 << MFRC522_INTERRUPT_TIMER);                                  /* if crc && timer */
     }
     else
     {
+    	handle->debug_print("mfrc522: set wait bit for all other commands (wait for idle).\r\n");
         wait_for = (1 << MFRC522_INTERRUPT_IDLE) | 
                    (1 << MFRC522_INTERRUPT_TIMER);                                  /* if idle && timer */
     }
+
+    handle->debug_print("mfrc522: waiting for %d ms\r\n", ms);
     timeout = ms;                                                                   /* set timeout */
     while (timeout != 0)                                                            /* check the timeout */
     {
@@ -1075,19 +1089,24 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
         }
         if (timeout == 0)                                                           /* if timeout == 0 */
         {
-            handle->debug_print("mfrc522: read timeout.\n");                        /* read timeout */
+        	// Since IRQ is not connected, wait for full timeout, but don't raise error
+            handle->debug_print("mfrc522: WARNING read timeout.\r\n");                        /* read timeout */
             
-            return 6;                                                               /* return error */
+            break;
+            //return 6;                                                               /* return error */
         }
     }
     
     /* end */
+
+
     if (command == MFRC522_COMMAND_TRANSCEIVE)                                      /* if transceiver */
     {
+    	handle->debug_print("mfrc522: set framing bit for TRANSCEIVE.\r\n");
         res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);            /* read the bit framing */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: read bit framing failed.\n");             /* read the bit framing failed */
+            handle->debug_print("mfrc522: read bit framing failed.\r\n");             /* read the bit framing failed */
             
             return 1;                                                               /* return error */
         }
@@ -1095,7 +1114,7 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
         res = a_mfrc522_write(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);           /* write the bit framing */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: write bit framing failed.\n");            /* write the bit framing failed */
+            handle->debug_print("mfrc522: write bit framing failed.\r\n");            /* write the bit framing failed */
             
             return 1;                                                               /* return error */
         }
@@ -1104,7 +1123,7 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     /* check timer timeout */
     if ((handle->irq_flag & ((1 << MFRC522_INTERRUPT_TIMER))) != 0)                 /* check the timer */
     {
-        handle->debug_print("mfrc522: timer timeout.\n");                           /* timer timeout */
+        handle->debug_print("mfrc522: timer timeout.\r\n");                           /* timer timeout */
         
         return 7;                                                                   /* return error */
     }
@@ -1115,11 +1134,11 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
         res = a_mfrc522_read(handle, MFRC522_REG_ERROR, err, 1);                    /* read config */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: read error failed.\n");                   /* read error failed */
+            handle->debug_print("mfrc522: read error failed.\r\n");                   /* read error failed */
             
             return 1;                                                               /* return error */
         }
-        handle->debug_print("mfrc522: find error.\n");                              /* find error */
+        handle->debug_print("mfrc522: find error.\r\n");                              /* find error */
         
         return 8;                                                                   /* return error */
     }
@@ -1127,12 +1146,14 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     /* get the fifo */
     if ((command == MFRC522_COMMAND_TRANSCEIVE) && ((*out_len) != 0))               /* if transceiver and need get from fifo */
     {
-        uint8_t level;
+        handle->debug_print("mfrc522: get fifo for TRANSCEIVE.\r\n");
+
+    	uint8_t level;
         
         res = a_mfrc522_read(handle, MFRC522_REG_FIFO_LEVEL, &level, 1);            /* read level */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: read fifo level failed.\n");              /* read fifo level failed */
+            handle->debug_print("mfrc522: read fifo level failed.\r\n");              /* read fifo level failed */
             
             return 1;                                                               /* return error */
         }
@@ -1143,20 +1164,23 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
             res = a_mfrc522_read(handle, MFRC522_REG_FIFO_DATA, out_buf + i, 1);    /* read data */
             if (res != 0)                                                           /* check the result */
             {
-                handle->debug_print("mfrc522: read fifo data failed.\n");           /* read fifo data failed */
+                handle->debug_print("mfrc522: read fifo data failed.\r\n");           /* read fifo data failed */
                 
                 return 1;                                                           /* return error */
             }
         }
     }
+
     if ((command == MFRC522_COMMAND_MEM) && ((*out_len) != 0))                      /* if mem and need get from fifo */
     {
-        uint8_t level; 
+        handle->debug_print("mfrc522: read fifo level for MEM.\r\n");
+
+    	uint8_t level;
         
         res = a_mfrc522_read(handle, MFRC522_REG_FIFO_LEVEL, &level, 1);            /* read level */
         if (res != 0)                                                               /* check the result */
         {
-            handle->debug_print("mfrc522: read fifo level failed.\n");              /* read fifo level failed */
+            handle->debug_print("mfrc522: read fifo level failed.\r\n");              /* read fifo level failed */
             
             return 1;                                                               /* return error */
         }
@@ -1166,7 +1190,7 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
             res = a_mfrc522_read(handle, MFRC522_REG_FIFO_DATA, out_buf + i, 1);    /* read data */
             if (res != 0)                                                           /* check the result */
             {
-                handle->debug_print("mfrc522: read fifo data failed.\n");           /* read fifo data failed */
+                handle->debug_print("mfrc522: read fifo data failed.\r\n");           /* read fifo data failed */
                 
                 return 1;                                                           /* return error */
             }
@@ -1174,10 +1198,11 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     }
     
     /* stop the timer */
+    handle->debug_print("mfrc522: stop timer.\r\n");
     res = a_mfrc522_read(handle, MFRC522_REG_CONTROL, &prev, 1);                    /* read control */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read control failed.\n");                     /* read control failed */
+        handle->debug_print("mfrc522: read control failed.\r\n");                     /* read control failed */
         
         return 1;                                                                   /* return error */
     }
@@ -1185,16 +1210,17 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     res = a_mfrc522_write(handle, MFRC522_REG_CONTROL, &prev, 1);                   /* write control */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write control failed.\n");                    /* write control failed */
+        handle->debug_print("mfrc522: write control failed.\r\n");                    /* write control failed */
         
         return 1;                                                                   /* return error */
     }
     
     /* set the idle */
+    handle->debug_print("mfrc522: set idle.\r\n");
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);                    /* read config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");                     /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");                     /* read command failed */
         
         return 1;                                                                   /* return error */
     }
@@ -1203,12 +1229,14 @@ uint8_t mfrc522_transceiver(mfrc522_handle_t *handle,
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);                   /* write config */
     if (res != 0)                                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");                    /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");                    /* write command failed */
         
         return 1;                                                                   /* return error */
     }
     *err = prev;                                                                    /* set the 0 */
     
+    handle->debug_print("mfrc522: mfrc522_transceiver - END.\r\n");
+
     return 0;                                                                       /* success return 0 */
 }
 
@@ -1240,7 +1268,7 @@ uint8_t mfrc522_set_receiver_analog(mfrc522_handle_t *handle, mfrc522_bool_t ena
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1249,7 +1277,7 @@ uint8_t mfrc522_set_receiver_analog(mfrc522_handle_t *handle, mfrc522_bool_t ena
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);        /* write config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");         /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");         /* write command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1285,7 +1313,7 @@ uint8_t mfrc522_get_receiver_analog(mfrc522_handle_t *handle, mfrc522_bool_t *en
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1322,7 +1350,7 @@ uint8_t mfrc522_set_power_down(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1331,7 +1359,7 @@ uint8_t mfrc522_set_power_down(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);        /* write config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");         /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");         /* write command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1367,7 +1395,7 @@ uint8_t mfrc522_get_power_down(mfrc522_handle_t *handle, mfrc522_bool_t *enable)
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1404,7 +1432,7 @@ uint8_t mfrc522_set_command(mfrc522_handle_t *handle, mfrc522_command_t command)
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1413,7 +1441,7 @@ uint8_t mfrc522_set_command(mfrc522_handle_t *handle, mfrc522_command_t command)
     res = a_mfrc522_write(handle, MFRC522_REG_COMMAND, &prev, 1);        /* write config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write command failed.\n");         /* write command failed */
+        handle->debug_print("mfrc522: write command failed.\r\n");         /* write command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1449,7 +1477,7 @@ uint8_t mfrc522_get_command(mfrc522_handle_t *handle, mfrc522_command_t *command
     res = a_mfrc522_read(handle, MFRC522_REG_COMMAND, &prev, 1);         /* read config */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read command failed.\n");          /* read command failed */
+        handle->debug_print("mfrc522: read command failed.\r\n");          /* read command failed */
         
         return 1;                                                        /* return error */
     }
@@ -1487,7 +1515,7 @@ uint8_t mfrc522_set_interrupt1(mfrc522_handle_t *handle, mfrc522_interrupt1_t ty
     res = a_mfrc522_read(handle, MFRC522_REG_COMIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read comien failed.\n");          /* read comien failed */
+        handle->debug_print("mfrc522: read comien failed.\r\n");          /* read comien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1496,7 +1524,7 @@ uint8_t mfrc522_set_interrupt1(mfrc522_handle_t *handle, mfrc522_interrupt1_t ty
     res = a_mfrc522_write(handle, MFRC522_REG_COMIEN, &prev, 1);        /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write comien failed.\n");         /* write comien failed */
+        handle->debug_print("mfrc522: write comien failed.\r\n");         /* write comien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1533,7 +1561,7 @@ uint8_t mfrc522_get_interrupt1(mfrc522_handle_t *handle, mfrc522_interrupt1_t ty
     res = a_mfrc522_read(handle, MFRC522_REG_COMIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read comien failed.\n");          /* read comien failed */
+        handle->debug_print("mfrc522: read comien failed.\r\n");          /* read comien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1570,7 +1598,7 @@ uint8_t mfrc522_set_interrupt1_pin_invert(mfrc522_handle_t *handle, mfrc522_bool
     res = a_mfrc522_read(handle, MFRC522_REG_COMIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read comien failed.\n");          /* read comien failed */
+        handle->debug_print("mfrc522: read comien failed.\r\n");          /* read comien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1579,7 +1607,7 @@ uint8_t mfrc522_set_interrupt1_pin_invert(mfrc522_handle_t *handle, mfrc522_bool
     res = a_mfrc522_write(handle, MFRC522_REG_COMIEN, &prev, 1);        /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write comien failed.\n");         /* write comien failed */
+        handle->debug_print("mfrc522: write comien failed.\r\n");         /* write comien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1615,7 +1643,7 @@ uint8_t mfrc522_get_interrupt1_pin_invert(mfrc522_handle_t *handle, mfrc522_bool
     res = a_mfrc522_read(handle, MFRC522_REG_COMIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read comien failed.\n");          /* read comien failed */
+        handle->debug_print("mfrc522: read comien failed.\r\n");          /* read comien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1652,7 +1680,7 @@ uint8_t mfrc522_set_interrupt1_mark(mfrc522_handle_t *handle, mfrc522_interrupt_
     res = a_mfrc522_read(handle, MFRC522_REG_COMIRQ, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read comirq failed.\n");          /* read comirq failed */
+        handle->debug_print("mfrc522: read comirq failed.\r\n");          /* read comirq failed */
         
         return 1;                                                       /* return error */
     }
@@ -1661,7 +1689,7 @@ uint8_t mfrc522_set_interrupt1_mark(mfrc522_handle_t *handle, mfrc522_interrupt_
     res = a_mfrc522_write(handle, MFRC522_REG_COMIRQ, &prev, 1);        /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write comirq failed.\n");         /* write comirq failed */
+        handle->debug_print("mfrc522: write comirq failed.\r\n");         /* write comirq failed */
         
         return 1;                                                       /* return error */
     }
@@ -1698,7 +1726,7 @@ uint8_t mfrc522_set_interrupt2(mfrc522_handle_t *handle, mfrc522_interrupt2_t ty
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read divien failed.\n");          /* read divien failed */
+        handle->debug_print("mfrc522: read divien failed.\r\n");          /* read divien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1707,7 +1735,7 @@ uint8_t mfrc522_set_interrupt2(mfrc522_handle_t *handle, mfrc522_interrupt2_t ty
     res = a_mfrc522_write(handle, MFRC522_REG_DIVIEN, &prev, 1);        /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write divien failed.\n");         /* write divien failed */
+        handle->debug_print("mfrc522: write divien failed.\r\n");         /* write divien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1744,7 +1772,7 @@ uint8_t mfrc522_get_interrupt2(mfrc522_handle_t *handle, mfrc522_interrupt2_t ty
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read divien failed.\n");          /* read divien failed */
+        handle->debug_print("mfrc522: read divien failed.\r\n");          /* read divien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1781,7 +1809,7 @@ uint8_t mfrc522_set_interrupt_pin_type(mfrc522_handle_t *handle, mfrc522_interru
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read divien failed.\n");          /* read divien failed */
+        handle->debug_print("mfrc522: read divien failed.\r\n");          /* read divien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1790,7 +1818,7 @@ uint8_t mfrc522_set_interrupt_pin_type(mfrc522_handle_t *handle, mfrc522_interru
     res = a_mfrc522_write(handle, MFRC522_REG_DIVIEN, &prev, 1);        /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write divien failed.\n");         /* write divien failed */
+        handle->debug_print("mfrc522: write divien failed.\r\n");         /* write divien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1826,7 +1854,7 @@ uint8_t mfrc522_get_interrupt_pin_type(mfrc522_handle_t *handle, mfrc522_interru
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIEN, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read divien failed.\n");          /* read divien failed */
+        handle->debug_print("mfrc522: read divien failed.\r\n");          /* read divien failed */
         
         return 1;                                                       /* return error */
     }
@@ -1863,7 +1891,7 @@ uint8_t mfrc522_set_interrupt2_mark(mfrc522_handle_t *handle, mfrc522_interrupt_
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIRQ, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read divirq failed.\n");          /* read divirq failed */
+        handle->debug_print("mfrc522: read divirq failed.\r\n");          /* read divirq failed */
         
         return 1;                                                       /* return error */
     }
@@ -1872,7 +1900,7 @@ uint8_t mfrc522_set_interrupt2_mark(mfrc522_handle_t *handle, mfrc522_interrupt_
     res = a_mfrc522_write(handle, MFRC522_REG_DIVIRQ, &prev, 1);        /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write divirq failed.\n");         /* write divirq failed */
+        handle->debug_print("mfrc522: write divirq failed.\r\n");         /* write divirq failed */
         
         return 1;                                                       /* return error */
     }
@@ -1908,7 +1936,7 @@ uint8_t mfrc522_get_interrupt1_status(mfrc522_handle_t *handle, uint8_t *status)
     res = a_mfrc522_read(handle, MFRC522_REG_COMIRQ, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read comirq failed.\n");          /* read comirq failed */
+        handle->debug_print("mfrc522: read comirq failed.\r\n");          /* read comirq failed */
         
         return 1;                                                       /* return error */
     }
@@ -1945,7 +1973,7 @@ uint8_t mfrc522_get_interrupt2_status(mfrc522_handle_t *handle, uint8_t *status)
     res = a_mfrc522_read(handle, MFRC522_REG_DIVIRQ, &prev, 1);         /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read divirq failed.\n");          /* read divirq failed */
+        handle->debug_print("mfrc522: read divirq failed.\r\n");          /* read divirq failed */
         
         return 1;                                                       /* return error */
     }
@@ -1982,7 +2010,7 @@ uint8_t mfrc522_get_error(mfrc522_handle_t *handle, uint8_t *err)
     res = a_mfrc522_read(handle, MFRC522_REG_ERROR, &prev, 1);         /* read config */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read error failed.\n");          /* read error failed */
+        handle->debug_print("mfrc522: read error failed.\r\n");          /* read error failed */
         
         return 1;                                                      /* return error */
     }
@@ -2019,7 +2047,7 @@ uint8_t mfrc522_get_status1(mfrc522_handle_t *handle, uint8_t *status)
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS1, &prev, 1);       /* read config */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read status1 failed.\n");        /* read status1 failed */
+        handle->debug_print("mfrc522: read status1 failed.\r\n");        /* read status1 failed */
         
         return 1;                                                      /* return error */
     }
@@ -2056,7 +2084,7 @@ uint8_t mfrc522_get_status2(mfrc522_handle_t *handle, uint8_t *status)
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS2, &prev, 1);       /* read config */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read status2 failed.\n");        /* read status2 failed */
+        handle->debug_print("mfrc522: read status2 failed.\r\n");        /* read status2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -2093,7 +2121,7 @@ uint8_t mfrc522_get_modem_state(mfrc522_handle_t *handle, mfrc522_modem_state_t 
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS2, &prev, 1);       /* read config */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read status2 failed.\n");        /* read status2 failed */
+        handle->debug_print("mfrc522: read status2 failed.\r\n");        /* read status2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -2130,7 +2158,7 @@ uint8_t mfrc522_set_mifare_crypto1_on(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS2, &prev, 1);        /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read status2 failed.\n");         /* read status2 failed */
+        handle->debug_print("mfrc522: read status2 failed.\r\n");         /* read status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2139,7 +2167,7 @@ uint8_t mfrc522_set_mifare_crypto1_on(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_write(handle, MFRC522_REG_STATUS2, &prev, 1);       /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write status2 failed.\n");        /* write status2 failed */
+        handle->debug_print("mfrc522: write status2 failed.\r\n");        /* write status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2175,7 +2203,7 @@ uint8_t mfrc522_set_force_iic_high_speed(mfrc522_handle_t *handle, mfrc522_bool_
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS2, &prev, 1);        /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read status2 failed.\n");         /* read status2 failed */
+        handle->debug_print("mfrc522: read status2 failed.\r\n");         /* read status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2184,7 +2212,7 @@ uint8_t mfrc522_set_force_iic_high_speed(mfrc522_handle_t *handle, mfrc522_bool_
     res = a_mfrc522_write(handle, MFRC522_REG_STATUS2, &prev, 1);       /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write status2 failed.\n");        /* write status2 failed */
+        handle->debug_print("mfrc522: write status2 failed.\r\n");        /* write status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2220,7 +2248,7 @@ uint8_t mfrc522_get_force_iic_high_speed(mfrc522_handle_t *handle, mfrc522_bool_
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS2, &prev, 1);        /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read status2 failed.\n");         /* read status2 failed */
+        handle->debug_print("mfrc522: read status2 failed.\r\n");         /* read status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2257,7 +2285,7 @@ uint8_t mfrc522_set_clear_temperature_error(mfrc522_handle_t *handle, mfrc522_bo
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS2, &prev, 1);        /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read status2 failed.\n");         /* read status2 failed */
+        handle->debug_print("mfrc522: read status2 failed.\r\n");         /* read status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2266,7 +2294,7 @@ uint8_t mfrc522_set_clear_temperature_error(mfrc522_handle_t *handle, mfrc522_bo
     res = a_mfrc522_write(handle, MFRC522_REG_STATUS2, &prev, 1);       /* write config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write status2 failed.\n");        /* write status2 failed */
+        handle->debug_print("mfrc522: write status2 failed.\r\n");        /* write status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2302,7 +2330,7 @@ uint8_t mfrc522_get_clear_temperature_error(mfrc522_handle_t *handle, mfrc522_bo
     res = a_mfrc522_read(handle, MFRC522_REG_STATUS2, &prev, 1);        /* read config */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read status2 failed.\n");         /* read status2 failed */
+        handle->debug_print("mfrc522: read status2 failed.\r\n");         /* read status2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -2339,7 +2367,7 @@ uint8_t mfrc522_set_fifo_data(mfrc522_handle_t *handle, uint8_t *data, uint8_t l
     }
     if (len > 64)                                                                 /* check the length */
     {
-        handle->debug_print("mfrc522: len is over 64.\n");                        /* len is over 64 */
+        handle->debug_print("mfrc522: len is over 64.\r\n");                        /* len is over 64 */
         
         return 4;                                                                 /* return error */
     }
@@ -2349,7 +2377,7 @@ uint8_t mfrc522_set_fifo_data(mfrc522_handle_t *handle, uint8_t *data, uint8_t l
         res = a_mfrc522_write(handle, MFRC522_REG_FIFO_DATA, data + i, 1);        /* write data */
         if (res != 0)                                                             /* check the result */
         {
-            handle->debug_print("mfrc522: write fifo data failed.\n");            /* write fifo data failed */
+            handle->debug_print("mfrc522: write fifo data failed.\r\n");            /* write fifo data failed */
             
             return 1;                                                             /* return error */
         }
@@ -2386,7 +2414,7 @@ uint8_t mfrc522_get_fifo_data(mfrc522_handle_t *handle, uint8_t *data, uint8_t l
     }
     if (len > 64)                                                                /* check the length */
     {
-        handle->debug_print("mfrc522: len is over 64.\n");                       /* len is over 64 */
+        handle->debug_print("mfrc522: len is over 64.\r\n");                       /* len is over 64 */
         
         return 4;                                                                /* return error */
     }
@@ -2396,7 +2424,7 @@ uint8_t mfrc522_get_fifo_data(mfrc522_handle_t *handle, uint8_t *data, uint8_t l
         res = a_mfrc522_read(handle, MFRC522_REG_FIFO_DATA, data + i, 1);        /* read data */
         if (res != 0)                                                            /* check the result */
         {
-            handle->debug_print("mfrc522: read fifo data failed.\n");            /* read fifo data failed */
+            handle->debug_print("mfrc522: read fifo data failed.\r\n");            /* read fifo data failed */
             
             return 1;                                                            /* return error */
         }
@@ -2432,7 +2460,7 @@ uint8_t mfrc522_get_fifo_level(mfrc522_handle_t *handle, uint8_t *level)
     res = a_mfrc522_read(handle, MFRC522_REG_FIFO_LEVEL, level, 1);      /* read level */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read fifo level failed.\n");       /* read fifo level failed */
+        handle->debug_print("mfrc522: read fifo level failed.\r\n");       /* read fifo level failed */
         
         return 1;                                                        /* return error */
     }
@@ -2467,7 +2495,7 @@ uint8_t mfrc522_flush_fifo(mfrc522_handle_t *handle)
     res = a_mfrc522_read(handle, MFRC522_REG_FIFO_LEVEL, &prev, 1);      /* read level */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read fifo level failed.\n");       /* read fifo level failed */
+        handle->debug_print("mfrc522: read fifo level failed.\r\n");       /* read fifo level failed */
         
         return 1;                                                        /* return error */
     }
@@ -2475,7 +2503,7 @@ uint8_t mfrc522_flush_fifo(mfrc522_handle_t *handle)
     res = a_mfrc522_write(handle, MFRC522_REG_FIFO_LEVEL, &prev, 1);     /* write level */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write fifo level failed.\n");      /* write fifo level failed */
+        handle->debug_print("mfrc522: write fifo level failed.\r\n");      /* write fifo level failed */
         
         return 1;                                                        /* return error */
     }
@@ -2510,7 +2538,7 @@ uint8_t mfrc522_get_water_level(mfrc522_handle_t *handle, uint8_t *level)
     res = a_mfrc522_read(handle, MFRC522_REG_WATER_LEVEL, level, 1);     /* read level */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read water level failed.\n");      /* read water level failed */
+        handle->debug_print("mfrc522: read water level failed.\r\n");      /* read water level failed */
         
         return 1;                                                        /* return error */
     }
@@ -2545,7 +2573,7 @@ uint8_t mfrc522_set_water_level(mfrc522_handle_t *handle, uint8_t level)
     }
     if (level > 0x3F)                                                    /* check the level */
     {
-        handle->debug_print("mfrc522: level is over 0x3F.\n");           /* level is over 0x3F */
+        handle->debug_print("mfrc522: level is over 0x3F.\r\n");           /* level is over 0x3F */
         
         return 4;                                                        /* return error */
     }
@@ -2553,7 +2581,7 @@ uint8_t mfrc522_set_water_level(mfrc522_handle_t *handle, uint8_t level)
     res = a_mfrc522_write(handle, MFRC522_REG_WATER_LEVEL, &level, 1);   /* write level */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write water level failed.\n");     /* write water level failed */
+        handle->debug_print("mfrc522: write water level failed.\r\n");     /* write water level failed */
         
         return 1;                                                        /* return error */
     }
@@ -2588,7 +2616,7 @@ uint8_t mfrc522_stop_timer(mfrc522_handle_t *handle)
     res = a_mfrc522_read(handle, MFRC522_REG_CONTROL, &prev, 1);        /* read control */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read control failed.\n");         /* read control failed */
+        handle->debug_print("mfrc522: read control failed.\r\n");         /* read control failed */
         
         return 1;                                                       /* return error */
     }
@@ -2596,7 +2624,7 @@ uint8_t mfrc522_stop_timer(mfrc522_handle_t *handle)
     res = a_mfrc522_write(handle, MFRC522_REG_CONTROL, &prev, 1);       /* write control */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write control failed.\n");        /* write control failed */
+        handle->debug_print("mfrc522: write control failed.\r\n");        /* write control failed */
         
         return 1;                                                       /* return error */
     }
@@ -2631,7 +2659,7 @@ uint8_t mfrc522_start_timer(mfrc522_handle_t *handle)
     res = a_mfrc522_read(handle, MFRC522_REG_CONTROL, &prev, 1);        /* read control */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read control failed.\n");         /* read control failed */
+        handle->debug_print("mfrc522: read control failed.\r\n");         /* read control failed */
         
         return 1;                                                       /* return error */
     }
@@ -2639,7 +2667,7 @@ uint8_t mfrc522_start_timer(mfrc522_handle_t *handle)
     res = a_mfrc522_write(handle, MFRC522_REG_CONTROL, &prev, 1);       /* write control */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: write control failed.\n");        /* write control failed */
+        handle->debug_print("mfrc522: write control failed.\r\n");        /* write control failed */
         
         return 1;                                                       /* return error */
     }
@@ -2675,7 +2703,7 @@ uint8_t mfrc522_get_rx_last_bits(mfrc522_handle_t *handle, uint8_t *bits)
     res = a_mfrc522_read(handle, MFRC522_REG_CONTROL, &prev, 1);        /* read control */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read control failed.\n");         /* read control failed */
+        handle->debug_print("mfrc522: read control failed.\r\n");         /* read control failed */
         
         return 1;                                                       /* return error */
     }
@@ -2711,7 +2739,7 @@ uint8_t mfrc522_start_send(mfrc522_handle_t *handle)
     res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);         /* read the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read bit framing failed.\n");          /* read the bit framing failed */
+        handle->debug_print("mfrc522: read bit framing failed.\r\n");          /* read the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2720,7 +2748,7 @@ uint8_t mfrc522_start_send(mfrc522_handle_t *handle)
     res = a_mfrc522_write(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);        /* write the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write bit framing failed.\n");         /* write the bit framing failed */
+        handle->debug_print("mfrc522: write bit framing failed.\r\n");         /* write the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2755,7 +2783,7 @@ uint8_t mfrc522_stop_send(mfrc522_handle_t *handle)
     res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);         /* read the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read bit framing failed.\n");          /* read the bit framing failed */
+        handle->debug_print("mfrc522: read bit framing failed.\r\n");          /* read the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2763,7 +2791,7 @@ uint8_t mfrc522_stop_send(mfrc522_handle_t *handle)
     res = a_mfrc522_write(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);        /* write the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write bit framing failed.\n");         /* write the bit framing failed */
+        handle->debug_print("mfrc522: write bit framing failed.\r\n");         /* write the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2799,7 +2827,7 @@ uint8_t mfrc522_get_tx_last_bits(mfrc522_handle_t *handle, uint8_t *bits)
     res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);    /* read the bit framing */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read bit framing failed.\n");     /* read the bit framing failed */
+        handle->debug_print("mfrc522: read bit framing failed.\r\n");     /* read the bit framing failed */
         
         return 1;                                                       /* return error */
     }
@@ -2835,7 +2863,7 @@ uint8_t mfrc522_set_tx_last_bits(mfrc522_handle_t *handle, uint8_t bits)
     }
     if (bits > 7)                                                            /* check the length */
     {
-        handle->debug_print("mfrc522: bits is over 7.\n");                   /* bits are over 7 */
+        handle->debug_print("mfrc522: bits is over 7.\r\n");                   /* bits are over 7 */
         
         return 4;                                                            /* return error */
     }
@@ -2843,7 +2871,7 @@ uint8_t mfrc522_set_tx_last_bits(mfrc522_handle_t *handle, uint8_t bits)
     res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);         /* read the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read bit framing failed.\n");          /* read the bit framing failed */
+        handle->debug_print("mfrc522: read bit framing failed.\r\n");          /* read the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2852,7 +2880,7 @@ uint8_t mfrc522_set_tx_last_bits(mfrc522_handle_t *handle, uint8_t bits)
     res = a_mfrc522_write(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);        /* write the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write bit framing failed.\n");         /* write the bit framing failed */
+        handle->debug_print("mfrc522: write bit framing failed.\r\n");         /* write the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2888,7 +2916,7 @@ uint8_t mfrc522_set_rx_align(mfrc522_handle_t *handle, mfrc522_rx_align_t align)
     res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);         /* read the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read bit framing failed.\n");          /* read the bit framing failed */
+        handle->debug_print("mfrc522: read bit framing failed.\r\n");          /* read the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2897,7 +2925,7 @@ uint8_t mfrc522_set_rx_align(mfrc522_handle_t *handle, mfrc522_rx_align_t align)
     res = a_mfrc522_write(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);        /* write the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write bit framing failed.\n");         /* write the bit framing failed */
+        handle->debug_print("mfrc522: write bit framing failed.\r\n");         /* write the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2933,7 +2961,7 @@ uint8_t mfrc522_get_rx_align(mfrc522_handle_t *handle, mfrc522_rx_align_t *align
     res = a_mfrc522_read(handle, MFRC522_REG_BIT_FRAMING, &prev, 1);         /* read the bit framing */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read bit framing failed.\n");          /* read the bit framing failed */
+        handle->debug_print("mfrc522: read bit framing failed.\r\n");          /* read the bit framing failed */
         
         return 1;                                                            /* return error */
     }
@@ -2970,7 +2998,7 @@ uint8_t mfrc522_set_value_clear_after_coll(mfrc522_handle_t *handle, mfrc522_boo
     res = a_mfrc522_read(handle, MFRC522_REG_COLL, &prev, 1);         /* read coll */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read coll failed.\n");          /* read coll failed */
+        handle->debug_print("mfrc522: read coll failed.\r\n");          /* read coll failed */
         
         return 1;                                                     /* return error */
     }
@@ -2979,7 +3007,7 @@ uint8_t mfrc522_set_value_clear_after_coll(mfrc522_handle_t *handle, mfrc522_boo
     res = a_mfrc522_write(handle, MFRC522_REG_COLL, &prev, 1);        /* write coll */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write coll failed.\n");         /* write coll failed */
+        handle->debug_print("mfrc522: write coll failed.\r\n");         /* write coll failed */
         
         return 1;                                                     /* return error */
     }
@@ -3015,7 +3043,7 @@ uint8_t mfrc522_get_value_clear_after_coll(mfrc522_handle_t *handle, mfrc522_boo
     res = a_mfrc522_read(handle, MFRC522_REG_COLL, &prev, 1);         /* read coll */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read coll failed.\n");          /* read coll failed */
+        handle->debug_print("mfrc522: read coll failed.\r\n");          /* read coll failed */
         
         return 1;                                                     /* return error */
     }
@@ -3052,7 +3080,7 @@ uint8_t mfrc522_get_collision_position_not_valid(mfrc522_handle_t *handle, mfrc5
     res = a_mfrc522_read(handle, MFRC522_REG_COLL, &prev, 1);         /* read coll */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read coll failed.\n");          /* read coll failed */
+        handle->debug_print("mfrc522: read coll failed.\r\n");          /* read coll failed */
         
         return 1;                                                     /* return error */
     }
@@ -3089,7 +3117,7 @@ uint8_t mfrc522_get_collision_position(mfrc522_handle_t *handle, uint8_t *pos)
     res = a_mfrc522_read(handle, MFRC522_REG_COLL, &prev, 1);         /* read coll */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read coll failed.\n");          /* read coll failed */
+        handle->debug_print("mfrc522: read coll failed.\r\n");          /* read coll failed */
         
         return 1;                                                     /* return error */
     }
@@ -3126,7 +3154,7 @@ uint8_t mfrc522_set_crc_msb_first(mfrc522_handle_t *handle, mfrc522_bool_t enabl
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3135,7 +3163,7 @@ uint8_t mfrc522_set_crc_msb_first(mfrc522_handle_t *handle, mfrc522_bool_t enabl
     res = a_mfrc522_write(handle, MFRC522_REG_MODE, &prev, 1);        /* write mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write mode failed.\n");         /* write mode failed */
+        handle->debug_print("mfrc522: write mode failed.\r\n");         /* write mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3171,7 +3199,7 @@ uint8_t mfrc522_get_crc_msb_first(mfrc522_handle_t *handle, mfrc522_bool_t *enab
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3208,7 +3236,7 @@ uint8_t mfrc522_set_tx_wait_rf(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3217,7 +3245,7 @@ uint8_t mfrc522_set_tx_wait_rf(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_MODE, &prev, 1);        /* write mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write mode failed.\n");         /* write mode failed */
+        handle->debug_print("mfrc522: write mode failed.\r\n");         /* write mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3253,7 +3281,7 @@ uint8_t mfrc522_get_tx_wait_rf(mfrc522_handle_t *handle, mfrc522_bool_t *enable)
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3290,7 +3318,7 @@ uint8_t mfrc522_set_mfin_polarity(mfrc522_handle_t *handle, mfrc522_mfin_polarit
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3299,7 +3327,7 @@ uint8_t mfrc522_set_mfin_polarity(mfrc522_handle_t *handle, mfrc522_mfin_polarit
     res = a_mfrc522_write(handle, MFRC522_REG_MODE, &prev, 1);        /* write mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write mode failed.\n");         /* write mode failed */
+        handle->debug_print("mfrc522: write mode failed.\r\n");         /* write mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3335,7 +3363,7 @@ uint8_t mfrc522_get_mfin_polarity(mfrc522_handle_t *handle, mfrc522_mfin_polarit
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3372,7 +3400,7 @@ uint8_t mfrc522_set_crc_preset(mfrc522_handle_t *handle, mfrc522_crc_preset_t pr
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3381,7 +3409,7 @@ uint8_t mfrc522_set_crc_preset(mfrc522_handle_t *handle, mfrc522_crc_preset_t pr
     res = a_mfrc522_write(handle, MFRC522_REG_MODE, &prev, 1);        /* write mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write mode failed.\n");         /* write mode failed */
+        handle->debug_print("mfrc522: write mode failed.\r\n");         /* write mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3417,7 +3445,7 @@ uint8_t mfrc522_get_crc_preset(mfrc522_handle_t *handle, mfrc522_crc_preset_t *p
     res = a_mfrc522_read(handle, MFRC522_REG_MODE, &prev, 1);         /* read mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read mode failed.\n");          /* read mode failed */
+        handle->debug_print("mfrc522: read mode failed.\r\n");          /* read mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3454,7 +3482,7 @@ uint8_t mfrc522_set_tx_crc_generation(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_read(handle, MFRC522_REG_TX_MODE, &prev, 1);      /* read tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read tx mode failed.\n");       /* read tx mode failed */
+        handle->debug_print("mfrc522: read tx mode failed.\r\n");       /* read tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3463,7 +3491,7 @@ uint8_t mfrc522_set_tx_crc_generation(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_write(handle, MFRC522_REG_TX_MODE, &prev, 1);     /* write tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write tx mode failed.\n");      /* write tx mode failed */
+        handle->debug_print("mfrc522: write tx mode failed.\r\n");      /* write tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3499,7 +3527,7 @@ uint8_t mfrc522_get_tx_crc_generation(mfrc522_handle_t *handle, mfrc522_bool_t *
     res = a_mfrc522_read(handle, MFRC522_REG_TX_MODE, &prev, 1);      /* read tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read tx mode failed.\n");       /* read tx mode failed */
+        handle->debug_print("mfrc522: read tx mode failed.\r\n");       /* read tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3536,7 +3564,7 @@ uint8_t mfrc522_set_tx_speed(mfrc522_handle_t *handle, mfrc522_speed_t speed)
     res = a_mfrc522_read(handle, MFRC522_REG_TX_MODE, &prev, 1);      /* read tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read tx mode failed.\n");       /* read tx mode failed */
+        handle->debug_print("mfrc522: read tx mode failed.\r\n");       /* read tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3545,7 +3573,7 @@ uint8_t mfrc522_set_tx_speed(mfrc522_handle_t *handle, mfrc522_speed_t speed)
     res = a_mfrc522_write(handle, MFRC522_REG_TX_MODE, &prev, 1);     /* write tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write tx mode failed.\n");      /* write tx mode failed */
+        handle->debug_print("mfrc522: write tx mode failed.\r\n");      /* write tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3581,7 +3609,7 @@ uint8_t mfrc522_get_tx_speed(mfrc522_handle_t *handle, mfrc522_speed_t *speed)
     res = a_mfrc522_read(handle, MFRC522_REG_TX_MODE, &prev, 1);      /* read tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read tx mode failed.\n");       /* read tx mode failed */
+        handle->debug_print("mfrc522: read tx mode failed.\r\n");       /* read tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3618,7 +3646,7 @@ uint8_t mfrc522_set_modulation_invert(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_read(handle, MFRC522_REG_TX_MODE, &prev, 1);      /* read tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read tx mode failed.\n");       /* read tx mode failed */
+        handle->debug_print("mfrc522: read tx mode failed.\r\n");       /* read tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3627,7 +3655,7 @@ uint8_t mfrc522_set_modulation_invert(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_write(handle, MFRC522_REG_TX_MODE, &prev, 1);     /* write tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write tx mode failed.\n");      /* write tx mode failed */
+        handle->debug_print("mfrc522: write tx mode failed.\r\n");      /* write tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3663,7 +3691,7 @@ uint8_t mfrc522_get_modulation_invert(mfrc522_handle_t *handle, mfrc522_bool_t *
     res = a_mfrc522_read(handle, MFRC522_REG_TX_MODE, &prev, 1);      /* read tx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read tx mode failed.\n");       /* read tx mode failed */
+        handle->debug_print("mfrc522: read tx mode failed.\r\n");       /* read tx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3700,7 +3728,7 @@ uint8_t mfrc522_set_rx_crc_generation(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3709,7 +3737,7 @@ uint8_t mfrc522_set_rx_crc_generation(mfrc522_handle_t *handle, mfrc522_bool_t e
     res = a_mfrc522_write(handle, MFRC522_REG_RX_MODE, &prev, 1);     /* write rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write rx mode failed.\n");      /* write rx mode failed */
+        handle->debug_print("mfrc522: write rx mode failed.\r\n");      /* write rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3745,7 +3773,7 @@ uint8_t mfrc522_get_rx_crc_generation(mfrc522_handle_t *handle, mfrc522_bool_t *
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3782,7 +3810,7 @@ uint8_t mfrc522_set_rx_speed(mfrc522_handle_t *handle, mfrc522_speed_t speed)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3791,7 +3819,7 @@ uint8_t mfrc522_set_rx_speed(mfrc522_handle_t *handle, mfrc522_speed_t speed)
     res = a_mfrc522_write(handle, MFRC522_REG_RX_MODE, &prev, 1);     /* write rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write rx mode failed.\n");      /* write rx mode failed */
+        handle->debug_print("mfrc522: write rx mode failed.\r\n");      /* write rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3827,7 +3855,7 @@ uint8_t mfrc522_get_rx_speed(mfrc522_handle_t *handle, mfrc522_speed_t *speed)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3864,7 +3892,7 @@ uint8_t mfrc522_set_rx_no_error(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3873,7 +3901,7 @@ uint8_t mfrc522_set_rx_no_error(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_RX_MODE, &prev, 1);     /* write rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write rx mode failed.\n");      /* write rx mode failed */
+        handle->debug_print("mfrc522: write rx mode failed.\r\n");      /* write rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3909,7 +3937,7 @@ uint8_t mfrc522_get_rx_no_error(mfrc522_handle_t *handle, mfrc522_bool_t *enable
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3946,7 +3974,7 @@ uint8_t mfrc522_set_rx_multiple(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3955,7 +3983,7 @@ uint8_t mfrc522_set_rx_multiple(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_RX_MODE, &prev, 1);     /* write rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write rx mode failed.\n");      /* write rx mode failed */
+        handle->debug_print("mfrc522: write rx mode failed.\r\n");      /* write rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -3991,7 +4019,7 @@ uint8_t mfrc522_get_rx_multiple(mfrc522_handle_t *handle, mfrc522_bool_t *enable
     res = a_mfrc522_read(handle, MFRC522_REG_RX_MODE, &prev, 1);      /* read rx mode */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rx mode failed.\n");       /* read rx mode failed */
+        handle->debug_print("mfrc522: read rx mode failed.\r\n");       /* read rx mode failed */
         
         return 1;                                                     /* return error */
     }
@@ -4029,7 +4057,7 @@ uint8_t mfrc522_set_antenna_driver(mfrc522_handle_t *handle, mfrc522_antenna_dri
     res = a_mfrc522_read(handle, MFRC522_REG_TX_CONTROL, &prev, 1);         /* read tx control */
     if (res != 0)                                                           /* check the result */
     {
-        handle->debug_print("mfrc522: read tx control failed.\n");          /* read tx control failed */
+        handle->debug_print("mfrc522: read tx control failed.\r\n");          /* read tx control failed */
         
         return 1;                                                           /* return error */
     }
@@ -4038,7 +4066,7 @@ uint8_t mfrc522_set_antenna_driver(mfrc522_handle_t *handle, mfrc522_antenna_dri
     res = a_mfrc522_write(handle, MFRC522_REG_TX_CONTROL, &prev, 1);        /* write tx control */
     if (res != 0)                                                           /* check the result */
     {
-        handle->debug_print("mfrc522: write tx control failed.\n");         /* write tx control failed */
+        handle->debug_print("mfrc522: write tx control failed.\r\n");         /* write tx control failed */
         
         return 1;                                                           /* return error */
     }
@@ -4075,7 +4103,7 @@ uint8_t mfrc522_get_antenna_driver(mfrc522_handle_t *handle, mfrc522_antenna_dri
     res = a_mfrc522_read(handle, MFRC522_REG_TX_CONTROL, &prev, 1);         /* read tx control */
     if (res != 0)                                                           /* check the result */
     {
-        handle->debug_print("mfrc522: read tx control failed.\n");          /* read tx control failed */
+        handle->debug_print("mfrc522: read tx control failed.\r\n");          /* read tx control failed */
         
         return 1;                                                           /* return error */
     }
@@ -4112,7 +4140,7 @@ uint8_t mfrc522_set_force_100_ask(mfrc522_handle_t *handle, mfrc522_bool_t enabl
     res = a_mfrc522_read(handle, MFRC522_REG_TX_ASK, &prev, 1);        /* read tx ask */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tx ask failed.\n");         /* read tx ask failed */
+        handle->debug_print("mfrc522: read tx ask failed.\r\n");         /* read tx ask failed */
         
         return 1;                                                      /* return error */
     }
@@ -4121,7 +4149,7 @@ uint8_t mfrc522_set_force_100_ask(mfrc522_handle_t *handle, mfrc522_bool_t enabl
     res = a_mfrc522_write(handle, MFRC522_REG_TX_ASK, &prev, 1);       /* write tx ask */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tx ask failed.\n");        /* write tx ask failed */
+        handle->debug_print("mfrc522: write tx ask failed.\r\n");        /* write tx ask failed */
         
         return 1;                                                      /* return error */
     }
@@ -4157,7 +4185,7 @@ uint8_t mfrc522_get_force_100_ask(mfrc522_handle_t *handle, mfrc522_bool_t *enab
     res = a_mfrc522_read(handle, MFRC522_REG_TX_ASK, &prev, 1);        /* read tx ask */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tx ask failed.\n");         /* read tx ask failed */
+        handle->debug_print("mfrc522: read tx ask failed.\r\n");         /* read tx ask failed */
         
         return 1;                                                      /* return error */
     }
@@ -4194,7 +4222,7 @@ uint8_t mfrc522_set_tx_input(mfrc522_handle_t *handle, mfrc522_tx_input_t input)
     res = a_mfrc522_read(handle, MFRC522_REG_TX_SEL, &prev, 1);        /* read tx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tx sel failed.\n");         /* read tx sel failed */
+        handle->debug_print("mfrc522: read tx sel failed.\r\n");         /* read tx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4203,7 +4231,7 @@ uint8_t mfrc522_set_tx_input(mfrc522_handle_t *handle, mfrc522_tx_input_t input)
     res = a_mfrc522_write(handle, MFRC522_REG_TX_SEL, &prev, 1);       /* write tx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tx sel failed.\n");        /* write tx sel failed */
+        handle->debug_print("mfrc522: write tx sel failed.\r\n");        /* write tx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4239,7 +4267,7 @@ uint8_t mfrc522_get_tx_input(mfrc522_handle_t *handle, mfrc522_tx_input_t *input
     res = a_mfrc522_read(handle, MFRC522_REG_TX_SEL, &prev, 1);        /* read tx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tx sel failed.\n");         /* read tx sel failed */
+        handle->debug_print("mfrc522: read tx sel failed.\r\n");         /* read tx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4276,7 +4304,7 @@ uint8_t mfrc522_set_mfout_input(mfrc522_handle_t *handle, mfrc522_mfout_input_t 
     res = a_mfrc522_read(handle, MFRC522_REG_TX_SEL, &prev, 1);        /* read tx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tx sel failed.\n");         /* read tx sel failed */
+        handle->debug_print("mfrc522: read tx sel failed.\r\n");         /* read tx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4285,7 +4313,7 @@ uint8_t mfrc522_set_mfout_input(mfrc522_handle_t *handle, mfrc522_mfout_input_t 
     res = a_mfrc522_write(handle, MFRC522_REG_TX_SEL, &prev, 1);       /* write tx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tx sel failed.\n");        /* write tx sel failed */
+        handle->debug_print("mfrc522: write tx sel failed.\r\n");        /* write tx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4321,7 +4349,7 @@ uint8_t mfrc522_get_mfout_input(mfrc522_handle_t *handle, mfrc522_mfout_input_t 
     res = a_mfrc522_read(handle, MFRC522_REG_TX_SEL, &prev, 1);        /* read tx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tx sel failed.\n");         /* read tx sel failed */
+        handle->debug_print("mfrc522: read tx sel failed.\r\n");         /* read tx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4358,7 +4386,7 @@ uint8_t mfrc522_set_contactless_uart_input(mfrc522_handle_t *handle, mfrc522_con
     res = a_mfrc522_read(handle, MFRC522_REG_RX_SEL, &prev, 1);        /* read rx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read rx sel failed.\n");         /* read rx sel failed */
+        handle->debug_print("mfrc522: read rx sel failed.\r\n");         /* read rx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4367,7 +4395,7 @@ uint8_t mfrc522_set_contactless_uart_input(mfrc522_handle_t *handle, mfrc522_con
     res = a_mfrc522_write(handle, MFRC522_REG_RX_SEL, &prev, 1);       /* write rx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write rx sel failed.\n");        /* write rx sel failed */
+        handle->debug_print("mfrc522: write rx sel failed.\r\n");        /* write rx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4403,7 +4431,7 @@ uint8_t mfrc522_get_contactless_uart_input(mfrc522_handle_t *handle, mfrc522_con
     res = a_mfrc522_read(handle, MFRC522_REG_RX_SEL, &prev, 1);        /* read rx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read rx sel failed.\n");         /* read rx sel failed */
+        handle->debug_print("mfrc522: read rx sel failed.\r\n");         /* read rx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4439,7 +4467,7 @@ uint8_t mfrc522_set_rx_wait(mfrc522_handle_t *handle, uint8_t t)
     }
     if (t > 0x3F)                                                      /* check t */
     {
-        handle->debug_print("mfrc522: t is over 0x3F.\n");             /* t is over 0x3F */
+        handle->debug_print("mfrc522: t is over 0x3F.\r\n");             /* t is over 0x3F */
         
         return 4;                                                      /* return error */
     }
@@ -4447,7 +4475,7 @@ uint8_t mfrc522_set_rx_wait(mfrc522_handle_t *handle, uint8_t t)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_SEL, &prev, 1);        /* read rx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read rx sel failed.\n");         /* read rx sel failed */
+        handle->debug_print("mfrc522: read rx sel failed.\r\n");         /* read rx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4456,7 +4484,7 @@ uint8_t mfrc522_set_rx_wait(mfrc522_handle_t *handle, uint8_t t)
     res = a_mfrc522_write(handle, MFRC522_REG_RX_SEL, &prev, 1);       /* write rx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write rx sel failed.\n");        /* write rx sel failed */
+        handle->debug_print("mfrc522: write rx sel failed.\r\n");        /* write rx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4492,7 +4520,7 @@ uint8_t mfrc522_get_rx_wait(mfrc522_handle_t *handle, uint8_t *t)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_SEL, &prev, 1);        /* read rx sel */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read rx sel failed.\n");         /* read rx sel failed */
+        handle->debug_print("mfrc522: read rx sel failed.\r\n");         /* read rx sel failed */
         
         return 1;                                                      /* return error */
     }
@@ -4528,7 +4556,7 @@ uint8_t mfrc522_set_min_level(mfrc522_handle_t *handle, uint8_t level)
     }
     if (level > 0xF)                                                         /* check the level */
     {
-        handle->debug_print("mfrc522: level is over 0xF.\n");                /* level is over 0xF */
+        handle->debug_print("mfrc522: level is over 0xF.\r\n");                /* level is over 0xF */
         
         return 4;                                                            /* return error */
     }
@@ -4536,7 +4564,7 @@ uint8_t mfrc522_set_min_level(mfrc522_handle_t *handle, uint8_t level)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_THRESHOLD, &prev, 1);        /* read rx threshold */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read rx threshold failed.\n");         /* read rx threshold failed */
+        handle->debug_print("mfrc522: read rx threshold failed.\r\n");         /* read rx threshold failed */
         
         return 1;                                                            /* return error */
     }
@@ -4545,7 +4573,7 @@ uint8_t mfrc522_set_min_level(mfrc522_handle_t *handle, uint8_t level)
     res = a_mfrc522_write(handle, MFRC522_REG_RX_THRESHOLD, &prev, 1);       /* write rx threshold */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write rx threshold failed.\n");        /* write rx threshold failed */
+        handle->debug_print("mfrc522: write rx threshold failed.\r\n");        /* write rx threshold failed */
         
         return 1;                                                            /* return error */
     }
@@ -4581,7 +4609,7 @@ uint8_t mfrc522_get_min_level(mfrc522_handle_t *handle, uint8_t *level)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_THRESHOLD, &prev, 1);        /* read rx threshold */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read rx threshold failed.\n");         /* read rx threshold failed */
+        handle->debug_print("mfrc522: read rx threshold failed.\r\n");         /* read rx threshold failed */
         
         return 1;                                                            /* return error */
     }
@@ -4617,7 +4645,7 @@ uint8_t mfrc522_set_collision_level(mfrc522_handle_t *handle, uint8_t level)
     }
     if (level > 7)                                                           /* check the level */
     {
-        handle->debug_print("mfrc522: level is over 7.\n");                  /* level is over 7 */
+        handle->debug_print("mfrc522: level is over 7.\r\n");                  /* level is over 7 */
         
         return 4;                                                            /* return error */
     }
@@ -4625,7 +4653,7 @@ uint8_t mfrc522_set_collision_level(mfrc522_handle_t *handle, uint8_t level)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_THRESHOLD, &prev, 1);        /* read rx threshold */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read rx threshold failed.\n");         /* read rx threshold failed */
+        handle->debug_print("mfrc522: read rx threshold failed.\r\n");         /* read rx threshold failed */
         
         return 1;                                                            /* return error */
     }
@@ -4634,7 +4662,7 @@ uint8_t mfrc522_set_collision_level(mfrc522_handle_t *handle, uint8_t level)
     res = a_mfrc522_write(handle, MFRC522_REG_RX_THRESHOLD, &prev, 1);       /* write rx threshold */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write rx threshold failed.\n");        /* write rx threshold failed */
+        handle->debug_print("mfrc522: write rx threshold failed.\r\n");        /* write rx threshold failed */
         
         return 1;                                                            /* return error */
     }
@@ -4670,7 +4698,7 @@ uint8_t mfrc522_get_collision_level(mfrc522_handle_t *handle, uint8_t *level)
     res = a_mfrc522_read(handle, MFRC522_REG_RX_THRESHOLD, &prev, 1);        /* read rx threshold */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read rx threshold failed.\n");         /* read rx threshold failed */
+        handle->debug_print("mfrc522: read rx threshold failed.\r\n");         /* read rx threshold failed */
         
         return 1;                                                            /* return error */
     }
@@ -4707,7 +4735,7 @@ uint8_t mfrc522_set_channel_reception(mfrc522_handle_t *handle, mfrc522_channel_
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4716,7 +4744,7 @@ uint8_t mfrc522_set_channel_reception(mfrc522_handle_t *handle, mfrc522_channel_
     res = a_mfrc522_write(handle, MFRC522_REG_DEMOD, &prev, 1);       /* write demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write demod failed.\n");        /* write demod failed */
+        handle->debug_print("mfrc522: write demod failed.\r\n");        /* write demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4752,7 +4780,7 @@ uint8_t mfrc522_get_channel_reception(mfrc522_handle_t *handle, mfrc522_channel_
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4789,7 +4817,7 @@ uint8_t mfrc522_set_fix_iq(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4798,7 +4826,7 @@ uint8_t mfrc522_set_fix_iq(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_DEMOD, &prev, 1);       /* write demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write demod failed.\n");        /* write demod failed */
+        handle->debug_print("mfrc522: write demod failed.\r\n");        /* write demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4834,7 +4862,7 @@ uint8_t mfrc522_get_fix_iq(mfrc522_handle_t *handle, mfrc522_bool_t *enable)
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4871,7 +4899,7 @@ uint8_t mfrc522_set_timer_prescal_even(mfrc522_handle_t *handle, mfrc522_bool_t 
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4880,7 +4908,7 @@ uint8_t mfrc522_set_timer_prescal_even(mfrc522_handle_t *handle, mfrc522_bool_t 
     res = a_mfrc522_write(handle, MFRC522_REG_DEMOD, &prev, 1);       /* write demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write demod failed.\n");        /* write demod failed */
+        handle->debug_print("mfrc522: write demod failed.\r\n");        /* write demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4916,7 +4944,7 @@ uint8_t mfrc522_get_timer_prescal_even(mfrc522_handle_t *handle, mfrc522_bool_t 
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4952,7 +4980,7 @@ uint8_t mfrc522_set_timer_constant_reception(mfrc522_handle_t *handle, uint8_t t
     }
     if (t > 3)                                                        /* check the t */
     {
-        handle->debug_print("mfrc522: t is over 3.\n");               /* t is over 3 */
+        handle->debug_print("mfrc522: t is over 3.\r\n");               /* t is over 3 */
         
         return 4;                                                     /* return error */
     }
@@ -4960,7 +4988,7 @@ uint8_t mfrc522_set_timer_constant_reception(mfrc522_handle_t *handle, uint8_t t
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -4969,7 +4997,7 @@ uint8_t mfrc522_set_timer_constant_reception(mfrc522_handle_t *handle, uint8_t t
     res = a_mfrc522_write(handle, MFRC522_REG_DEMOD, &prev, 1);       /* write demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write demod failed.\n");        /* write demod failed */
+        handle->debug_print("mfrc522: write demod failed.\r\n");        /* write demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -5005,7 +5033,7 @@ uint8_t mfrc522_get_timer_constant_reception(mfrc522_handle_t *handle, uint8_t *
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -5041,7 +5069,7 @@ uint8_t mfrc522_set_timer_constant_sync(mfrc522_handle_t *handle, uint8_t t)
     }
     if (t > 3)                                                        /* check the t */
     {
-        handle->debug_print("mfrc522: t is over 3.\n");               /* t is over 3 */
+        handle->debug_print("mfrc522: t is over 3.\r\n");               /* t is over 3 */
         
         return 4;                                                     /* return error */
     }
@@ -5049,7 +5077,7 @@ uint8_t mfrc522_set_timer_constant_sync(mfrc522_handle_t *handle, uint8_t t)
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -5058,7 +5086,7 @@ uint8_t mfrc522_set_timer_constant_sync(mfrc522_handle_t *handle, uint8_t t)
     res = a_mfrc522_write(handle, MFRC522_REG_DEMOD, &prev, 1);       /* write demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write demod failed.\n");        /* write demod failed */
+        handle->debug_print("mfrc522: write demod failed.\r\n");        /* write demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -5094,7 +5122,7 @@ uint8_t mfrc522_get_timer_constant_sync(mfrc522_handle_t *handle, uint8_t *t)
     res = a_mfrc522_read(handle, MFRC522_REG_DEMOD, &prev, 1);        /* read demod */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read demod failed.\n");         /* read demod failed */
+        handle->debug_print("mfrc522: read demod failed.\r\n");         /* read demod failed */
         
         return 1;                                                     /* return error */
     }
@@ -5130,7 +5158,7 @@ uint8_t mfrc522_set_tx_wait(mfrc522_handle_t *handle, uint8_t t)
     }
     if (t > 3)                                                       /* check the t */
     {
-        handle->debug_print("mfrc522: t is over 3.\n");              /* t is over 3 */
+        handle->debug_print("mfrc522: t is over 3.\r\n");              /* t is over 3 */
         
         return 4;                                                    /* return error */
     }
@@ -5138,7 +5166,7 @@ uint8_t mfrc522_set_tx_wait(mfrc522_handle_t *handle, uint8_t t)
     res = a_mfrc522_read(handle, MFRC522_REG_MFTX, &prev, 1);        /* read mftx */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: read mftx failed.\n");         /* read mftx failed */
+        handle->debug_print("mfrc522: read mftx failed.\r\n");         /* read mftx failed */
         
         return 1;                                                    /* return error */
     }
@@ -5147,7 +5175,7 @@ uint8_t mfrc522_set_tx_wait(mfrc522_handle_t *handle, uint8_t t)
     res = a_mfrc522_write(handle, MFRC522_REG_MFTX, &prev, 1);       /* write mftx */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: write mftx failed.\n");        /* write mftx failed */
+        handle->debug_print("mfrc522: write mftx failed.\r\n");        /* write mftx failed */
         
         return 1;                                                    /* return error */
     }
@@ -5183,7 +5211,7 @@ uint8_t mfrc522_get_tx_wait(mfrc522_handle_t *handle, uint8_t *t)
     res = a_mfrc522_read(handle, MFRC522_REG_MFTX, &prev, 1);        /* read mftx */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: read mftx failed.\n");         /* read mftx failed */
+        handle->debug_print("mfrc522: read mftx failed.\r\n");         /* read mftx failed */
         
         return 1;                                                    /* return error */
     }
@@ -5220,7 +5248,7 @@ uint8_t mfrc522_set_parity_disable(mfrc522_handle_t *handle, mfrc522_bool_t enab
     res = a_mfrc522_read(handle, MFRC522_REG_MFRX, &prev, 1);        /* read mfrx */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: read mfrx failed.\n");         /* read mfrx failed */
+        handle->debug_print("mfrc522: read mfrx failed.\r\n");         /* read mfrx failed */
         
         return 1;                                                    /* return error */
     }
@@ -5229,7 +5257,7 @@ uint8_t mfrc522_set_parity_disable(mfrc522_handle_t *handle, mfrc522_bool_t enab
     res = a_mfrc522_write(handle, MFRC522_REG_MFRX, &prev, 1);       /* write mfrx */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: write mfrx failed.\n");        /* write mfrx failed */
+        handle->debug_print("mfrc522: write mfrx failed.\r\n");        /* write mfrx failed */
         
         return 1;                                                    /* return error */
     }
@@ -5265,7 +5293,7 @@ uint8_t mfrc522_get_parity_disable(mfrc522_handle_t *handle, mfrc522_bool_t *ena
     res = a_mfrc522_read(handle, MFRC522_REG_MFRX, &prev, 1);        /* read mfrx */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: read mfrx failed.\n");         /* read mfrx failed */
+        handle->debug_print("mfrc522: read mfrx failed.\r\n");         /* read mfrx failed */
         
         return 1;                                                    /* return error */
     }
@@ -5315,13 +5343,13 @@ uint8_t mfrc522_set_serial_speed(mfrc522_handle_t *handle, uint8_t t0, uint8_t t
     }
     if (t0 > 0x7)                                                            /* check the t0 */
     {
-        handle->debug_print("mfrc522: t0 is over 0x7.\n");                   /* t0 is over 0x7 */
+        handle->debug_print("mfrc522: t0 is over 0x7.\r\n");                   /* t0 is over 0x7 */
         
         return 4;                                                            /* return error */
     }
     if (t1 > 0x1F)                                                           /* check the t1 */
     {
-        handle->debug_print("mfrc522: t1 is over 0x1F.\n");                  /* t1 is over 0x1F */
+        handle->debug_print("mfrc522: t1 is over 0x1F.\r\n");                  /* t1 is over 0x1F */
         
         return 5;                                                            /* return error */
     }
@@ -5329,7 +5357,7 @@ uint8_t mfrc522_set_serial_speed(mfrc522_handle_t *handle, uint8_t t0, uint8_t t
     res = a_mfrc522_read(handle, MFRC522_REG_SERIAL_SPEED, &prev, 1);        /* read serial speed  */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read serial speed failed.\n");         /* read serial speed failed */
+        handle->debug_print("mfrc522: read serial speed failed.\r\n");         /* read serial speed failed */
         
         return 1;                                                            /* return error */
     }
@@ -5337,7 +5365,7 @@ uint8_t mfrc522_set_serial_speed(mfrc522_handle_t *handle, uint8_t t0, uint8_t t
     res = a_mfrc522_write(handle, MFRC522_REG_SERIAL_SPEED, &prev, 1);       /* write serial speed */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write serial speed failed.\n");        /* write serial speed failed */
+        handle->debug_print("mfrc522: write serial speed failed.\r\n");        /* write serial speed failed */
         
         return 1;                                                            /* return error */
     }
@@ -5374,7 +5402,7 @@ uint8_t mfrc522_get_serial_speed(mfrc522_handle_t *handle, uint8_t *t0, uint8_t 
     res = a_mfrc522_read(handle, MFRC522_REG_SERIAL_SPEED, &prev, 1);        /* read serial speed */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read serial speed failed.\n");         /* read serial speed failed */
+        handle->debug_print("mfrc522: read serial speed failed.\r\n");         /* read serial speed failed */
         
         return 1;                                                            /* return error */
     }
@@ -5412,7 +5440,7 @@ uint8_t mfrc522_get_crc(mfrc522_handle_t *handle, uint16_t *crc)
     res = a_mfrc522_read(handle, MFRC522_REG_CRC_RESULT_H, buf, 2);        /* read crc result */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read crc result failed.\n");         /* read crc result failed */
+        handle->debug_print("mfrc522: read crc result failed.\r\n");         /* read crc result failed */
         
         return 1;                                                          /* return error */
     }
@@ -5448,7 +5476,7 @@ uint8_t mfrc522_set_modulation_width(mfrc522_handle_t *handle, uint8_t width)
     res = a_mfrc522_write(handle, MFRC522_REG_MOD_WIDTH, &width, 1);        /* write mod width */
     if (res != 0)                                                           /* check the result */
     {
-        handle->debug_print("mfrc522: write mod width failed.\n");          /* write mod width failed */
+        handle->debug_print("mfrc522: write mod width failed.\r\n");          /* write mod width failed */
         
         return 1;                                                           /* return error */
     }
@@ -5483,7 +5511,7 @@ uint8_t mfrc522_get_modulation_width(mfrc522_handle_t *handle, uint8_t *width)
     res = a_mfrc522_read(handle, MFRC522_REG_MOD_WIDTH, width, 1);        /* read mod width */
     if (res != 0)                                                         /* check the result */
     {
-        handle->debug_print("mfrc522: read mod width failed.\n");         /* read mod width failed */
+        handle->debug_print("mfrc522: read mod width failed.\r\n");         /* read mod width failed */
         
         return 1;                                                         /* return error */
     }
@@ -5519,7 +5547,7 @@ uint8_t mfrc522_set_rx_gain(mfrc522_handle_t *handle, mfrc522_rx_gain_t gain)
     res = a_mfrc522_read(handle, MFRC522_REG_RFCFG, &prev, 1);        /* read rf cfg */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rf cfg failed.\n");        /* read rf cfg failed */
+        handle->debug_print("mfrc522: read rf cfg failed.\r\n");        /* read rf cfg failed */
         
         return 1;                                                     /* return error */
     }
@@ -5528,7 +5556,7 @@ uint8_t mfrc522_set_rx_gain(mfrc522_handle_t *handle, mfrc522_rx_gain_t gain)
     res = a_mfrc522_write(handle, MFRC522_REG_RFCFG, &prev, 1);       /* write rf cfg */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: write rf cfg failed.\n");       /* write rf cfg failed */
+        handle->debug_print("mfrc522: write rf cfg failed.\r\n");       /* write rf cfg failed */
         
         return 1;                                                     /* return error */
     }
@@ -5564,7 +5592,7 @@ uint8_t mfrc522_get_rx_gain(mfrc522_handle_t *handle, mfrc522_rx_gain_t *gain)
     res = a_mfrc522_read(handle, MFRC522_REG_RFCFG, &prev, 1);        /* read rf cfg */
     if (res != 0)                                                     /* check the result */
     {
-        handle->debug_print("mfrc522: read rf cfg failed.\n");        /* read rf cfg failed */
+        handle->debug_print("mfrc522: read rf cfg failed.\r\n");        /* read rf cfg failed */
         
         return 1;                                                     /* return error */
     }
@@ -5600,7 +5628,7 @@ uint8_t mfrc522_set_cwgsn(mfrc522_handle_t *handle, uint8_t n)
     }
     if (n > 0xF)                                                    /* check n */
     {
-        handle->debug_print("mfrc522: n is over 0xF.\n");           /* n is over 0xF */
+        handle->debug_print("mfrc522: n is over 0xF.\r\n");           /* n is over 0xF */
         
         return 4;                                                   /* return error */
     }
@@ -5608,7 +5636,7 @@ uint8_t mfrc522_set_cwgsn(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_read(handle, MFRC522_REG_GSN, &prev, 1);        /* read gsn */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read gsn failed.\n");         /* read gsn failed */
+        handle->debug_print("mfrc522: read gsn failed.\r\n");         /* read gsn failed */
         
         return 1;                                                   /* return error */
     }
@@ -5617,7 +5645,7 @@ uint8_t mfrc522_set_cwgsn(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_write(handle, MFRC522_REG_GSN, &prev, 1);       /* write gsn */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write gsn failed.\n");        /* write gsn failed */
+        handle->debug_print("mfrc522: write gsn failed.\r\n");        /* write gsn failed */
         
         return 1;                                                   /* return error */
     }
@@ -5653,7 +5681,7 @@ uint8_t mfrc522_get_cwgsn(mfrc522_handle_t *handle, uint8_t *n)
     res = a_mfrc522_read(handle, MFRC522_REG_GSN, &prev, 1);        /* read gsn */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read gsn failed.\n");         /* read gsn failed */
+        handle->debug_print("mfrc522: read gsn failed.\r\n");         /* read gsn failed */
         
         return 1;                                                   /* return error */
     }
@@ -5689,7 +5717,7 @@ uint8_t mfrc522_set_modgsn(mfrc522_handle_t *handle, uint8_t n)
     }
     if (n > 0xF)                                                    /* check n */
     {
-        handle->debug_print("mfrc522: n is over 0xF.\n");           /* n is over 0xF */
+        handle->debug_print("mfrc522: n is over 0xF.\r\n");           /* n is over 0xF */
         
         return 4;                                                   /* return error */
     }
@@ -5697,7 +5725,7 @@ uint8_t mfrc522_set_modgsn(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_read(handle, MFRC522_REG_GSN, &prev, 1);        /* read gsn */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read gsn failed.\n");         /* read gsn failed */
+        handle->debug_print("mfrc522: read gsn failed.\r\n");         /* read gsn failed */
         
         return 1;                                                   /* return error */
     }
@@ -5706,7 +5734,7 @@ uint8_t mfrc522_set_modgsn(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_write(handle, MFRC522_REG_GSN, &prev, 1);       /* write gsn */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write gsn failed.\n");        /* write gsn failed */
+        handle->debug_print("mfrc522: write gsn failed.\r\n");        /* write gsn failed */
         
         return 1;                                                   /* return error */
     }
@@ -5742,7 +5770,7 @@ uint8_t mfrc522_get_modgsn(mfrc522_handle_t *handle, uint8_t *n)
     res = a_mfrc522_read(handle, MFRC522_REG_GSN, &prev, 1);        /* read gsn */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read gsn failed.\n");         /* read gsn failed */
+        handle->debug_print("mfrc522: read gsn failed.\r\n");         /* read gsn failed */
         
         return 1;                                                   /* return error */
     }
@@ -5778,7 +5806,7 @@ uint8_t mfrc522_set_cwgsp(mfrc522_handle_t *handle, uint8_t n)
     }
     if (n > 0x3F)                                                   /* check n */
     {
-        handle->debug_print("mfrc522: n is over 0x3F.\n");          /* n is over 0xF3 */
+        handle->debug_print("mfrc522: n is over 0x3F.\r\n");          /* n is over 0xF3 */
         
         return 4;                                                   /* return error */
     }
@@ -5786,7 +5814,7 @@ uint8_t mfrc522_set_cwgsp(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_read(handle, MFRC522_REG_CWGSP, &prev, 1);      /* read cwgsp */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read cwgsp failed.\n");       /* read cwgsp failed */
+        handle->debug_print("mfrc522: read cwgsp failed.\r\n");       /* read cwgsp failed */
         
         return 1;                                                   /* return error */
     }
@@ -5795,7 +5823,7 @@ uint8_t mfrc522_set_cwgsp(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_write(handle, MFRC522_REG_CWGSP, &prev, 1);     /* write cwgsp */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: write cwgsp failed.\n");      /* write cwgsp failed */
+        handle->debug_print("mfrc522: write cwgsp failed.\r\n");      /* write cwgsp failed */
         
         return 1;                                                   /* return error */
     }
@@ -5831,7 +5859,7 @@ uint8_t mfrc522_get_cwgsp(mfrc522_handle_t *handle, uint8_t *n)
     res = a_mfrc522_read(handle, MFRC522_REG_CWGSP, &prev, 1);      /* read cwgsp */
     if (res != 0)                                                   /* check the result */
     {
-        handle->debug_print("mfrc522: read cwgsp failed.\n");       /* read cwgsp failed */
+        handle->debug_print("mfrc522: read cwgsp failed.\r\n");       /* read cwgsp failed */
         
         return 1;                                                   /* return error */
     }
@@ -5867,7 +5895,7 @@ uint8_t mfrc522_set_modgsp(mfrc522_handle_t *handle, uint8_t n)
     }
     if (n > 0x3F)                                                    /* check n */
     {
-        handle->debug_print("mfrc522: n is over 0x3F.\n");           /* n is over 0xF3 */
+        handle->debug_print("mfrc522: n is over 0x3F.\r\n");           /* n is over 0xF3 */
         
         return 4;                                                    /* return error */
     }
@@ -5875,7 +5903,7 @@ uint8_t mfrc522_set_modgsp(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_read(handle, MFRC522_REG_MODGSP, &prev, 1);      /* read modgsp */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: read modgsp failed.\n");       /* read modgsp failed */
+        handle->debug_print("mfrc522: read modgsp failed.\r\n");       /* read modgsp failed */
         
         return 1;                                                    /* return error */
     }
@@ -5884,7 +5912,7 @@ uint8_t mfrc522_set_modgsp(mfrc522_handle_t *handle, uint8_t n)
     res = a_mfrc522_write(handle, MFRC522_REG_MODGSP, &prev, 1);     /* write modgsp */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: write modgsp failed.\n");      /* write modgsp failed */
+        handle->debug_print("mfrc522: write modgsp failed.\r\n");      /* write modgsp failed */
         
         return 1;                                                    /* return error */
     }
@@ -5920,7 +5948,7 @@ uint8_t mfrc522_get_modgsp(mfrc522_handle_t *handle, uint8_t *n)
     res = a_mfrc522_read(handle, MFRC522_REG_MODGSP, &prev, 1);      /* read modgsp */
     if (res != 0)                                                    /* check the result */
     {
-        handle->debug_print("mfrc522: read modgsp failed.\n");       /* read modgsp failed */
+        handle->debug_print("mfrc522: read modgsp failed.\r\n");       /* read modgsp failed */
         
         return 1;                                                    /* return error */
     }
@@ -5957,7 +5985,7 @@ uint8_t mfrc522_set_timer_auto(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev, 1);         /* read tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");          /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");          /* read tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -5966,7 +5994,7 @@ uint8_t mfrc522_set_timer_auto(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_TMODE, &prev, 1);        /* write tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tmode failed.\n");         /* write tmode failed */
+        handle->debug_print("mfrc522: write tmode failed.\r\n");         /* write tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6002,7 +6030,7 @@ uint8_t mfrc522_get_timer_auto(mfrc522_handle_t *handle, mfrc522_bool_t *enable)
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev, 1);         /* read tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");          /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");          /* read tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6039,7 +6067,7 @@ uint8_t mfrc522_set_timer_gated_mode(mfrc522_handle_t *handle, mfrc522_timer_gat
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev, 1);         /* read tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");          /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");          /* read tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6048,7 +6076,7 @@ uint8_t mfrc522_set_timer_gated_mode(mfrc522_handle_t *handle, mfrc522_timer_gat
     res = a_mfrc522_write(handle, MFRC522_REG_TMODE, &prev, 1);        /* write tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tmode failed.\n");         /* write tmode failed */
+        handle->debug_print("mfrc522: write tmode failed.\r\n");         /* write tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6084,7 +6112,7 @@ uint8_t mfrc522_get_timer_gated_mode(mfrc522_handle_t *handle, mfrc522_timer_gat
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev, 1);         /* read tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");          /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");          /* read tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6121,7 +6149,7 @@ uint8_t mfrc522_set_timer_auto_restart(mfrc522_handle_t *handle, mfrc522_bool_t 
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev, 1);         /* read tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");          /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");          /* read tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6130,7 +6158,7 @@ uint8_t mfrc522_set_timer_auto_restart(mfrc522_handle_t *handle, mfrc522_bool_t 
     res = a_mfrc522_write(handle, MFRC522_REG_TMODE, &prev, 1);        /* write tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tmode failed.\n");         /* write tmode failed */
+        handle->debug_print("mfrc522: write tmode failed.\r\n");         /* write tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6166,7 +6194,7 @@ uint8_t mfrc522_get_timer_auto_restart(mfrc522_handle_t *handle, mfrc522_bool_t 
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev, 1);         /* read tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");          /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");          /* read tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6202,7 +6230,7 @@ uint8_t mfrc522_set_timer_prescaler(mfrc522_handle_t *handle, uint16_t t)
     }
     if (t > 0xFFF)                                                     /* check t */
     {
-        handle->debug_print("mfrc522: t is over 0xFFF.\n");            /* t is over 0xFFF */
+        handle->debug_print("mfrc522: t is over 0xFFF.\r\n");            /* t is over 0xFFF */
         
         return 4;                                                      /* return error */
     }
@@ -6210,7 +6238,7 @@ uint8_t mfrc522_set_timer_prescaler(mfrc522_handle_t *handle, uint16_t t)
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev, 1);         /* read tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");          /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");          /* read tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6219,7 +6247,7 @@ uint8_t mfrc522_set_timer_prescaler(mfrc522_handle_t *handle, uint16_t t)
     res = a_mfrc522_write(handle, MFRC522_REG_TMODE, &prev, 1);        /* write tmode */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tmode failed.\n");         /* write tmode failed */
+        handle->debug_print("mfrc522: write tmode failed.\r\n");         /* write tmode failed */
         
         return 1;                                                      /* return error */
     }
@@ -6227,7 +6255,7 @@ uint8_t mfrc522_set_timer_prescaler(mfrc522_handle_t *handle, uint16_t t)
     res = a_mfrc522_write(handle, MFRC522_REG_TPRESCALER, &prev, 1);   /* write tprescaler */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write tprescaler failed.\n");    /* write tprescaler failed */
+        handle->debug_print("mfrc522: write tprescaler failed.\r\n");    /* write tprescaler failed */
         
         return 1;                                                      /* return error */
     }
@@ -6263,14 +6291,14 @@ uint8_t mfrc522_get_timer_prescaler(mfrc522_handle_t *handle, uint16_t *t)
     res = a_mfrc522_read(handle, MFRC522_REG_TMODE, &prev1, 1);             /* read tmode */
     if (res != 0)                                                           /* check the result */
     {
-        handle->debug_print("mfrc522: read tmode failed.\n");               /* read tmode failed */
+        handle->debug_print("mfrc522: read tmode failed.\r\n");               /* read tmode failed */
         
         return 1;                                                           /* return error */
     }
     res = a_mfrc522_read(handle, MFRC522_REG_TPRESCALER, &prev2, 1);        /* read tprescaler */
     if (res != 0)                                                           /* check the result */
     {
-        handle->debug_print("mfrc522: read tprescaler failed.\n");          /* read tprescaler failed */
+        handle->debug_print("mfrc522: read tprescaler failed.\r\n");          /* read tprescaler failed */
         
         return 1;                                                           /* return error */
     }
@@ -6309,7 +6337,7 @@ uint8_t mfrc522_set_timer_reload(mfrc522_handle_t *handle, uint16_t reload)
     res = a_mfrc522_write(handle, MFRC522_REG_TRELOAD_H, buf, 2);        /* write treload */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write treload failed.\n");         /* write treload failed */
+        handle->debug_print("mfrc522: write treload failed.\r\n");         /* write treload failed */
         
         return 1;                                                        /* return error */
     }
@@ -6345,7 +6373,7 @@ uint8_t mfrc522_get_timer_reload(mfrc522_handle_t *handle, uint16_t *reload)
     res = a_mfrc522_read(handle, MFRC522_REG_TRELOAD_H, buf, 2);        /* read treload */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read treload failed.\n");         /* read treload failed */
+        handle->debug_print("mfrc522: read treload failed.\r\n");         /* read treload failed */
         
         return 1;                                                       /* return error */
     }
@@ -6382,7 +6410,7 @@ uint8_t mfrc522_get_timer_counter(mfrc522_handle_t *handle, uint16_t *cnt)
     res = a_mfrc522_read(handle, MFRC522_REG_TCOUNTER_VAL_H, buf, 2);        /* read tcounter */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read tcounter failed.\n");             /* read tcounter failed */
+        handle->debug_print("mfrc522: read tcounter failed.\r\n");             /* read tcounter failed */
         
         return 1;                                                            /* return error */
     }
@@ -6418,7 +6446,7 @@ uint8_t mfrc522_set_test_bus_signal_1(mfrc522_handle_t *handle, uint8_t s)
     }
     if (s > 7)                                                         /* check s */
     {
-        handle->debug_print("mfrc522: s is over 7.\n");                /* s is over 7 */
+        handle->debug_print("mfrc522: s is over 7.\r\n");                /* s is over 7 */
         
         return 4;                                                      /* return error */
     }
@@ -6426,7 +6454,7 @@ uint8_t mfrc522_set_test_bus_signal_1(mfrc522_handle_t *handle, uint8_t s)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL1, &prev, 1);     /* read test sel 1 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 1 failed.\n");     /* read test sel 1 failed */
+        handle->debug_print("mfrc522: read test sel 1 failed.\r\n");     /* read test sel 1 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6435,7 +6463,7 @@ uint8_t mfrc522_set_test_bus_signal_1(mfrc522_handle_t *handle, uint8_t s)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_SEL1, &prev, 1);    /* write test sel 1 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write test sel 1 failed.\n");    /* write test sel 1 failed */
+        handle->debug_print("mfrc522: write test sel 1 failed.\r\n");    /* write test sel 1 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6471,7 +6499,7 @@ uint8_t mfrc522_get_test_bus_signal_1(mfrc522_handle_t *handle, uint8_t *s)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL1, &prev, 1);     /* read test sel 1 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 1 failed.\n");     /* read test sel 1 failed */
+        handle->debug_print("mfrc522: read test sel 1 failed.\r\n");     /* read test sel 1 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6507,7 +6535,7 @@ uint8_t mfrc522_set_test_bus_signal_2(mfrc522_handle_t *handle, uint8_t s)
     }
     if (s > 0x1F)                                                      /* check s */
     {
-        handle->debug_print("mfrc522: s is over 0x1F.\n");             /* s is over 0x1F */
+        handle->debug_print("mfrc522: s is over 0x1F.\r\n");             /* s is over 0x1F */
         
         return 4;                                                      /* return error */
     }
@@ -6515,7 +6543,7 @@ uint8_t mfrc522_set_test_bus_signal_2(mfrc522_handle_t *handle, uint8_t s)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6524,7 +6552,7 @@ uint8_t mfrc522_set_test_bus_signal_2(mfrc522_handle_t *handle, uint8_t s)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_SEL2, &prev, 1);    /* write test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write test sel 2 failed.\n");    /* write test sel 2 failed */
+        handle->debug_print("mfrc522: write test sel 2 failed.\r\n");    /* write test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6560,7 +6588,7 @@ uint8_t mfrc522_get_test_bus_signal_2(mfrc522_handle_t *handle, uint8_t *s)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6597,7 +6625,7 @@ uint8_t mfrc522_set_test_bus_flip(mfrc522_handle_t *handle, mfrc522_bool_t enabl
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6606,7 +6634,7 @@ uint8_t mfrc522_set_test_bus_flip(mfrc522_handle_t *handle, mfrc522_bool_t enabl
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_SEL2, &prev, 1);    /* write test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write test sel 2 failed.\n");    /* write test sel 2 failed */
+        handle->debug_print("mfrc522: write test sel 2 failed.\r\n");    /* write test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6642,7 +6670,7 @@ uint8_t mfrc522_get_test_bus_flip(mfrc522_handle_t *handle, mfrc522_bool_t *enab
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6679,7 +6707,7 @@ uint8_t mfrc522_set_test_prbs9(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6688,7 +6716,7 @@ uint8_t mfrc522_set_test_prbs9(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_SEL2, &prev, 1);    /* write test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write test sel 2 failed.\n");    /* write test sel 2 failed */
+        handle->debug_print("mfrc522: write test sel 2 failed.\r\n");    /* write test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6724,7 +6752,7 @@ uint8_t mfrc522_get_test_prbs9(mfrc522_handle_t *handle, mfrc522_bool_t *enable)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6761,7 +6789,7 @@ uint8_t mfrc522_set_test_prbs15(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6770,7 +6798,7 @@ uint8_t mfrc522_set_test_prbs15(mfrc522_handle_t *handle, mfrc522_bool_t enable)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_SEL2, &prev, 1);    /* write test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: write test sel 2 failed.\n");    /* write test sel 2 failed */
+        handle->debug_print("mfrc522: write test sel 2 failed.\r\n");    /* write test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6806,7 +6834,7 @@ uint8_t mfrc522_get_test_prbs15(mfrc522_handle_t *handle, mfrc522_bool_t *enable
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_SEL2, &prev, 1);     /* read test sel 2 */
     if (res != 0)                                                      /* check the result */
     {
-        handle->debug_print("mfrc522: read test sel 2 failed.\n");     /* read test sel 2 failed */
+        handle->debug_print("mfrc522: read test sel 2 failed.\r\n");     /* read test sel 2 failed */
         
         return 1;                                                      /* return error */
     }
@@ -6843,7 +6871,7 @@ uint8_t mfrc522_set_test_rs232_line(mfrc522_handle_t *handle, mfrc522_bool_t ena
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_EN, &prev, 1);         /* read test pin en */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin en failed.\n");          /* read test pin en failed */
+        handle->debug_print("mfrc522: read test pin en failed.\r\n");          /* read test pin en failed */
         
         return 1;                                                            /* return error */
     }
@@ -6852,7 +6880,7 @@ uint8_t mfrc522_set_test_rs232_line(mfrc522_handle_t *handle, mfrc522_bool_t ena
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_PIN_EN, &prev, 1);        /* write test pin en */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write test pin en failed.\n");         /* write test pin en failed */
+        handle->debug_print("mfrc522: write test pin en failed.\r\n");         /* write test pin en failed */
         
         return 1;                                                            /* return error */
     }
@@ -6888,7 +6916,7 @@ uint8_t mfrc522_get_test_rs232_line(mfrc522_handle_t *handle, mfrc522_bool_t *en
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_EN, &prev, 1);         /* read test pin en */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin en failed.\n");          /* read test pin en failed */
+        handle->debug_print("mfrc522: read test pin en failed.\r\n");          /* read test pin en failed */
         
         return 1;                                                            /* return error */
     }
@@ -6924,7 +6952,7 @@ uint8_t mfrc522_set_test_pin_enable(mfrc522_handle_t *handle, uint8_t pin)
     }
     if (pin > 0x3F)                                                          /* check pin */
     {
-        handle->debug_print("mfrc522: pin is over 0x3F.\n");                 /* pin is over 0x3F */
+        handle->debug_print("mfrc522: pin is over 0x3F.\r\n");                 /* pin is over 0x3F */
         
         return 4;                                                            /* return error */
     }
@@ -6932,7 +6960,7 @@ uint8_t mfrc522_set_test_pin_enable(mfrc522_handle_t *handle, uint8_t pin)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_EN, &prev, 1);         /* read test pin en */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin en failed.\n");          /* read test pin en failed */
+        handle->debug_print("mfrc522: read test pin en failed.\r\n");          /* read test pin en failed */
         
         return 1;                                                            /* return error */
     }
@@ -6941,7 +6969,7 @@ uint8_t mfrc522_set_test_pin_enable(mfrc522_handle_t *handle, uint8_t pin)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_PIN_EN, &prev, 1);        /* write test pin en */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: write test pin en failed.\n");         /* write test pin en failed */
+        handle->debug_print("mfrc522: write test pin en failed.\r\n");         /* write test pin en failed */
         
         return 1;                                                            /* return error */
     }
@@ -6977,7 +7005,7 @@ uint8_t mfrc522_get_test_pin_enable(mfrc522_handle_t *handle, uint8_t *pin)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_EN, &prev, 1);         /* read test pin en */
     if (res != 0)                                                            /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin en failed.\n");          /* read test pin en failed */
+        handle->debug_print("mfrc522: read test pin en failed.\r\n");          /* read test pin en failed */
         
         return 1;                                                            /* return error */
     }
@@ -7014,7 +7042,7 @@ uint8_t mfrc522_set_test_port_io(mfrc522_handle_t *handle, mfrc522_bool_t enable
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_VALUE, &prev, 1);        /* read test pin value */
     if (res != 0)                                                              /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin value failed.\n");         /* read test pin value failed */
+        handle->debug_print("mfrc522: read test pin value failed.\r\n");         /* read test pin value failed */
         
         return 1;                                                              /* return error */
     }
@@ -7023,7 +7051,7 @@ uint8_t mfrc522_set_test_port_io(mfrc522_handle_t *handle, mfrc522_bool_t enable
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_PIN_VALUE, &prev, 1);       /* write test pin value */
     if (res != 0)                                                              /* check the result */
     {
-        handle->debug_print("mfrc522: write test pin value failed.\n");        /* write test pin value failed */
+        handle->debug_print("mfrc522: write test pin value failed.\r\n");        /* write test pin value failed */
         
         return 1;                                                              /* return error */
     }
@@ -7059,7 +7087,7 @@ uint8_t mfrc522_get_test_port_io(mfrc522_handle_t *handle, mfrc522_bool_t *enabl
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_VALUE, &prev, 1);        /* read test pin value */
     if (res != 0)                                                              /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin value failed.\n");         /* read test pin value failed */
+        handle->debug_print("mfrc522: read test pin value failed.\r\n");         /* read test pin value failed */
         
         return 1;                                                              /* return error */
     }
@@ -7095,7 +7123,7 @@ uint8_t mfrc522_set_test_pin_value(mfrc522_handle_t *handle, uint8_t value)
     }
     if (value > 0x3F)                                                          /* check the value */
     {
-        handle->debug_print("mfrc522: value is over 0x3F.\n");                 /* value is over 0x3F */
+        handle->debug_print("mfrc522: value is over 0x3F.\r\n");                 /* value is over 0x3F */
         
         return 4;                                                              /* return error */
     }
@@ -7103,7 +7131,7 @@ uint8_t mfrc522_set_test_pin_value(mfrc522_handle_t *handle, uint8_t value)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_VALUE, &prev, 1);        /* read test pin value */
     if (res != 0)                                                              /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin value failed.\n");         /* read test pin value failed */
+        handle->debug_print("mfrc522: read test pin value failed.\r\n");         /* read test pin value failed */
         
         return 1;                                                              /* return error */
     }
@@ -7112,7 +7140,7 @@ uint8_t mfrc522_set_test_pin_value(mfrc522_handle_t *handle, uint8_t value)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_PIN_VALUE, &prev, 1);       /* write test pin value */
     if (res != 0)                                                              /* check the result */
     {
-        handle->debug_print("mfrc522: write test pin value failed.\n");        /* write test pin value failed */
+        handle->debug_print("mfrc522: write test pin value failed.\r\n");        /* write test pin value failed */
         
         return 1;                                                              /* return error */
     }
@@ -7148,7 +7176,7 @@ uint8_t mfrc522_get_test_pin_value(mfrc522_handle_t *handle, uint8_t *value)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_PIN_VALUE, &prev, 1);        /* read test pin value */
     if (res != 0)                                                              /* check the result */
     {
-        handle->debug_print("mfrc522: read test pin value failed.\n");         /* read test pin value failed */
+        handle->debug_print("mfrc522: read test pin value failed.\r\n");         /* read test pin value failed */
         
         return 1;                                                              /* return error */
     }
@@ -7184,7 +7212,7 @@ uint8_t mfrc522_get_test_bus(mfrc522_handle_t *handle, uint8_t *bus)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_BUS, bus, 1);          /* read test bus */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: read test bus failed.\n");         /* read test bus failed */
+        handle->debug_print("mfrc522: read test bus failed.\r\n");         /* read test bus failed */
         
         return 1;                                                        /* return error */
     }
@@ -7220,7 +7248,7 @@ uint8_t mfrc522_set_test_amp_rcv(mfrc522_handle_t *handle, mfrc522_bool_t enable
     res = a_mfrc522_read(handle, MFRC522_REG_AUTO_TEST, &prev, 1);         /* read auto test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read auto test failed.\n");          /* read auto test failed */
+        handle->debug_print("mfrc522: read auto test failed.\r\n");          /* read auto test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7229,7 +7257,7 @@ uint8_t mfrc522_set_test_amp_rcv(mfrc522_handle_t *handle, mfrc522_bool_t enable
     res = a_mfrc522_write(handle, MFRC522_REG_AUTO_TEST, &prev, 1);        /* write auto test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: write auto test failed.\n");         /* write auto test failed */
+        handle->debug_print("mfrc522: write auto test failed.\r\n");         /* write auto test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7265,7 +7293,7 @@ uint8_t mfrc522_get_test_amp_rcv(mfrc522_handle_t *handle, mfrc522_bool_t *enabl
     res = a_mfrc522_read(handle, MFRC522_REG_AUTO_TEST, &prev, 1);         /* read auto test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read auto test failed.\n");          /* read auto test failed */
+        handle->debug_print("mfrc522: read auto test failed.\r\n");          /* read auto test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7301,7 +7329,7 @@ uint8_t mfrc522_set_self_test(mfrc522_handle_t *handle, uint8_t test)
     }
     if (test > 0xF)                                                        /* check the test */
     {
-        handle->debug_print("mfrc522: test is over 0xF.\n");               /* test is over 0xF */
+        handle->debug_print("mfrc522: test is over 0xF.\r\n");               /* test is over 0xF */
         
         return 4;                                                          /* return error */
     }
@@ -7309,7 +7337,7 @@ uint8_t mfrc522_set_self_test(mfrc522_handle_t *handle, uint8_t test)
     res = a_mfrc522_read(handle, MFRC522_REG_AUTO_TEST, &prev, 1);         /* read auto test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read auto test failed.\n");          /* read auto test failed */
+        handle->debug_print("mfrc522: read auto test failed.\r\n");          /* read auto test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7318,7 +7346,7 @@ uint8_t mfrc522_set_self_test(mfrc522_handle_t *handle, uint8_t test)
     res = a_mfrc522_write(handle, MFRC522_REG_AUTO_TEST, &prev, 1);        /* write auto test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: write auto test failed.\n");         /* write auto test failed */
+        handle->debug_print("mfrc522: write auto test failed.\r\n");         /* write auto test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7354,7 +7382,7 @@ uint8_t mfrc522_get_self_test(mfrc522_handle_t *handle, uint8_t *test)
     res = a_mfrc522_read(handle, MFRC522_REG_AUTO_TEST, &prev, 1);         /* read auto test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read auto test failed.\n");          /* read auto test failed */
+        handle->debug_print("mfrc522: read auto test failed.\r\n");          /* read auto test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7392,7 +7420,7 @@ uint8_t mfrc522_get_version(mfrc522_handle_t *handle, uint8_t *id, uint8_t *vers
     res = a_mfrc522_read(handle, MFRC522_REG_VERSION, &prev, 1);        /* read version */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read version failed.\n");         /* read version failed */
+        handle->debug_print("mfrc522: read version failed.\r\n");         /* read version failed */
         
         return 1;                                                       /* return error */
     }
@@ -7430,7 +7458,7 @@ uint8_t mfrc522_set_test_analog_control_aux_1(mfrc522_handle_t *handle, mfrc522_
     res = a_mfrc522_read(handle, MFRC522_REG_ANALOG_TEST, &prev, 1);       /* read analog test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read analog test failed.\n");        /* read analog test failed */
+        handle->debug_print("mfrc522: read analog test failed.\r\n");        /* read analog test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7439,7 +7467,7 @@ uint8_t mfrc522_set_test_analog_control_aux_1(mfrc522_handle_t *handle, mfrc522_
     res = a_mfrc522_write(handle, MFRC522_REG_ANALOG_TEST, &prev, 1);      /* write analog test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: write analog test failed.\n");       /* write analog test failed */
+        handle->debug_print("mfrc522: write analog test failed.\r\n");       /* write analog test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7475,7 +7503,7 @@ uint8_t mfrc522_get_test_analog_control_aux_1(mfrc522_handle_t *handle, mfrc522_
     res = a_mfrc522_read(handle, MFRC522_REG_ANALOG_TEST, &prev, 1);       /* read analog test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read analog test failed.\n");        /* read analog test failed */
+        handle->debug_print("mfrc522: read analog test failed.\r\n");        /* read analog test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7512,7 +7540,7 @@ uint8_t mfrc522_set_test_analog_control_aux_2(mfrc522_handle_t *handle, mfrc522_
     res = a_mfrc522_read(handle, MFRC522_REG_ANALOG_TEST, &prev, 1);       /* read analog test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read analog test failed.\n");        /* read analog test failed */
+        handle->debug_print("mfrc522: read analog test failed.\r\n");        /* read analog test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7521,7 +7549,7 @@ uint8_t mfrc522_set_test_analog_control_aux_2(mfrc522_handle_t *handle, mfrc522_
     res = a_mfrc522_write(handle, MFRC522_REG_ANALOG_TEST, &prev, 1);      /* write analog test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: write analog test failed.\n");       /* write analog test failed */
+        handle->debug_print("mfrc522: write analog test failed.\r\n");       /* write analog test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7557,7 +7585,7 @@ uint8_t mfrc522_get_test_analog_control_aux_2(mfrc522_handle_t *handle, mfrc522_
     res = a_mfrc522_read(handle, MFRC522_REG_ANALOG_TEST, &prev, 1);       /* read analog test */
     if (res != 0)                                                          /* check the result */
     {
-        handle->debug_print("mfrc522: read analog test failed.\n");        /* read analog test failed */
+        handle->debug_print("mfrc522: read analog test failed.\r\n");        /* read analog test failed */
         
         return 1;                                                          /* return error */
     }
@@ -7593,7 +7621,7 @@ uint8_t mfrc522_set_test_dac_1(mfrc522_handle_t *handle, uint8_t dac)
     }
     if (dac > 0x3F)                                                      /* check the dac */
     {
-        handle->debug_print("mfrc522: dac is over 0x3F.\n");             /* dac is over 0x3F */
+        handle->debug_print("mfrc522: dac is over 0x3F.\r\n");             /* dac is over 0x3F */
         
         return 4;                                                        /* return error */
     }
@@ -7602,7 +7630,7 @@ uint8_t mfrc522_set_test_dac_1(mfrc522_handle_t *handle, uint8_t dac)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_DAC1, &prev, 1);      /* write test dac1 */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write test dac1 failed.\n");       /* write test dac1 failed */
+        handle->debug_print("mfrc522: write test dac1 failed.\r\n");       /* write test dac1 failed */
         
         return 1;                                                        /* return error */
     }
@@ -7638,7 +7666,7 @@ uint8_t mfrc522_get_test_dac_1(mfrc522_handle_t *handle, uint8_t *dac)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_DAC1, &prev, 1);      /* read test dac1 */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read test dac1 failed.\n");       /* read test dac1 failed */
+        handle->debug_print("mfrc522: read test dac1 failed.\r\n");       /* read test dac1 failed */
         
         return 1;                                                       /* return error */
     }
@@ -7674,7 +7702,7 @@ uint8_t mfrc522_set_test_dac_2(mfrc522_handle_t *handle, uint8_t dac)
     }
     if (dac > 0x3F)                                                      /* check the dac */
     {
-        handle->debug_print("mfrc522: dac is over 0x3F.\n");             /* dac is over 0x3F */
+        handle->debug_print("mfrc522: dac is over 0x3F.\r\n");             /* dac is over 0x3F */
         
         return 4;                                                        /* return error */
     }
@@ -7683,7 +7711,7 @@ uint8_t mfrc522_set_test_dac_2(mfrc522_handle_t *handle, uint8_t dac)
     res = a_mfrc522_write(handle, MFRC522_REG_TEST_DAC2, &prev, 1);      /* write test dac2 */
     if (res != 0)                                                        /* check the result */
     {
-        handle->debug_print("mfrc522: write test dac2 failed.\n");       /* write test dac2 failed */
+        handle->debug_print("mfrc522: write test dac2 failed.\r\n");       /* write test dac2 failed */
         
         return 1;                                                        /* return error */
     }
@@ -7719,7 +7747,7 @@ uint8_t mfrc522_get_test_dac_2(mfrc522_handle_t *handle, uint8_t *dac)
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_DAC2, &prev, 1);      /* read test dac2 */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read test dac2 failed.\n");       /* read test dac2 failed */
+        handle->debug_print("mfrc522: read test dac2 failed.\r\n");       /* read test dac2 failed */
         
         return 1;                                                       /* return error */
     }
@@ -7757,7 +7785,7 @@ uint8_t mfrc522_get_test_adc(mfrc522_handle_t *handle, uint8_t *adc_i, uint8_t *
     res = a_mfrc522_read(handle, MFRC522_REG_TEST_ADC, &prev, 1);      /* read test dac2 */
     if (res != 0)                                                       /* check the result */
     {
-        handle->debug_print("mfrc522: read test dac2 failed.\n");       /* read test dac2 failed */
+        handle->debug_print("mfrc522: read test dac2 failed.\r\n");       /* read test dac2 failed */
         
         return 1;                                                       /* return error */
     }

@@ -177,7 +177,7 @@ uint8_t getRandom(void)
   return 0;
 }
 
-uint8_t getVersion(void)
+void getVersion(void)
 {
 	mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
 	uint8_t addr = 0x00;
@@ -188,27 +188,67 @@ uint8_t getVersion(void)
 
 	mfrc522_interface_debug_print("main: Initializing mfrc522...\r\n");
 
-	  /* basic int */
-	  res = mfrc522_basic_init(interface, addr, a_callback);
-	  if (res != 0)
-	  {
-	      mfrc522_interface_debug_print("main: mfrc522_basic_init failed.\r\n");
-	      return 1;
-	  }
+  /* basic int */
+  res = mfrc522_basic_init(interface, addr, a_callback);
+  if (res != 0)
+  {
+      mfrc522_interface_debug_print("main: mfrc522_basic_init failed.\r\n");
+      return;
+  }
 
-	  mfrc522_interface_debug_print("main: Getting version..\r\n");
+  mfrc522_interface_debug_print("main: Getting version..\r\n");
 
-	  res = mfrc522_get_vesion(&id, &version);
-	  if (res != 0)
-	  {
-	      mfrc522_interface_debug_print("main: mfrc522_get_vesion failed.\r\n");
-	      return 1;
-	  }
+  res = mfrc522_get_vesion(&id, &version);
+  if (res != 0)
+  {
+      mfrc522_interface_debug_print("main: mfrc522_get_vesion failed.\r\n");
+      return;
+  }
 
-	  mfrc522_interface_debug_print("id: %d  version: %d", id, version);
+  mfrc522_interface_debug_print("id: %d  version: %d", id, version);
 
-	  return 0;
 }
+
+void readATQA(void)
+{
+  mfrc522_interface_t interface = MFRC522_INTERFACE_SPI;
+  uint8_t addr = 0x00;
+
+  uint8_t res;
+  uint8_t command = 0x26; // receive
+  uint8_t buf[64];
+  uint8_t out_len;
+
+  memset(buf, 0, sizeof(buf));
+
+  mfrc522_interface_debug_print("main: Initializing mfrc522...\r\n");
+
+  /* basic int */
+  res = mfrc522_basic_init(interface, addr, a_callback);
+  if (res != 0)
+  {
+      mfrc522_interface_debug_print("main: mfrc522_basic_init failed.\r\n");
+      return;
+  }
+
+  mfrc522_interface_debug_print("main: Reading ATQA...\r\n");
+
+  out_len = sizeof(buf);
+  res = mfrc522_basic_transceiver(&command, 1, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
+  if (res != 0)
+  {
+      mfrc522_interface_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
+      return;
+  }
+
+  mfrc522_interface_debug_print("main: Received %d bytes of ATQA data: ", out_len);
+  mfrc522_interface_debug_print_hex(buf, out_len);
+  mfrc522_interface_debug_print("\r\n\r\n\r\n");
+
+  return;
+
+}
+
 
 /* USER CODE END 0 */
 
@@ -273,7 +313,9 @@ int main(void)
 //      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 //    }
 
-    getVersion();
+//    getVersion();
+
+    readATQA();
 
   }
   /* USER CODE END 3 */

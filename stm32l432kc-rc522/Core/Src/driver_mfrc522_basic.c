@@ -749,6 +749,50 @@ uint8_t mfrc522_basic_deinit(void)
 }
 
 /**
+ * @brief  Disable 13.56 MHz antenna drivers (TX1/TX2 RF off).
+ */
+uint8_t mfrc522_basic_stop_rf(void)
+{
+    uint8_t res;
+
+    res = mfrc522_set_antenna_driver(&gs_handle, MFRC522_ANTENNA_DRIVER_TX1_RF, MFRC522_BOOL_FALSE);
+    if (res != 0)
+    {
+        return 1;
+    }
+
+    res = mfrc522_set_antenna_driver(&gs_handle, MFRC522_ANTENNA_DRIVER_TX2_RF, MFRC522_BOOL_FALSE);
+    if (res != 0)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+/**
+ * @brief  Enable 13.56 MHz antenna drivers (matches mfrc522_basic_init).
+ */
+uint8_t mfrc522_basic_start_rf(void)
+{
+    uint8_t res;
+
+    res = mfrc522_set_antenna_driver(&gs_handle, MFRC522_ANTENNA_DRIVER_TX1_RF, MFRC522_BOOL_TRUE);
+    if (res != 0)
+    {
+        return 1;
+    }
+
+    res = mfrc522_set_antenna_driver(&gs_handle, MFRC522_ANTENNA_DRIVER_TX2_RF, MFRC522_BOOL_TRUE);
+    if (res != 0)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+/**
  * @brief         basic example transceiver
  * @param[in]     *in_buf pointer to a input buffer
  * @param[in]     in_len input length
@@ -934,6 +978,29 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
             return 1;
         }
         
+        return 0;
+    }
+    /* HLTA: 0x50 0x00 + CRC_A (2 bytes). PICC does not reply on success (out_len may be 0). */
+    else if ((in_len == 4) && (in_buf[0] == 0x50) && (in_buf[1] == 0x00))
+    {
+        res = mfrc522_set_mifare_crypto1_on(&gs_handle, MFRC522_BOOL_FALSE);
+        if (res != 0)
+        {
+            return 1;
+        }
+
+        res = mfrc522_set_tx_last_bits(&gs_handle, 0);
+        if (res != 0)
+        {
+            return 1;
+        }
+
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        if (res != 0)
+        {
+            return 1;
+        }
+
         return 0;
     }
     /* authentication key a or key b */

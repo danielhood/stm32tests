@@ -60,6 +60,8 @@ static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
+uint8_t readATQA_then_halt(void);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -251,6 +253,18 @@ uint8_t readATQA()
   uint8_t buf[64];
   uint8_t out_len;
 
+
+  main_debug_print("main: Starting RF...\r\n");
+  res = mfrc522_basic_start_rf();
+  if (res != 0)
+  {
+    main_debug_print("main: Starting RF failed.\r\n");
+    return 1;
+  }
+  main_debug_print("main: RF started.\r\n");
+
+  HAL_Delay(500);
+
   main_debug_print("main: Reading ATQA...\r\n");
 
   memset(buf, 0, sizeof(buf));
@@ -268,6 +282,73 @@ uint8_t readATQA()
 
   return 0;
 
+}
+
+/**
+ * ISO 14443-3: WUPA (wake, expect ATQA).
+ */
+ uint8_t picc_wake(void)
+ {
+  uint8_t res;
+  uint8_t buf[64];
+  uint8_t out_len;
+  uint8_t wupa = 0x52;
+
+  main_debug_print("main: picc_wake: WUPA...\r\n");
+  memset(buf, 0, sizeof(buf));
+  out_len = sizeof(buf);
+  res = mfrc522_basic_transceiver(&wupa, 1, buf, &out_len);
+  if (res != 0 || out_len == 0)
+  {
+    main_debug_print("main: picc_wake: WUPA failed (expected ATQA bytes).\r\n");
+    return 1;
+  }
+
+  main_debug_print("main: picc_wake: WUPA response (%u bytes): ", out_len);
+  main_debug_print_hex(buf, out_len);
+  main_debug_print("\r\n");
+
+  return 0;
+}
+
+/**
+ * ISO 14443-3: HLTA (halt)
+ * HLTA success is silent (no PICC bytes); do not treat out_len==0 as failure for HLTA.
+ * Some PICCs only accept HLTA in ACTIVE after select; if HLTA fails, try after full anticollision/select.
+ */
+uint8_t picc_halt(void)
+{
+  uint8_t res;
+  uint8_t buf[64];
+  uint8_t out_len;
+  uint8_t hlta[4];
+
+  hlta[0] = 0x50;
+  hlta[1] = 0x00;
+  calcCRC(hlta, 2);
+
+  main_debug_print("main: picc_halt: HLTA...\r\n");
+  memset(buf, 0, sizeof(buf));
+  out_len = sizeof(buf);
+  res = mfrc522_basic_transceiver(hlta, 4, buf, &out_len);
+  if (res != 0)
+  {
+    main_debug_print("main: picc_halt: HLTA transceive failed.\r\n");
+    return 1;
+  }
+  main_debug_print("main: picc_halt: HLTA done (out_len=%u, expect 0).\r\n", out_len);
+
+
+  main_debug_print("main: picc_halt: Stopping RF...\r\n");
+  res = mfrc522_basic_stop_rf();
+  if (res != 0)
+  {
+    main_debug_print("main: picc_halt: Stopping RF failed.\r\n");
+    return 1;
+  }
+  main_debug_print("main: picc_halt: RF stopped.\r\n");
+
+  return 0;
 }
 
 
@@ -414,6 +495,7 @@ uint8_t readNTAG(void)
   main_debug_print_hex(buf, out_len);
   main_debug_print("\r\n\r\n\r\n");
 
+
   // Note: custom text tag starts at byte 10 of page 4
 
   return 0;
@@ -492,6 +574,9 @@ int main(void)
 //    readID();
 
     readNTAG();
+
+    // Close off the PICC
+    picc_halt();
 
   }
   /* USER CODE END 3 */

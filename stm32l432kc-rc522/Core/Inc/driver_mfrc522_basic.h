@@ -143,6 +143,24 @@ uint8_t mfrc522_basic_init(mfrc522_interface_t interface, uint8_t addr, void (*c
 uint8_t mfrc522_basic_deinit(void);
 
 /**
+ * @brief  Disable 13.56 MHz antenna drivers (TX1/TX2 RF off).
+ * @return status code
+ *         - 0 success
+ *         - 1 failed
+ * @note   Call after mfrc522_basic_init. Safe to call when already off.
+ */
+uint8_t mfrc522_basic_stop_rf(void);
+
+/**
+ * @brief  Enable 13.56 MHz antenna drivers (same as after mfrc522_basic_init).
+ * @return status code
+ *         - 0 success
+ *         - 1 failed
+ * @note   Call after mfrc522_basic_init.
+ */
+uint8_t mfrc522_basic_start_rf(void);
+
+/**
  * @brief         basic example transceiver
  * @param[in]     *in_buf pointer to a input buffer
  * @param[in]     in_len input length

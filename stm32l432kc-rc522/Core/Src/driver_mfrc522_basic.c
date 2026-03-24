@@ -39,6 +39,14 @@
 static mfrc522_handle_t gs_handle;        /**< mfrc522 handle */
 
 /**
+ * When the MFRC522 IRQ line is not used, mfrc522_transceiver() polls delay_ms until this expires.
+ * ISO 14443 Type A exchanges at 106 kBd complete in a few ms; 1 s was unnecessarily slow.
+ */
+#ifndef MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS
+#define MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS  50U
+#endif
+
+/**
  * @brief  interrupt irq
  * @return status code
  *         - 0 success
@@ -826,7 +834,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
         }
         
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -852,7 +860,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
         }
         
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -887,7 +895,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
         }
         
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -927,7 +935,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
         }
         
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -953,7 +961,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
         }
         
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -972,7 +980,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
         }
         
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -995,7 +1003,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
             return 1;
         }
 
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -1009,7 +1017,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
         uint8_t status;
         
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_MF_AUTHENT, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_MF_AUTHENT, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -1034,7 +1042,7 @@ uint8_t mfrc522_basic_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_
     else
     {
         /* transceiver */
-        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, 1000);
+        res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_TRANSCEIVE, in_buf, in_len, out_buf, out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
         if (res != 0)
         {
             return 1;
@@ -1072,7 +1080,7 @@ uint8_t mfrc522_basic_generate_random(uint8_t buf[25])
     mfrc522_interface_debug_print("driver_mfrc522: generating random id.\r\n");
 
     out_len = 0;
-    res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_RANDOM_ID, &in_buf, 0, &out_buf, &out_len, &err, 1000);
+    res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_RANDOM_ID, &in_buf, 0, &out_buf, &out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
     if (res != 0)
     {
         return 1;
@@ -1082,7 +1090,7 @@ uint8_t mfrc522_basic_generate_random(uint8_t buf[25])
     mfrc522_interface_debug_print("driver_mfrc522: copying random id to fifo buffer.\r\n");
 
     out_len = 25;
-    res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_MEM, &in_buf, 0, buf, &out_len, &err, 1000);
+    res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_MEM, &in_buf, 0, buf, &out_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
     if (res != 0)
     {
         return 1;
@@ -1125,7 +1133,7 @@ uint8_t mfrc522_basic_calculate_crc(uint8_t *buf, uint8_t len, uint16_t *crc)
     
     /* calculate the crc */
     tmp_len = 1;
-    res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_CALC_CRC, buf, len, &tmp, &tmp_len, &err, 1000);
+    res = mfrc522_transceiver(&gs_handle, MFRC522_COMMAND_CALC_CRC, buf, len, &tmp, &tmp_len, &err, MFRC522_BASIC_TRANSCEIVE_TIMEOUT_MS);
     if (res != 0)
     {
         return 1;

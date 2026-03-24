@@ -35,6 +35,11 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define MSG_MAX 256
+/* User TLV area (page 4+); MF READ returns 16 bytes (4 pages) per command */
+#define NTAG_USER_READ_MAX_BYTES 256U
+#define NTAG_TEXT_OUT_MAX        240U
+/* Last page address that can start a 4-page read (252..255) */
+#define NTAG_LAST_READ_START_PAGE 252U
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -61,6 +66,8 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 uint8_t readATQA_then_halt(void);
+
+uint8_t readNTAGPage(uint8_t page, uint8_t *buf, uint8_t *out_len);
 
 /* USER CODE END PFP */
 
@@ -465,41 +472,322 @@ uint8_t readID(void)
   return 0;
 }
 
-uint8_t readNTAG(void)
+/**
+ * Ultralight/NTAG PICC read (0x30 + page + CRC_A). Call after anticollision/select (e.g. readID).
+ * @param page  NTAG page address
+ * @param buf   receive buffer; *out_len is max on entry, actual count on success
+ */
+uint8_t readNTAGPage(uint8_t page, uint8_t *buf, uint8_t *out_len)
 {
   uint8_t res;
-  uint8_t commandNTAG[] = { 0x30, 0x04, 0x00, 0x00 };  // PICC_CMD_MF_READ, page 4, plus crc
-  uint8_t buf[64];
-  uint8_t out_len;
+  uint8_t cmd[4];
 
-  // In order to read NTAG, the chip must query ATQA followed by full id
-  if (0 != readID())
+  cmd[0] = 0x30; /* PICC_CMD_MF_READ */
+  cmd[1] = page;
+  calcCRC(cmd, 2);
+
+  memset(buf, 0, *out_len);
+  res = mfrc522_basic_transceiver(cmd, 4, buf, out_len);
+  if (res != 0 || *out_len == 0)
+  {
+    main_debug_print("main: readNTAGPage failed.\r\n");
+    return 1;
+  }
+
+  return 0;
+}
+
+/**
+ * Read user TLV area in 16-byte MF READ blocks until Terminator TLV (0xFE 0x00) or buffer full.
+ */
+static uint8_t ntag_read_user_memory(uint8_t *mem, uint16_t max_len, uint16_t *filled)
+{
+  uint16_t n = 0;
+  uint16_t page;
+
+  for (page = 4; n + 16U <= max_len && page <= NTAG_LAST_READ_START_PAGE; page += 4U)
+  {
+    uint8_t chunk[16];
+    uint8_t clen = sizeof(chunk);
+
+    if (readNTAGPage((uint8_t)page, chunk, &clen) != 0)
+    {
+      return 1;
+    }
+
+    {
+      uint8_t to_copy = (clen < 16U) ? clen : 16U;
+      memcpy(mem + n, chunk, to_copy);
+      n += to_copy;
+    }
+
+    if (clen < 16U)
+    {
+      break;
+    }
+
+    for (uint16_t j = 0U; j + 1U < n; j++)
+    {
+      if (mem[j] == 0xFEU && mem[j + 1U] == 0x00U)
+      {
+        n = j + 2U;
+        *filled = n;
+        return 0;
+      }
+    }
+  }
+
+  *filled = n;
+  return 0;
+}
+
+/**
+ * Walk Type 2 TLVs; return first NDEF Message (0x03) value.
+ */
+static int ntag_find_ndef_message(const uint8_t *mem, uint16_t len,
+                                  const uint8_t **ndef_out, uint16_t *ndef_len_out)
+{
+  uint16_t i = 0;
+
+  while (i + 2U <= len)
+  {
+    uint8_t t = mem[i];
+
+    if (t == 0xFEU)
+    {
+      return -1;
+    }
+
+    if (t == 0x00U)
+    {
+      i += 2U;
+      continue;
+    }
+
+    if (i + 1U >= len)
+    {
+      return -1;
+    }
+
+    {
+      uint32_t L;
+      uint16_t voff;
+
+      if (mem[i + 1U] == 0xFFU)
+      {
+        if (i + 5U > len)
+        {
+          return -1;
+        }
+        L = ((uint32_t)mem[i + 2U] << 16) | ((uint32_t)mem[i + 3U] << 8) | (uint32_t)mem[i + 4U];
+        voff = i + 5U;
+      }
+      else
+      {
+        L = mem[i + 1U];
+        voff = i + 2U;
+      }
+
+      if (t == 0x03U)
+      {
+        if (voff + L > len)
+        {
+          return -1;
+        }
+        *ndef_out = mem + voff;
+        *ndef_len_out = (uint16_t)L;
+        return 0;
+      }
+
+      if (voff + L > len)
+      {
+        return -1;
+      }
+      i = voff + (uint16_t)L;
+    }
+  }
+
+  return -1;
+}
+
+/**
+ * First NFC Forum well-known Text record ('T') in an NDEF message; UTF-8 payload only.
+ */
+static int ntag_parse_first_text_record(const uint8_t *ndef, uint16_t ndef_len,
+                                        char *text_out, uint16_t text_cap,
+                                        char *lang_out, uint16_t lang_cap)
+{
+  uint16_t i = 0;
+
+  if (lang_out != NULL && lang_cap > 0U)
+  {
+    lang_out[0] = '\0';
+  }
+
+  while (i + 3U <= ndef_len)
+  {
+    uint8_t flags = ndef[i];
+    uint8_t tnf = flags & 0x07U;
+    uint8_t sr = (flags >> 4) & 1U;
+    uint8_t il = (flags >> 3) & 1U;
+    uint8_t type_len = ndef[i + 1U];
+    uint32_t plen;
+    uint16_t pos = i + 2U;
+
+    if (sr != 0U)
+    {
+      if (pos >= ndef_len)
+      {
+        return -1;
+      }
+      plen = ndef[pos];
+      pos++;
+    }
+    else
+    {
+      if (pos + 4U > ndef_len)
+      {
+        return -1;
+      }
+      plen = ((uint32_t)ndef[pos] << 24) | ((uint32_t)ndef[pos + 1U] << 16)
+           | ((uint32_t)ndef[pos + 2U] << 8) | (uint32_t)ndef[pos + 3U];
+      pos += 4U;
+    }
+
+    {
+      uint8_t id_len = 0U;
+      if (il != 0U)
+      {
+        if (pos >= ndef_len)
+        {
+          return -1;
+        }
+        id_len = ndef[pos++];
+      }
+
+      if (pos + type_len > ndef_len)
+      {
+        return -1;
+      }
+
+      {
+        const uint8_t *type_ptr = ndef + pos;
+        pos += type_len;
+        if (pos + id_len > ndef_len)
+        {
+          return -1;
+        }
+        pos += id_len;
+        if (pos + plen > ndef_len)
+        {
+          return -1;
+        }
+
+        {
+          const uint8_t *payload = ndef + pos;
+          pos += (uint16_t)plen;
+
+          if (tnf == 0x01U && type_len == 1U && type_ptr[0] == (uint8_t)'T')
+          {
+            if (plen == 0U)
+            {
+              return -1;
+            }
+
+            {
+              uint8_t status = payload[0];
+              uint8_t lang_len = status & 0x3FU;
+
+              if ((status & 0x80U) != 0U)
+              {
+                /* UTF-16; skip, try next record */
+                i = pos;
+                continue;
+              }
+
+              if (plen < (uint32_t)(1U + lang_len))
+              {
+                return -1;
+              }
+
+              if (lang_out != NULL && lang_cap > 0U)
+              {
+                uint16_t copy = lang_len;
+                if (copy >= lang_cap)
+                {
+                  copy = (uint16_t)(lang_cap - 1U);
+                }
+                memcpy(lang_out, payload + 1U, copy);
+                lang_out[copy] = '\0';
+              }
+
+              {
+                uint16_t text_len = (uint16_t)(plen - 1U - (uint32_t)lang_len);
+                if (text_len + 1U > text_cap)
+                {
+                  return -1;
+                }
+                memcpy(text_out, payload + 1U + lang_len, text_len);
+                text_out[text_len] = '\0';
+              }
+
+              return 0;
+            }
+          }
+        }
+
+        i = pos;
+      }
+    }
+  }
+
+  return -1;
+}
+
+uint8_t readNTAG(void)
+{
+  uint8_t mem[NTAG_USER_READ_MAX_BYTES];
+  uint16_t filled = 0;
+  const uint8_t *ndef = NULL;
+  uint16_t ndef_len = 0;
+  char text[NTAG_TEXT_OUT_MAX + 1U];
+  char lang[8];
+
+  if (readID() != 0)
   {
     return 1;
   }
 
-  main_debug_print("main: Reading NTAG...\r\n");
+  main_debug_print("main: Reading NTAG user memory (TLV / NDEF)...\r\n");
 
-  calcCRC(commandNTAG, 2);
-
-  memset(buf, 0, sizeof(buf));
-  out_len = sizeof(buf);
-  res = mfrc522_basic_transceiver(commandNTAG, 4, buf, &out_len); // out_len will be reduced if less data is returned; will not return more than initial value of out_len
-  if (res != 0 || out_len == 0)
+  memset(mem, 0, sizeof(mem));
+  if (ntag_read_user_memory(mem, (uint16_t)sizeof(mem), &filled) != 0)
   {
-      main_debug_print("main: mfrc522_basic_transceiver failed.\r\n");
-      return 1;
+    return 1;
   }
 
-  main_debug_print("main: Received %d bytes of NTAG data: ", out_len);
-  main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n\r\n\r\n");
+  main_debug_print("main: Raw user area (%u bytes): ", filled);
+  main_debug_print_hex(mem, filled);
+  main_debug_print("\r\n");
 
+  if (ntag_find_ndef_message(mem, filled, &ndef, &ndef_len) != 0)
+  {
+    main_debug_print("main: No NDEF Message TLV (0x03) or incomplete data.\r\n");
+    return 1;
+  }
 
-  // Note: custom text tag starts at byte 10 of page 4
+  main_debug_print("main: NDEF message length %u bytes.\r\n", ndef_len);
+
+  if (ntag_parse_first_text_record(ndef, ndef_len, text, NTAG_TEXT_OUT_MAX, lang, sizeof(lang)) != 0)
+  {
+    main_debug_print("main: No NFC Forum Text record ('T') in NDEF message.\r\n");
+    return 1;
+  }
+
+  main_debug_print("main: NDEF Text language: \"%s\"\r\n", lang);
+  main_debug_print("main: NDEF Text payload: \"%s\"\r\n", text);
 
   return 0;
-
 }
 
 /* USER CODE END 0 */

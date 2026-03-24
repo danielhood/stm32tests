@@ -35,6 +35,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define MSG_MAX 256
+#define RC522_READER_0_INDEX 0U
 /* User TLV area (page 4+); MF READ returns 16 bytes (4 pages) per command */
 #define NTAG_USER_READ_MAX_BYTES 256U
 #define NTAG_TEXT_OUT_MAX        240U
@@ -207,6 +208,20 @@ uint8_t initMfrc522()
   uint8_t addr = 0x00;
 
   main_debug_print("main: Initializing mfrc522 as SPI...\r\n");
+
+  /* Phase 1 multi-reader abstraction:
+   * register reader 0 CS and select active reader before using shared driver globals.
+   */
+  if (mfrc522_interface_spi_register_device(RC522_READER_0_INDEX, GPIOA, GPIO_PIN_4) != 0)
+  {
+      main_debug_print("main: mfrc522_interface_spi_register_device failed.\r\n");
+      return 1;
+  }
+  if (mfrc522_interface_spi_select_device(RC522_READER_0_INDEX) != 0)
+  {
+      main_debug_print("main: mfrc522_interface_spi_select_device failed.\r\n");
+      return 1;
+  }
 
   /* basic int */
   uint8_t res = mfrc522_basic_init(MFRC522_INTERFACE_SPI, addr, a_callback);

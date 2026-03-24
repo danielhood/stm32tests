@@ -38,12 +38,15 @@
 #define DRIVER_MFRC522_INTERFACE_H
 
 #include "driver_mfrc522.h"
+#include "stm32l4xx_hal.h"
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
 #define NO_DEBUG
+
+#define MFRC522_INTERFACE_MAX_DEVICES 4U
 
 
 /**
@@ -166,6 +169,34 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len);
  * @note      none
  */
 uint8_t mfrc522_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len);
+
+/**
+ * @brief     register an SPI chip-select pin for a logical MFRC522 device slot
+ * @param[in] index logical device index [0..MFRC522_INTERFACE_MAX_DEVICES-1]
+ * @param[in] cs_port gpio port for CS
+ * @param[in] cs_pin gpio pin for CS
+ * @return    status code
+ *            - 0 success
+ *            - 1 invalid argument
+ * @note      CS is driven high after registration
+ */
+uint8_t mfrc522_interface_spi_register_device(uint8_t index, GPIO_TypeDef *cs_port, uint16_t cs_pin);
+
+/**
+ * @brief     select active logical MFRC522 SPI device
+ * @param[in] index logical device index [0..MFRC522_INTERFACE_MAX_DEVICES-1]
+ * @return    status code
+ *            - 0 success
+ *            - 1 invalid index or device not registered
+ * @note      SPI read/write functions use this active selection
+ */
+uint8_t mfrc522_interface_spi_select_device(uint8_t index);
+
+/**
+ * @brief  clear active SPI device selection
+ * @note   subsequent SPI read/write will fail until device is selected
+ */
+void mfrc522_interface_spi_select_none(void);
 
 /**
  * @brief  interface uart init

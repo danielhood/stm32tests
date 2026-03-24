@@ -41,6 +41,31 @@
 extern UART_HandleTypeDef huart2;
 extern SPI_HandleTypeDef hspi1;
 
+typedef struct
+{
+    GPIO_TypeDef *cs_port;
+    uint16_t cs_pin;
+    uint8_t registered;
+} mfrc522_spi_slot_t;
+
+static mfrc522_spi_slot_t g_spi_slots[MFRC522_INTERFACE_MAX_DEVICES];
+static uint8_t g_active_spi_slot = 0xFFU;
+
+static uint8_t a_spi_get_active_slot(mfrc522_spi_slot_t **slot)
+{
+    if (g_active_spi_slot >= MFRC522_INTERFACE_MAX_DEVICES)
+    {
+        return 1;
+    }
+    if (g_spi_slots[g_active_spi_slot].registered == 0U)
+    {
+        return 1;
+    }
+    *slot = &g_spi_slots[g_active_spi_slot];
+
+    return 0;
+}
+
 /**
  * @brief  interface reset gpio init
  * @return status code
@@ -158,6 +183,14 @@ uint8_t mfrc522_interface_iic_write(uint8_t addr, uint8_t reg, uint8_t *buf, uin
 uint8_t mfrc522_interface_spi_init(void)
 {
   mfrc522_interface_debug_print("mfrc522_interface_spi_init\r\n");
+  if (g_spi_slots[0].registered == 0U)
+  {
+      (void)mfrc522_interface_spi_register_device(0U, GPIOA, GPIO_PIN_4);
+  }
+  if (g_active_spi_slot == 0xFFU)
+  {
+      (void)mfrc522_interface_spi_select_device(0U);
+  }
     return 0;
 }
 
@@ -186,6 +219,7 @@ uint8_t mfrc522_interface_spi_deinit(void)
  */
 uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
 {
+  mfrc522_spi_slot_t *slot;
   //mfrc522_interface_debug_print("mfrc522_interface_spi_read: reg=%d len=%d\r\n", reg, len);
   mfrc522_interface_debug_print("\tmfrc522_interface_spi_read: reg=");
   uint8_t real_reg = (reg >> 1) & (0xFF >> 2); // clear out read/write bit, and shift register value back
@@ -195,8 +229,15 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
   uint8_t buffer;
   uint8_t res;
 
+  if (a_spi_get_active_slot(&slot) != 0U)
+  {
+      mfrc522_interface_debug_print("mfrc522_interface_spi_read: no active SPI device selected.\r\n");
+
+      return 1;
+  }
+
   /* set cs low */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_RESET);
 
   /* transmit the addr */
   buffer = reg;
@@ -204,7 +245,7 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
   if (res != HAL_OK)
   {
       /* set cs high */
-      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_SET);
 
       return 1;
   }
@@ -217,14 +258,14 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
       if (res != HAL_OK)
       {
           /* set cs high */
-          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+          HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_SET);
 
           return 1;
       }
   }
 
   /* set cs high */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_SET);
 
   mfrc522_interface_debug_print("\t\tread buffer: ");
   mfrc522_interface_debug_print_hex(buf, len);
@@ -245,6 +286,7 @@ uint8_t mfrc522_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
  */
 uint8_t mfrc522_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len)
 {
+  mfrc522_spi_slot_t *slot;
   mfrc522_interface_debug_print("\tmfrc522_interface_spi_write: reg=");
   uint8_t real_reg = (reg >> 1) & (0xFF >> 2); // clear out read/write bit, and shift register value back
   mfrc522_interface_debug_print_hex(&real_reg, 1);
@@ -255,8 +297,15 @@ uint8_t mfrc522_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len)
   uint8_t buffer;
   uint8_t res;
 
+  if (a_spi_get_active_slot(&slot) != 0U)
+  {
+      mfrc522_interface_debug_print("mfrc522_interface_spi_write: no active SPI device selected.\r\n");
+
+      return 1;
+  }
+
   /* set cs low */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_RESET);
 
   /* transmit the addr */
   buffer = reg;
@@ -264,7 +313,7 @@ uint8_t mfrc522_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len)
   if (res != HAL_OK)
   {
       /* set cs high */
-      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_SET);
 
       return 1;
   }
@@ -277,16 +326,54 @@ uint8_t mfrc522_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len)
       if (res != HAL_OK)
       {
           /* set cs high */
-          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+          HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_SET);
 
           return 1;
       }
   }
 
   /* set cs high */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(slot->cs_port, slot->cs_pin, GPIO_PIN_SET);
 
     return 0;
+}
+
+uint8_t mfrc522_interface_spi_register_device(uint8_t index, GPIO_TypeDef *cs_port, uint16_t cs_pin)
+{
+    if ((index >= MFRC522_INTERFACE_MAX_DEVICES) || (cs_port == NULL))
+    {
+        return 1;
+    }
+
+    g_spi_slots[index].cs_port = cs_port;
+    g_spi_slots[index].cs_pin = cs_pin;
+    g_spi_slots[index].registered = 1U;
+
+    /* Keep all registered readers deselected by default. */
+    HAL_GPIO_WritePin(cs_port, cs_pin, GPIO_PIN_SET);
+
+    return 0;
+}
+
+uint8_t mfrc522_interface_spi_select_device(uint8_t index)
+{
+    if (index >= MFRC522_INTERFACE_MAX_DEVICES)
+    {
+        return 1;
+    }
+    if (g_spi_slots[index].registered == 0U)
+    {
+        return 1;
+    }
+
+    g_active_spi_slot = index;
+
+    return 0;
+}
+
+void mfrc522_interface_spi_select_none(void)
+{
+    g_active_spi_slot = 0xFFU;
 }
 
 /**

@@ -23,7 +23,9 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include "driver_mfrc522_basic.h"
+#include "driver_mfrc522_interface.h"
 
 /* USER CODE END Includes */
 
@@ -35,7 +37,29 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define MSG_MAX 256
-#define RC522_READER_0_INDEX 0U
+/*
+ * Optional readers 1..3: same SPI1, separate CS. Define before build, e.g. in flags:
+ *   -DRC522_READER1_CS_PORT=GPIOB -DRC522_READER1_CS_PIN=GPIO_PIN_0
+ * Or add #define lines below. Port NULL = slot unused.
+ */
+#ifndef RC522_READER1_CS_PORT
+#define RC522_READER1_CS_PORT NULL
+#endif
+#ifndef RC522_READER1_CS_PIN
+#define RC522_READER1_CS_PIN 0U
+#endif
+#ifndef RC522_READER2_CS_PORT
+#define RC522_READER2_CS_PORT NULL
+#endif
+#ifndef RC522_READER2_CS_PIN
+#define RC522_READER2_CS_PIN 0U
+#endif
+#ifndef RC522_READER3_CS_PORT
+#define RC522_READER3_CS_PORT NULL
+#endif
+#ifndef RC522_READER3_CS_PIN
+#define RC522_READER3_CS_PIN 0U
+#endif
 /* User TLV area (page 4+); MF READ returns 16 bytes (4 pages) per command */
 #define NTAG_USER_READ_MAX_BYTES 256U
 #define NTAG_TEXT_OUT_MAX        240U
@@ -65,6 +89,8 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 
 char msg[MSG_MAX];
+static uint8_t s_rc522_log_reader = 0xFFU;
+static uint8_t s_rc522_reader_present[MFRC522_INTERFACE_MAX_DEVICES];
 
 /* USER CODE END PV */
 
@@ -84,6 +110,10 @@ uint8_t readNTAGPage(uint8_t page, uint8_t *buf, uint8_t *out_len);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+static uint8_t rc522_boards_register_all(void);
+static uint8_t rc522_select_reader(uint8_t index);
+static void rc522_log_reader_clear(void);
+static uint8_t rc522_first_present_reader(void);
 
 void main_debug_print(const char *const fmt, ...)
 {
@@ -91,13 +121,27 @@ void main_debug_print(const char *const fmt, ...)
     char str[256];
     uint16_t len;
     va_list args;
+    int off = 0;
 
     memset((char *)str, 0, sizeof(char) * 256);
+    if (s_rc522_log_reader != 0xFFU)
+    {
+        off = snprintf(str, sizeof(str), "[R%u] ", (unsigned int)s_rc522_log_reader);
+        if (off < 0)
+        {
+            off = 0;
+        }
+        if (off >= (int)sizeof(str))
+        {
+            off = (int)sizeof(str) - 1;
+        }
+    }
+
     va_start(args, fmt);
-    vsnprintf((char *)str, 255, (char const *)fmt, args);
+    (void)vsnprintf((char *)str + off, sizeof(str) - (size_t)off, (char const *)fmt, args);
     va_end(args);
 
-    len = strlen((char *)str);
+    len = (uint16_t)strlen((char *)str);
 
     HAL_UART_Transmit(&huart2, (uint8_t*)str, len, HAL_MAX_DELAY);
 #endif
@@ -111,6 +155,74 @@ void main_debug_print_hex(const uint8_t *buf, uint16_t len)
     {
         main_debug_print("0x%02X ", buf[i]);
     }
+}
+
+static uint8_t rc522_boards_register_all(void)
+{
+    static const struct
+    {
+        GPIO_TypeDef *cs_port;
+        uint16_t cs_pin;
+    } cs_table[MFRC522_INTERFACE_MAX_DEVICES] = {
+        { GPIOA, GPIO_PIN_4 },
+        { RC522_READER1_CS_PORT, RC522_READER1_CS_PIN },
+        { RC522_READER2_CS_PORT, RC522_READER2_CS_PIN },
+        { RC522_READER3_CS_PORT, RC522_READER3_CS_PIN },
+    };
+    uint8_t i;
+
+    memset(s_rc522_reader_present, 0, sizeof(s_rc522_reader_present));
+
+    for (i = 0U; i < MFRC522_INTERFACE_MAX_DEVICES; i++)
+    {
+        if (cs_table[i].cs_port == NULL)
+        {
+            continue;
+        }
+        if (mfrc522_interface_spi_register_device(i, cs_table[i].cs_port, cs_table[i].cs_pin) != 0)
+        {
+            main_debug_print("main: rc522_boards_register_all: register reader %u failed.\r\n", i);
+            return 1;
+        }
+        s_rc522_reader_present[i] = 1U;
+        main_debug_print("main: rc522_boards_register_all: reader %u CS registered.\r\n", i);
+    }
+
+    return 0;
+}
+
+static uint8_t rc522_first_present_reader(void)
+{
+    uint8_t i;
+
+    for (i = 0U; i < MFRC522_INTERFACE_MAX_DEVICES; i++)
+    {
+        if (s_rc522_reader_present[i] != 0U)
+        {
+            return i;
+        }
+    }
+
+    return 0xFFU;
+}
+
+static uint8_t rc522_select_reader(uint8_t index)
+{
+    if (index >= MFRC522_INTERFACE_MAX_DEVICES || s_rc522_reader_present[index] == 0U)
+    {
+        return 1;
+    }
+    if (mfrc522_interface_spi_select_device(index) != 0)
+    {
+        return 1;
+    }
+    s_rc522_log_reader = index;
+    return 0;
+}
+
+static void rc522_log_reader_clear(void)
+{
+    s_rc522_log_reader = 0xFFU;
 }
 
 
@@ -206,20 +318,24 @@ void getInfo(void)
 uint8_t initMfrc522()
 {
   uint8_t addr = 0x00;
+  uint8_t first;
 
   main_debug_print("main: Initializing mfrc522 as SPI...\r\n");
 
-  /* Phase 1 multi-reader abstraction:
-   * register reader 0 CS and select active reader before using shared driver globals.
-   */
-  if (mfrc522_interface_spi_register_device(RC522_READER_0_INDEX, GPIOA, GPIO_PIN_4) != 0)
+  /* Phase 1: register every configured CS, then select first reader for basic_init. */
+  if (rc522_boards_register_all() != 0)
   {
-      main_debug_print("main: mfrc522_interface_spi_register_device failed.\r\n");
       return 1;
   }
-  if (mfrc522_interface_spi_select_device(RC522_READER_0_INDEX) != 0)
+  first = rc522_first_present_reader();
+  if (first == 0xFFU)
   {
-      main_debug_print("main: mfrc522_interface_spi_select_device failed.\r\n");
+      main_debug_print("main: no RC522 readers configured (all CS ports NULL).\r\n");
+      return 1;
+  }
+  if (rc522_select_reader(first) != 0)
+  {
+      main_debug_print("main: rc522_select_reader(first) failed.\r\n");
       return 1;
   }
 
@@ -1135,6 +1251,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    uint8_t r;
+
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
     HAL_Delay(100);
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
@@ -1151,10 +1269,22 @@ int main(void)
 
 //    readID();
 
-    readNTAG();
-
-    // Close off the PICC
-    picc_halt();
+    /* Round-robin: each configured reader gets a scan on the shared SPI bus. */
+    for (r = 0U; r < MFRC522_INTERFACE_MAX_DEVICES; r++)
+    {
+      if (s_rc522_reader_present[r] == 0U)
+      {
+        continue;
+      }
+      if (rc522_select_reader(r) != 0)
+      {
+        main_debug_print("main: loop: rc522_select_reader(%u) failed.\r\n", r);
+        continue;
+      }
+      readNTAG();
+      picc_halt();
+    }
+    rc522_log_reader_clear();
 
   }
   /* USER CODE END 3 */

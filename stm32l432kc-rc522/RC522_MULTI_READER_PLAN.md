@@ -45,8 +45,8 @@ Optional deeper refactor:
 - [x] Update SPI read/write to use active slot CS and fail if none selected.
 - [x] Keep backward compatibility by defaulting slot 0 to `GPIOA PIN4` in SPI init.
 - [x] Update app init to explicitly register and select reader 0.
-- [ ] Add 2nd reader in hardware config and validate round-robin scan path.
-- [ ] Add per-reader log prefixes in app layer.
+- [x] Add optional readers 1..3 via `RC522_READERn_CS_PORT` / `RC522_READERn_CS_PIN` and round-robin scan in `main`.
+- [x] Add per-reader log prefixes in `main_debug_print` when a reader is selected (`[R#] `).
 
 ## How To Use Phase 1 APIs
 
@@ -55,6 +55,11 @@ Optional deeper refactor:
 2. Select reader before talking to it:
    - `mfrc522_interface_spi_select_device(index)`
 3. Run existing MFRC522 operations.
+
+### App integration (this repo)
+
+- `main.c` calls `rc522_boards_register_all()` which registers reader 0 on `GPIOA` / `PIN4` and optional readers if `RC522_READER1_CS_PORT` … `RC522_READER3_CS_PORT` are non-`NULL` (set via compile defines or `#define` in `main.c`).
+- The main loop selects each present reader, runs `readNTAG()` + `picc_halt()`, then clears the log prefix.
 
 ## Notes
 

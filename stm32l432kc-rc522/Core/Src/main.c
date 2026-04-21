@@ -42,6 +42,10 @@
  *   -DRC522_READER1_CS_PORT=GPIOB -DRC522_READER1_CS_PIN=GPIO_PIN_0
  * Or add #define lines below. Port NULL = slot unused.
  */
+
+ #define RC522_READER1_CS_PORT GPIOA
+ #define RC522_READER1_CS_PIN GPIO_PIN_3
+
 #ifndef RC522_READER1_CS_PORT
 #define RC522_READER1_CS_PORT NULL
 #endif
@@ -187,6 +191,17 @@ static uint8_t rc522_boards_register_all(void)
         s_rc522_reader_present[i] = 1U;
         main_debug_print("main: rc522_boards_register_all: reader %u CS registered.\r\n", i);
     }
+
+    /* After registration, force all configured CS pins high (all readers deselected). */
+    for (i = 0U; i < MFRC522_INTERFACE_MAX_DEVICES; i++)
+    {
+        if (s_rc522_reader_present[i] == 0U)
+        {
+            continue;
+        }
+        HAL_GPIO_WritePin(cs_table[i].cs_port, cs_table[i].cs_pin, GPIO_PIN_SET);
+    }
+    main_debug_print("main: rc522_boards_register_all: all configured CS pins set high.\r\n");
 
     return 0;
 }
@@ -1443,13 +1458,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_8, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_8, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA4 PA8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_8;
+  /*Configure GPIO pins : PA3 PA4 PA8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

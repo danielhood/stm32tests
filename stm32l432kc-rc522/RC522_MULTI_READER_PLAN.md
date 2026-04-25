@@ -22,7 +22,7 @@ Add an interface-layer active-device abstraction:
 
 This keeps vendor driver linkage unchanged and minimizes risk.
 
-### Phase 2 (next)
+### Phase 2 (implemented)
 
 Create a project-owned wrapper layer with explicit per-device contexts:
 
@@ -47,6 +47,15 @@ Optional deeper refactor:
 - [x] Update app init to explicitly register and select reader 0.
 - [x] Add optional readers 1..3 via `RC522_READERn_CS_PORT` / `RC522_READERn_CS_PIN` and round-robin scan in `main`.
 - [x] Add per-reader log prefixes in `main_debug_print` when a reader is selected (`[R#] `).
+
+## Phase 2 Progress
+
+- [x] Add explicit per-device context type in app layer (`rc522_device_t`).
+- [x] Move registration presence/state into per-device objects (`s_rc522_devices[]`).
+- [x] Add wrapper APIs `rc522_select(dev)` and `rc522_scan(dev, out_tag)`.
+- [x] Convert init path to use first present device object.
+- [x] Convert round-robin polling loop to operate on device objects.
+- [x] Add per-device counters (`scan_count`, `scan_ok_count`) for runtime diagnostics.
 
 ## How To Use Phase 1 APIs
 

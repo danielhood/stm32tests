@@ -43,8 +43,8 @@
  * Or add #define lines below. Port NULL = slot unused.
  */
 
- #define RC522_READER1_CS_PORT GPIOA
- #define RC522_READER1_CS_PIN GPIO_PIN_3
+//  #define RC522_READER1_CS_PORT GPIOA
+//  #define RC522_READER1_CS_PIN GPIO_PIN_3
 
 #ifndef RC522_READER1_CS_PORT
 #define RC522_READER1_CS_PORT NULL
@@ -78,6 +78,16 @@ typedef struct
   uint8_t id;         /* from application/octet-stream payload */
   uint8_t data[8];    /* from application/octet-stream payload */
 } valhallaTag;
+
+typedef struct
+{
+  uint8_t index;
+  GPIO_TypeDef *cs_port;
+  uint16_t cs_pin;
+  uint8_t present;
+  uint32_t scan_count;
+  uint32_t scan_ok_count;
+} rc522_device_t;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -94,7 +104,7 @@ UART_HandleTypeDef huart2;
 
 char msg[MSG_MAX];
 static uint8_t s_rc522_log_reader = 0xFFU;
-static uint8_t s_rc522_reader_present[MFRC522_INTERFACE_MAX_DEVICES];
+static rc522_device_t s_rc522_devices[MFRC522_INTERFACE_MAX_DEVICES];
 
 /* USER CODE END PV */
 
@@ -115,9 +125,11 @@ uint8_t readNTAGPage(uint8_t page, uint8_t *buf, uint8_t *out_len);
 /* USER CODE BEGIN 0 */
 
 static uint8_t rc522_boards_register_all(void);
-static uint8_t rc522_select_reader(uint8_t index);
+static rc522_device_t *rc522_find_first_present_device(void);
+static uint8_t rc522_select(rc522_device_t *dev);
 static void rc522_log_reader_clear(void);
-static uint8_t rc522_first_present_reader(void);
+static uint8_t rc522_scan(rc522_device_t *dev, valhallaTag *out_tag);
+static uint8_t scanValhallaTag(valhallaTag *out_tag);
 
 void main_debug_print(const char *const fmt, ...)
 {
@@ -175,10 +187,14 @@ static uint8_t rc522_boards_register_all(void)
     };
     uint8_t i;
 
-    memset(s_rc522_reader_present, 0, sizeof(s_rc522_reader_present));
+    memset(s_rc522_devices, 0, sizeof(s_rc522_devices));
 
     for (i = 0U; i < MFRC522_INTERFACE_MAX_DEVICES; i++)
     {
+        s_rc522_devices[i].index = i;
+        s_rc522_devices[i].cs_port = cs_table[i].cs_port;
+        s_rc522_devices[i].cs_pin = cs_table[i].cs_pin;
+
         if (cs_table[i].cs_port == NULL)
         {
             continue;
@@ -188,14 +204,14 @@ static uint8_t rc522_boards_register_all(void)
             main_debug_print("main: rc522_boards_register_all: register reader %u failed.\r\n", i);
             return 1;
         }
-        s_rc522_reader_present[i] = 1U;
+        s_rc522_devices[i].present = 1U;
         main_debug_print("main: rc522_boards_register_all: reader %u CS registered.\r\n", i);
     }
 
     /* After registration, force all configured CS pins high (all readers deselected). */
     for (i = 0U; i < MFRC522_INTERFACE_MAX_DEVICES; i++)
     {
-        if (s_rc522_reader_present[i] == 0U)
+        if (s_rc522_devices[i].present == 0U)
         {
             continue;
         }
@@ -206,38 +222,59 @@ static uint8_t rc522_boards_register_all(void)
     return 0;
 }
 
-static uint8_t rc522_first_present_reader(void)
+static rc522_device_t *rc522_find_first_present_device(void)
 {
     uint8_t i;
 
     for (i = 0U; i < MFRC522_INTERFACE_MAX_DEVICES; i++)
     {
-        if (s_rc522_reader_present[i] != 0U)
+        if (s_rc522_devices[i].present != 0U)
         {
-            return i;
+            return &s_rc522_devices[i];
         }
     }
 
-    return 0xFFU;
+    return NULL;
 }
 
-static uint8_t rc522_select_reader(uint8_t index)
+static uint8_t rc522_select(rc522_device_t *dev)
 {
-    if (index >= MFRC522_INTERFACE_MAX_DEVICES || s_rc522_reader_present[index] == 0U)
+    if (dev == NULL || dev->index >= MFRC522_INTERFACE_MAX_DEVICES || dev->present == 0U)
     {
         return 1;
     }
-    if (mfrc522_interface_spi_select_device(index) != 0)
+    if (mfrc522_interface_spi_select_device(dev->index) != 0)
     {
         return 1;
     }
-    s_rc522_log_reader = index;
+    s_rc522_log_reader = dev->index;
     return 0;
 }
 
 static void rc522_log_reader_clear(void)
 {
     s_rc522_log_reader = 0xFFU;
+}
+
+static uint8_t rc522_scan(rc522_device_t *dev, valhallaTag *out_tag)
+{
+    if (dev == NULL || out_tag == NULL)
+    {
+        return 1;
+    }
+    if (rc522_select(dev) != 0)
+    {
+        return 1;
+    }
+
+    dev->scan_count++;
+    if (scanValhallaTag(out_tag) != 0)
+    {
+        return 1;
+    }
+    dev->scan_ok_count++;
+
+    return 0;
 }
 
 
@@ -333,7 +370,7 @@ void getInfo(void)
 uint8_t initMfrc522()
 {
   uint8_t addr = 0x00;
-  uint8_t first;
+  rc522_device_t *first;
 
   main_debug_print("main: Initializing mfrc522 as SPI...\r\n");
 
@@ -342,15 +379,15 @@ uint8_t initMfrc522()
   {
       return 1;
   }
-  first = rc522_first_present_reader();
-  if (first == 0xFFU)
+  first = rc522_find_first_present_device();
+  if (first == NULL)
   {
       main_debug_print("main: no RC522 readers configured (all CS ports NULL).\r\n");
       return 1;
   }
-  if (rc522_select_reader(first) != 0)
+  if (rc522_select(first) != 0)
   {
-      main_debug_print("main: rc522_select_reader(first) failed.\r\n");
+      main_debug_print("main: rc522_select(first) failed.\r\n");
       return 1;
   }
 
@@ -1195,10 +1232,18 @@ static uint8_t scanValhallaTag(valhallaTag *out_tag)
 
 uint8_t readNTAG(void)
 {
+  rc522_device_t *dev;
   valhallaTag tag;
 
+  if (s_rc522_log_reader == 0xFFU || s_rc522_log_reader >= MFRC522_INTERFACE_MAX_DEVICES)
+  {
+    main_debug_print("main: readNTAG: no active reader selected.\r\n");
+    return 1;
+  }
+  dev = &s_rc522_devices[s_rc522_log_reader];
+
   memset(&tag, 0, sizeof(tag));
-  if (scanValhallaTag(&tag) != 0)
+  if (rc522_scan(dev, &tag) != 0)
   {
     return 1;
   }
@@ -1287,17 +1332,26 @@ int main(void)
     /* Round-robin: each configured reader gets a scan on the shared SPI bus. */
     for (r = 0U; r < MFRC522_INTERFACE_MAX_DEVICES; r++)
     {
-      if (s_rc522_reader_present[r] == 0U)
+      rc522_device_t *dev = &s_rc522_devices[r];
+      valhallaTag tag;
+
+      if (dev->present == 0U)
       {
         continue;
       }
-      if (rc522_select_reader(r) != 0)
+      memset(&tag, 0, sizeof(tag));
+      if (rc522_scan(dev, &tag) != 0)
       {
-        main_debug_print("main: loop: rc522_select_reader(%u) failed.\r\n", r);
+        main_debug_print("main: loop: rc522_scan(reader=%u) failed.\r\n", dev->index);
         continue;
       }
-      readNTAG();
-      picc_halt();
+
+      main_debug_print("main: ValhallaTag => type='%c', color=\"%s\", rune=\"%s\", id=0x%02X, data=",
+                      tag.type, tag.color, tag.rune, tag.id);
+      main_debug_print_hex(tag.data, 8U);
+      main_debug_print("\r\n");
+
+      (void)picc_halt();
     }
     rc522_log_reader_clear();
 

@@ -82,11 +82,10 @@
 /* Valhalla scan result populated from NDEF content */
 typedef struct
 {
-  char type;           /* single character, from CSV first field */
-  char color[9];      /* up to 8 chars + NUL */
-  char rune[9];       /* up to 8 chars + NUL */
-  uint8_t id;         /* from application/octet-stream payload */
-  uint8_t data[8];    /* from application/octet-stream payload */
+  char type;         /* single character for object type, from CSV first field */
+  char camp[3];      /* up to 2 chars + NUL */
+  char color[3];     /* up to 2 chars + NUL */
+  char rune[3];      /* up to 2 chars + NUL */
 } valhallaTag;
 
 typedef struct
@@ -991,6 +990,7 @@ static int parse_valhalla_csv_text(const char *csv_text_in, valhallaTag *out_tag
   char csv[NTAG_TEXT_OUT_MAX + 1U];
   char *c1;
   char *c2;
+  char *c3;
 
   if ((csv_text_in == NULL) || (out_tag == NULL))
   {
@@ -1011,13 +1011,20 @@ static int parse_valhalla_csv_text(const char *csv_text_in, valhallaTag *out_tag
   {
     return -1;
   }
+  c3 = strchr(c2 + 1, ',');
+  if (c3 == NULL)
+  {
+    return -1;
+  }
 
   *c1 = '\0';
   *c2 = '\0';
+  *c3 = '\0';
 
   trim_ascii(csv);
   trim_ascii(c1 + 1U);
   trim_ascii(c2 + 1U);
+  trim_ascii(c3 + 1U);
 
   if (strlen(csv) != 1U)
   {
@@ -1025,149 +1032,29 @@ static int parse_valhalla_csv_text(const char *csv_text_in, valhallaTag *out_tag
   }
   out_tag->type = csv[0];
 
-  if (strlen(c1 + 1U) == 0U || strlen(c1 + 1U) > 8U)
+  if (strlen(c1 + 1U) == 0U || strlen(c1 + 1U) > 2U)
   {
     return -1;
   }
-  if (strlen(c2 + 1U) == 0U || strlen(c2 + 1U) > 8U)
+  if (strlen(c2 + 1U) == 0U || strlen(c2 + 1U) > 2U)
+  {
+    return -1;
+  }
+  if (strlen(c3 + 1U) == 0U || strlen(c3 + 1U) > 2U)
   {
     return -1;
   }
 
-  strncpy(out_tag->color, c1 + 1U, sizeof(out_tag->color) - 1U);
+  strncpy(out_tag->camp, c1 + 1U, sizeof(out_tag->camp) - 1U);
+  out_tag->camp[sizeof(out_tag->camp) - 1U] = '\0';
+
+  strncpy(out_tag->color, c2 + 1U, sizeof(out_tag->color) - 1U);
   out_tag->color[sizeof(out_tag->color) - 1U] = '\0';
 
-  strncpy(out_tag->rune, c2 + 1U, sizeof(out_tag->rune) - 1U);
+  strncpy(out_tag->rune, c3 + 1U, sizeof(out_tag->rune) - 1U);
   out_tag->rune[sizeof(out_tag->rune) - 1U] = '\0';
 
   return 0;
-}
-
-static int ntag_find_first_mime_payload(const uint8_t *ndef, uint16_t ndef_len,
-                                          const char *mime_type,
-                                          const uint8_t **payload_out, uint32_t *payload_len_out)
-{
-  const size_t mime_len = (mime_type != NULL) ? strlen(mime_type) : 0U;
-  uint16_t i = 0;
-  uint16_t rec_idx = 0;
-
-  if ((ndef == NULL) || (ndef_len == 0U) || (mime_type == NULL) || payload_out == NULL || payload_len_out == NULL)
-  {
-    main_debug_print("main: ntag_find_first_mime_payload: invalid args.\r\n");
-    return -1;
-  }
-
-  main_debug_print("main: ntag_find_first_mime_payload: searching for MIME \"%s\" in %u bytes.\r\n",
-                   mime_type, ndef_len);
-
-  /* Walk NDEF records sequentially and return the payload for the first matching MIME type. */
-  while (i + 3U <= ndef_len)
-  {
-    uint8_t flags = ndef[i];
-    uint8_t tnf = flags & 0x07U;
-    uint8_t sr = (flags >> 4) & 1U;
-    uint8_t il = (flags >> 3) & 1U;
-    uint8_t type_len = ndef[i + 1U];
-    uint32_t plen;
-    uint16_t pos = i + 2U;
-
-    if (sr != 0U)
-    {
-      if (pos >= ndef_len)
-      {
-        main_debug_print("main: ntag_find_first_mime_payload: malformed record %u (short payload len out of range).\r\n", rec_idx);
-        return -1;
-      }
-      plen = ndef[pos];
-      pos++;
-    }
-    else
-    {
-      if (pos + 4U > ndef_len)
-      {
-        main_debug_print("main: ntag_find_first_mime_payload: malformed record %u (long payload len out of range).\r\n", rec_idx);
-        return -1;
-      }
-      plen = ((uint32_t)ndef[pos] << 24) | ((uint32_t)ndef[pos + 1U] << 16)
-           | ((uint32_t)ndef[pos + 2U] << 8) | (uint32_t)ndef[pos + 3U];
-      pos += 4U;
-    }
-
-    {
-      uint8_t id_len = 0U;
-      if (il != 0U)
-      {
-        if (pos >= ndef_len)
-        {
-          main_debug_print("main: ntag_find_first_mime_payload: malformed record %u (id len out of range).\r\n", rec_idx);
-          return -1;
-        }
-        id_len = ndef[pos++];
-      }
-
-      if (pos + type_len > ndef_len)
-      {
-        main_debug_print("main: ntag_find_first_mime_payload: malformed record %u (type out of range).\r\n", rec_idx);
-        return -1;
-      }
-
-      {
-        const uint8_t *type_ptr = ndef + pos;
-        pos += type_len;
-
-        if (pos + id_len > ndef_len)
-        {
-          main_debug_print("main: ntag_find_first_mime_payload: malformed record %u (id out of range).\r\n", rec_idx);
-          return -1;
-        }
-        pos += id_len;
-
-        if (pos + plen > ndef_len)
-        {
-          main_debug_print("main: ntag_find_first_mime_payload: malformed record %u (payload out of range).\r\n", rec_idx);
-          return -1;
-        }
-
-        main_debug_print("main: ntag_find_first_mime_payload: record %u tnf=%u sr=%u il=%u type_len=%u payload_len=%lu\r\n",
-                         rec_idx, tnf, sr, il, type_len, (unsigned long)plen);
-        main_debug_print("main: ntag_find_first_mime_payload: record %u type=\"", rec_idx);
-        for (uint8_t k = 0U; k < type_len; k++)
-        {
-          char c = (char)type_ptr[k];
-          if (c >= 32 && c <= 126)
-          {
-            main_debug_print("%c", c);
-          }
-          else
-          {
-            main_debug_print("\\x%02X", (unsigned int)type_ptr[k]);
-          }
-        }
-        main_debug_print("\"\r\n");
-
-        {
-          const uint8_t *payload = ndef + pos;
-
-          /* MIME records are identified by exact type string match (TNF is logged, not enforced). */
-          if ((type_len == mime_len) && (memcmp(type_ptr, mime_type, mime_len) == 0))
-          {
-            main_debug_print("main: ntag_find_first_mime_payload: MIME match at record %u, payload_len=%lu.\r\n",
-                             rec_idx, (unsigned long)plen);
-            *payload_out = payload;
-            *payload_len_out = plen;
-            return 0;
-          }
-        }
-
-        pos += (uint16_t)plen;
-        i = pos;
-        rec_idx++;
-      }
-    }
-  }
-
-  main_debug_print("main: ntag_find_first_mime_payload: MIME \"%s\" not found.\r\n", mime_type);
-  return -1;
 }
 
 static uint8_t scanValhallaTag(valhallaTag *out_tag)
@@ -1178,8 +1065,6 @@ static uint8_t scanValhallaTag(valhallaTag *out_tag)
   uint16_t ndef_len = 0;
   char text[NTAG_TEXT_OUT_MAX + 1U];
   char lang[8];
-  const uint8_t *mime_payload = NULL;
-  uint32_t mime_len = 0;
 
   if (out_tag == NULL)
   {
@@ -1223,34 +1108,8 @@ static uint8_t scanValhallaTag(valhallaTag *out_tag)
 
   if (parse_valhalla_csv_text(text, out_tag) != 0)
   {
-    main_debug_print("main: Valhalla text is not compliant (expected: type,color,rune within limits). Ignoring scan.\r\n");
+    main_debug_print("main: Valhalla text is not compliant (expected: type,camp,color,rune with field limits). Ignoring scan.\r\n");
     return 1;
-  }
-
-  /* MIME payload layout: [0]=id, [1..8]=data bytes (copy what is present, zero-fill the rest). */
-  {
-    static const char mime_type[] = "bin/vhla";
-    if (ntag_find_first_mime_payload(ndef, ndef_len, mime_type, &mime_payload, &mime_len) == 0)
-    {
-      main_debug_print("main: MIME payload found, len=%lu\r\n", (unsigned long)mime_len);
-      if (mime_payload != NULL && mime_len > 0U)
-      {
-        out_tag->id = mime_payload[0];
-        memset(out_tag->data, 0, sizeof(out_tag->data));
-        {
-          uint32_t available = (mime_len > 1U) ? (mime_len - 1U) : 0U;
-          uint32_t copy_len = (available > (uint32_t)sizeof(out_tag->data)) ? (uint32_t)sizeof(out_tag->data) : available;
-          if (copy_len > 0U)
-          {
-            memcpy(out_tag->data, mime_payload + 1U, (size_t)copy_len);
-          }
-        }
-      }
-    }
-    else
-    {
-      main_debug_print("main: MIME payload not found; leaving id/data defaults.\r\n");
-    }
   }
 
   return 0;
@@ -1274,9 +1133,8 @@ uint8_t readNTAG(void)
     return 1;
   }
 
-  main_debug_print("main: ValhallaTag => type='%c', color=\"%s\", rune=\"%s\", id=0x%02X, data=",
-                    tag.type, tag.color, tag.rune, tag.id);
-  main_debug_print_hex(tag.data, 8U);
+  main_debug_print("main: ValhallaTag => type='%c', camp=\"%s\", color=\"%s\", rune=\"%s\"",
+                    tag.type, tag.camp, tag.color, tag.rune);
   main_debug_print_with_device_id(0, "\r\n\r\n\r\n");
 
   return 0;
@@ -1372,9 +1230,8 @@ int main(void)
         continue;
       }
 
-      main_debug_print("main: ValhallaTag => type='%c', color=\"%s\", rune=\"%s\", id=0x%02X, data=",
-                      tag.type, tag.color, tag.rune, tag.id);
-      main_debug_print_hex(tag.data, 8U);
+      main_debug_print("main: ValhallaTag => type='%c', camp=\"%s\", color=\"%s\", rune=\"%s\"",
+                      tag.type, tag.camp, tag.color, tag.rune);
       main_debug_print_with_device_id(0, "\r\n");
 
       (void)picc_halt();

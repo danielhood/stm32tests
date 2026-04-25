@@ -46,24 +46,34 @@
 //  #define RC522_READER1_CS_PORT GPIOA
 //  #define RC522_READER1_CS_PIN GPIO_PIN_3
 
+#ifndef RC522_READER0_CS_PORT
+#define RC522_READER0_CS_PORT GPIOA
+#endif
+#ifndef RC522_READER0_CS_PIN
+#define RC522_READER0_CS_PIN GPIO_PIN_4
+#endif
+
 #ifndef RC522_READER1_CS_PORT
 #define RC522_READER1_CS_PORT NULL
 #endif
 #ifndef RC522_READER1_CS_PIN
 #define RC522_READER1_CS_PIN 0U
 #endif
+
 #ifndef RC522_READER2_CS_PORT
 #define RC522_READER2_CS_PORT NULL
 #endif
 #ifndef RC522_READER2_CS_PIN
 #define RC522_READER2_CS_PIN 0U
 #endif
+
 #ifndef RC522_READER3_CS_PORT
 #define RC522_READER3_CS_PORT NULL
 #endif
 #ifndef RC522_READER3_CS_PIN
 #define RC522_READER3_CS_PIN 0U
 #endif
+
 /* User TLV area (page 4+); MF READ returns 16 bytes (4 pages) per command */
 #define NTAG_USER_READ_MAX_BYTES 256U
 #define NTAG_TEXT_OUT_MAX        240U
@@ -196,7 +206,7 @@ static uint8_t rc522_boards_register_all(void)
         GPIO_TypeDef *cs_port;
         uint16_t cs_pin;
     } cs_table[MFRC522_INTERFACE_MAX_DEVICES] = {
-        { GPIOA, GPIO_PIN_4 },
+        { RC522_READER0_CS_PORT, RC522_READER0_CS_PIN },
         { RC522_READER1_CS_PORT, RC522_READER1_CS_PIN },
         { RC522_READER2_CS_PORT, RC522_READER2_CS_PIN },
         { RC522_READER3_CS_PORT, RC522_READER3_CS_PIN },

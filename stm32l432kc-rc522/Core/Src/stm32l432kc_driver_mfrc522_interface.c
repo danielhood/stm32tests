@@ -183,14 +183,6 @@ uint8_t mfrc522_interface_iic_write(uint8_t addr, uint8_t reg, uint8_t *buf, uin
 uint8_t mfrc522_interface_spi_init(void)
 {
   mfrc522_interface_debug_print("mfrc522_interface_spi_init\r\n");
-  if (g_spi_slots[0].registered == 0U)
-  {
-      (void)mfrc522_interface_spi_register_device(0U, GPIOA, GPIO_PIN_4);
-  }
-  if (g_active_spi_slot == 0xFFU)
-  {
-      (void)mfrc522_interface_spi_select_device(0U);
-  }
     return 0;
 }
 

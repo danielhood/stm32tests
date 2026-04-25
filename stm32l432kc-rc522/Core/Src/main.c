@@ -130,17 +130,35 @@ static uint8_t rc522_select(rc522_device_t *dev);
 static void rc522_log_reader_clear(void);
 static uint8_t rc522_scan(rc522_device_t *dev, valhallaTag *out_tag);
 static uint8_t scanValhallaTag(valhallaTag *out_tag);
+static void main_debug_vprint_with_device_id(int showDeviceId, const char *const fmt, va_list args);
 
 void main_debug_print(const char *const fmt, ...)
+{
+  va_list args;
+
+  va_start(args, fmt);
+  main_debug_vprint_with_device_id(1, fmt, args);
+  va_end(args);
+}
+
+void main_debug_print_with_device_id(int showDeviceId, const char *const fmt, ...)
+{
+  va_list args;
+
+  va_start(args, fmt);
+  main_debug_vprint_with_device_id(showDeviceId, fmt, args);
+  va_end(args);
+}
+
+static void main_debug_vprint_with_device_id(int showDeviceId, const char *const fmt, va_list args)
 {
 #ifndef NO_DEBUG_MAIN
     char str[256];
     uint16_t len;
-    va_list args;
     int off = 0;
 
     memset((char *)str, 0, sizeof(char) * 256);
-    if (s_rc522_log_reader != 0xFFU)
+    if (s_rc522_log_reader != 0xFFU && showDeviceId == 1)
     {
         off = snprintf(str, sizeof(str), "[R%u] ", (unsigned int)s_rc522_log_reader);
         if (off < 0)
@@ -153,9 +171,7 @@ void main_debug_print(const char *const fmt, ...)
         }
     }
 
-    va_start(args, fmt);
     (void)vsnprintf((char *)str + off, sizeof(str) - (size_t)off, (char const *)fmt, args);
-    va_end(args);
 
     len = (uint16_t)strlen((char *)str);
 
@@ -169,7 +185,7 @@ void main_debug_print_hex(const uint8_t *buf, uint16_t len)
     uint16_t i;
     for (i = 0; i < len; i++)
     {
-        main_debug_print("0x%02X ", buf[i]);
+      main_debug_print_with_device_id(0, "0x%02X ", buf[i]);
     }
 }
 
@@ -421,7 +437,7 @@ uint8_t getRandom(void)
   /* output */
   main_debug_print("main: Received random ID:\r\n\t");
   main_debug_print_hex(buf, 25);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   return 0;
 }
@@ -477,7 +493,7 @@ uint8_t readATQA()
 
   main_debug_print("main: Received %d bytes of ATQA data: ", out_len);
   main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   return 0;
 
@@ -505,7 +521,7 @@ uint8_t readATQA()
 
   main_debug_print("main: picc_wake: WUPA response (%u bytes): ", out_len);
   main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   return 0;
 }
@@ -580,7 +596,7 @@ uint8_t readID(void)
 
   main_debug_print("main: Received %d bytes of ID (CL1) data: ", out_len);
   main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   // Copy first 3 bytes of ID
   fullId[0] = buf[1];
@@ -609,7 +625,7 @@ uint8_t readID(void)
 
   main_debug_print("main: Received %d bytes of ACK ID (CL1) data: ", out_len);
   main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   main_debug_print("main: Reading ID (CL2)...\r\n");
 
@@ -624,7 +640,7 @@ uint8_t readID(void)
 
   main_debug_print("main: Received %d bytes of ID (CL2) data: ", out_len);
   main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   // Copy remaining 5 bytes of ID
   fullId[3] = buf[0];
@@ -655,11 +671,11 @@ uint8_t readID(void)
 
   main_debug_print("main: Received %d bytes of ACK ID (CL1) data: ", out_len);
   main_debug_print_hex(buf, out_len);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   main_debug_print("main: Full ID: ");
   main_debug_print_hex(fullId, sizeof(fullId));
-  main_debug_print("\r\n\r\n\r\n");
+  main_debug_print_with_device_id(0, "\r\n\r\n\r\n");
 
   return 0;
 }
@@ -1176,7 +1192,7 @@ static uint8_t scanValhallaTag(valhallaTag *out_tag)
 
   main_debug_print("main: Raw user area (%u bytes): ", filled);
   main_debug_print_hex(mem, filled);
-  main_debug_print("\r\n");
+  main_debug_print_with_device_id(0, "\r\n");
 
   if (ntag_find_ndef_message(mem, filled, &ndef, &ndef_len) != 0)
   {
@@ -1251,7 +1267,7 @@ uint8_t readNTAG(void)
   main_debug_print("main: ValhallaTag => type='%c', color=\"%s\", rune=\"%s\", id=0x%02X, data=",
                     tag.type, tag.color, tag.rune, tag.id);
   main_debug_print_hex(tag.data, 8U);
-  main_debug_print("\r\n\r\n\r\n");
+  main_debug_print_with_device_id(0, "\r\n\r\n\r\n");
 
   return 0;
 }
@@ -1349,7 +1365,7 @@ int main(void)
       main_debug_print("main: ValhallaTag => type='%c', color=\"%s\", rune=\"%s\", id=0x%02X, data=",
                       tag.type, tag.color, tag.rune, tag.id);
       main_debug_print_hex(tag.data, 8U);
-      main_debug_print("\r\n");
+      main_debug_print_with_device_id(0, "\r\n");
 
       (void)picc_halt();
     }
